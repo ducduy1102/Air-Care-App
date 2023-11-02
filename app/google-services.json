@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "51223982832",
+    "firebase_url": "https://aircareapp-1d169-default-rtdb.firebaseio.com",
+    "project_id": "aircareapp-1d169",
+    "storage_bucket": "aircareapp-1d169.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51223982832:android:7bd2fc7cd7d909b06c8835",
+        "android_client_info": {
+          "package_name": "com.example.aircareapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51223982832-t4rf3osdjgf4939mvehpcopb7f5280fu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aircareapp",
+            "certificate_hash": "50239fde94ac2c2e99f9033b07ccc96e1f619f11"
+          }
+        },
+        {
+          "client_id": "51223982832-seeiftpb3dabo614mceelsv8h4imp2nr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAONEb-dS6VqRoY5aH7n2_x8SNiuVBpDFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51223982832-seeiftpb3dabo614mceelsv8h4imp2nr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
