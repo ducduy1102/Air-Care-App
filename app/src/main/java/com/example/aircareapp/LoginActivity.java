@@ -151,7 +151,8 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 if (task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+//                                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     finishAffinity();
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
@@ -198,7 +199,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+//                            Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(LoginActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();

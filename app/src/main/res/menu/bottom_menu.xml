@@ -2,23 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/action_home"
         android:title="Home"
         android:icon="@drawable/home_icon"/>
 
     <item
-        android:id="@+id/map"
+        android:id="@+id/action_map"
         android:title="Map"
         android:icon="@drawable/map_icon"/>
 
     <item
-        android:id="@+id/history"
+        android:id="@+id/action_history"
         android:title="History"
         android:icon="@drawable/timeline_icon"/>
 
     <item
-        android:id="@+id/setting"
+        android:id="@+id/action_setting"
         android:title="Setting"
         android:icon="@drawable/settings_icon"/>
 
+<!--    <item-->
+<!--        android:id="@+id/action_profile"-->
+<!--        android:title="Profile"-->
+<!--        android:icon="@drawable/settings_icon"/>-->
 </menu>

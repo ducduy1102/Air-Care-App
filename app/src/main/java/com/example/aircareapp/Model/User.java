@@ -1,4 +1,4 @@
-package com.example.aircareapp.model;
+package com.example.aircareapp.Model;
 
 public class User {
     private String fullname;

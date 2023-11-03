@@ -77,7 +77,7 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             // da login
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
         finish();

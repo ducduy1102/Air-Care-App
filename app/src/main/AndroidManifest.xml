@@ -33,9 +33,6 @@
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
@@ -44,7 +41,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
         <meta-data
             android:name="nunito_fonts"
             android:resource="@array/nunito_fonts" />

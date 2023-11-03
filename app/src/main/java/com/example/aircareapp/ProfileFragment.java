@@ -1,5 +1,8 @@
 package com.example.aircareapp;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
+
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,42 +12,43 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
-import java.util.HashMap;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileFragment extends Fragment {
+
+    private View view;
 
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 101;
     private EditText profileFullName, profileEmail, profilePassword;
@@ -71,7 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Uri uri = intent.getData();
                 setUri(uri);
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
                     setBitmapImageView(bitmap);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -80,38 +84,40 @@ public class ProfileActivity extends AppCompatActivity {
         }
     });
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         initUi();
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(getContext());
 
-        sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("dataLogin", MODE_PRIVATE);
         profilePassword.setText(sharedPreferences.getString("prefPassword", ""));
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
-        gsc = GoogleSignIn.getClient(this, gso);
+        gsc = GoogleSignIn.getClient(getActivity(), gso);
 
         showUserInformation();
 
         initListener();
+
+        return view;
     }
 
     private void initUi() {
-        profileFullName = findViewById(R.id.profileFullName);
-        profileEmail = findViewById(R.id.profileEmail);
-        profilePassword = findViewById(R.id.profilePassword);
-        btnUpdateProfile = findViewById(R.id.buttonUpdateProfile);
-        btnUpdateEmail = findViewById(R.id.buttonUpdateEmail);
-        btnLogout = findViewById(R.id.logoutButton);
-        btnChangePassword = findViewById(R.id.buttonChangePassword);
-        profileAvatar = findViewById(R.id.profileImg);
+        profileFullName = view.findViewById(R.id.profileFullName);
+        profileEmail = view.findViewById(R.id.profileEmail);
+        profilePassword = view.findViewById(R.id.profilePassword);
+        btnUpdateProfile = view.findViewById(R.id.buttonUpdateProfile);
+        btnUpdateEmail = view.findViewById(R.id.buttonUpdateEmail);
+        btnLogout = view.findViewById(R.id.logoutButton);
+        btnChangePassword = view.findViewById(R.id.buttonChangePassword);
+        profileAvatar = view.findViewById(R.id.profileImg);
     }
 
     private void initListener() {
@@ -174,8 +180,8 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            Toast.makeText(ProfileActivity.this, "Update profile success", Toast.LENGTH_SHORT).show();
-                            showUserInformation();
+                            Toast.makeText(getContext(), "Update profile success", Toast.LENGTH_SHORT).show();
+//                            homeFragment.showUserInformation();
                         }
                     }
                 });
@@ -197,10 +203,10 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            Toast.makeText(ProfileActivity.this, "User email address updated.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "User email address updated.", Toast.LENGTH_SHORT).show();
                             showUserInformation();
                         } else {
-                            Toast.makeText(ProfileActivity.this, "User email address failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "User email address failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -219,10 +225,10 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            Toast.makeText(ProfileActivity.this, "User password updated.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "User password updated.", Toast.LENGTH_SHORT).show();
                         } else {
                             // show dialog re-Authenticate
-                            Toast.makeText(ProfileActivity.this, "User password failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "User password failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -231,10 +237,8 @@ public class ProfileActivity extends AppCompatActivity {
     private void reAuthenticate() {
         // show 1 dialog login lai r lay email pass gan o duoi
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         AuthCredential credential = EmailAuthProvider
                 .getCredential(user.getEmail(), profilePassword.getText().toString());
-
         user.reauthenticate(credential)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -243,7 +247,7 @@ public class ProfileActivity extends AppCompatActivity {
                             onClickUpdateEmail();
                             onClickChangePassword();
                         } else {
-                            Toast.makeText(ProfileActivity.this, "Please enter your email, password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Please enter your email, password", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -256,8 +260,8 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
                     Manifest.permission.READ_EXTERNAL_STORAGE
             }, REQUEST_CODE_READ_EXTERNAL_STORAGE);
             openGallery();
@@ -282,10 +286,8 @@ public class ProfileActivity extends AppCompatActivity {
         Uri photoUrl = user.getPhotoUrl();
 
         if (name == null) {
-//            profileUserName.setVisibility(View.GONE);
             profileFullName.setText("");
         } else {
-//            profileUserName.setVisibility(View.VISIBLE);
             profileFullName.setText(name);
         }
         profileEmail.setText(email);
@@ -303,10 +305,10 @@ public class ProfileActivity extends AppCompatActivity {
         // Logout UserAccount
         FirebaseAuth.getInstance().signOut();
 
-        Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+        Intent intent = new Intent(getContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        Toast.makeText(ProfileActivity.this, "Log out Successfull", Toast.LENGTH_SHORT).show();
-        finish();
+        Toast.makeText(getContext(), "Log out Successfull", Toast.LENGTH_SHORT).show();
+//        finish();
     }
 }

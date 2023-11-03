@@ -50,4 +50,15 @@ dependencies {
 
     // integration google sign in
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
+    // SSLHandle
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+
+    // Retrofix
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Volley
+    implementation ("com.android.volley:volley:1.2.1")
 }
