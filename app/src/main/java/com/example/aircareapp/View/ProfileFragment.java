@@ -51,12 +51,11 @@ public class ProfileFragment extends Fragment {
     private View view;
 
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 101;
-    private EditText profileFullName, profileEmail, profilePassword;
-    private Button btnUpdateProfile, btnLogout, btnUpdateEmail, btnChangePassword;
+    private EditText profileFullName, profileEmail;
+    private Button btnUpdateProfile, btnLogout;
     private ImageView profileAvatar;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
-    private SharedPreferences sharedPreferences;
     private ProgressDialog progressDialog;
 
     // Lấy thư viện ảnh để update avatar
@@ -93,9 +92,6 @@ public class ProfileFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getContext());
 
-        sharedPreferences = getActivity().getSharedPreferences("dataLogin", MODE_PRIVATE);
-        profilePassword.setText(sharedPreferences.getString("prefPassword", ""));
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -112,11 +108,8 @@ public class ProfileFragment extends Fragment {
     private void initUi() {
         profileFullName = view.findViewById(R.id.profileFullName);
         profileEmail = view.findViewById(R.id.profileEmail);
-        profilePassword = view.findViewById(R.id.profilePassword);
         btnUpdateProfile = view.findViewById(R.id.buttonUpdateProfile);
-        btnUpdateEmail = view.findViewById(R.id.buttonUpdateEmail);
         btnLogout = view.findViewById(R.id.logoutButton);
-        btnChangePassword = view.findViewById(R.id.buttonChangePassword);
         profileAvatar = view.findViewById(R.id.profileImg);
     }
 
@@ -132,20 +125,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 onClickUpdateProfile();
-            }
-        });
-
-        btnUpdateEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickUpdateEmail();
-            }
-        });
-
-        btnChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickChangePassword();
             }
         });
 
@@ -187,71 +166,24 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
-    // bỏ update email vì nó là key để login
-    // cho trường email enable ko dc update
-    private void onClickUpdateEmail(){
-        String newEmail = profileEmail.getText().toString().trim();
-        progressDialog.setTitle("Update email");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        user.updateEmail(newEmail)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        progressDialog.dismiss();
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "User email address updated.", Toast.LENGTH_SHORT).show();
-                            showUserInformation();
-                        } else {
-                            Toast.makeText(getContext(), "User email address failed.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-    private void onClickChangePassword() {
-        String newPassword = profilePassword.getText().toString().trim();
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        progressDialog.setTitle("Update Password");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        user.updatePassword(newPassword)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        progressDialog.dismiss();
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "User password updated.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // show dialog re-Authenticate
-                            Toast.makeText(getContext(), "User password failed.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    private void reAuthenticate() {
-        // show 1 dialog login lai r lay email pass gan o duoi
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        AuthCredential credential = EmailAuthProvider
-                .getCredential(user.getEmail(), profilePassword.getText().toString());
-        user.reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            onClickUpdateEmail();
-                            onClickChangePassword();
-                        } else {
-                            Toast.makeText(getContext(), "Please enter your email, password", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
+//    private void reAuthenticate() {
+//        // show 1 dialog login lai r lay email pass gan o duoi
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        AuthCredential credential = EmailAuthProvider
+//                .getCredential(user.getEmail(), profilePassword.getText().toString());
+//        user.reauthenticate(credential)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful()){
+////                            onClickUpdateEmail();
+////                            onClickChangePassword();
+//                        } else {
+//                            Toast.makeText(getContext(), "Please enter your email, password", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//    }
 
     private void onClickRequestPermission() {
         // andorid 6 tro xuong ko can permiss
@@ -309,6 +241,6 @@ public class ProfileFragment extends Fragment {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         Toast.makeText(getContext(), "Log out Successfull", Toast.LENGTH_SHORT).show();
-//        finish();
+        getActivity().finish();
     }
 }

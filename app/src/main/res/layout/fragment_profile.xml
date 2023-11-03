@@ -37,18 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <EditText
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="50dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:id="@+id/profilePassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <Button
         android:id="@+id/buttonUpdateProfile"
         android:layout_marginTop="30dp"
@@ -57,24 +45,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Update Profile"/>
-
-    <Button
-        android:id="@+id/buttonUpdateEmail"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Update Email"/>
-
-    <Button
-        android:id="@+id/buttonChangePassword"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Update Password"/>
 
     <Button
         android:id="@+id/logoutButton"

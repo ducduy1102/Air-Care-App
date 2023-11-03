@@ -22,24 +22,18 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingFragment extends Fragment {
 
-    TextView txProfile, txLogout;
+    private View view;
+
+    private TextView txProfile, txLogout, txChangePassword;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_setting, container, false);
-        // Inflate the layout for this fragment
-        return view;
-    }
+        view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        txProfile = view.findViewById(R.id.txProfile);
-        txLogout = view.findViewById(R.id.txLogout);
+        initUi();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -47,6 +41,12 @@ public class SettingFragment extends Fragment {
 
         gsc = GoogleSignIn.getClient(getActivity(), gso);
 
+        initListener();
+
+        return view;
+    }
+
+    private void initListener() {
         txProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +74,22 @@ public class SettingFragment extends Fragment {
                 Toast.makeText(getActivity(), "Log out Successfull", Toast.LENGTH_SHORT).show();
             }
         });
+
+        txChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.settingFragment, changePasswordFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
     }
 
+    private void initUi() {
+        txProfile = view.findViewById(R.id.txProfile);
+        txLogout = view.findViewById(R.id.txLogout);
+        txChangePassword = view.findViewById(R.id.txChangePassword);
+    }
 }

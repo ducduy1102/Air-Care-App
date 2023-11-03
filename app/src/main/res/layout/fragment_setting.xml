@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/settingFragment"
+    android:gravity="center"
     tools:context=".View.SettingFragment">
 
     <TextView
@@ -19,6 +20,14 @@
         android:gravity="center"
         android:id="@+id/txLogout"
         android:text="Logout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:layout_below="@+id/txLogout"
+        android:gravity="center"
+        android:id="@+id/txChangePassword"
+        android:text="Change Password"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 </RelativeLayout>
