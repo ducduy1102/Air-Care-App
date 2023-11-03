@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:id="@+id/historyFragment"
-    tools:context=".HistoryFragment">
+    tools:context=".View.HistoryFragment">
 
     <TextView
         android:textSize="20sp"

@@ -5,11 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.aircareapp.HistoryFragment;
-import com.example.aircareapp.HomeFragment;
-import com.example.aircareapp.MapFragment;
-import com.example.aircareapp.ProfileFragment;
-import com.example.aircareapp.SettingFragment;
+import com.example.aircareapp.View.HistoryFragment;
+import com.example.aircareapp.View.HomeFragment;
+import com.example.aircareapp.View.MapFragment;
+import com.example.aircareapp.View.SettingFragment;
 
 public class ViewPageAdapter extends FragmentStatePagerAdapter {
 

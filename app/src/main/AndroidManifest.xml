@@ -30,13 +30,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".View.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".View.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".View.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

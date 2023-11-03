@@ -1,4 +1,4 @@
-package com.example.aircareapp;
+package com.example.aircareapp.View;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
@@ -29,10 +29,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.aircareapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -181,7 +181,7 @@ public class ProfileFragment extends Fragment {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             Toast.makeText(getContext(), "Update profile success", Toast.LENGTH_SHORT).show();
-//                            homeFragment.showUserInformation();
+                            showUserInformation();
                         }
                     }
                 });

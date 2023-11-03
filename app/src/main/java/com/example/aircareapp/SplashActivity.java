@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.aircareapp.View.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -46,7 +47,6 @@ public class SplashActivity extends AppCompatActivity {
         animSixthLetter = AnimationUtils.loadAnimation(this, R.anim.slide_sixth_letter);
         animSeventhLetter = AnimationUtils.loadAnimation(this, R.anim.slide_seventh_letter);
 
-
         imgIconApp.setAnimation(animTop);
         txtFirstLetter.setAnimation(animFirstLetter);
         txtSecondLetter.setAnimation(animSecondLetter);
@@ -59,11 +59,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler(Looper.myLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 nextActivity();
-//                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//                finish();
             }
         }, SPLASH_SCREEN);
     }

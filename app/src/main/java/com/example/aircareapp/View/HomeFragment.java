@@ -1,4 +1,4 @@
-package com.example.aircareapp;
+package com.example.aircareapp.View;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.aircareapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
