@@ -4,22 +4,22 @@
     <item
         android:id="@+id/action_home"
         android:title="Home"
-        android:icon="@drawable/home_icon"/>
+        android:icon="@drawable/ic_home"/>
 
     <item
         android:id="@+id/action_map"
         android:title="Map"
-        android:icon="@drawable/map_icon"/>
+        android:icon="@drawable/ic_map"/>
 
     <item
         android:id="@+id/action_history"
         android:title="History"
-        android:icon="@drawable/timeline_icon"/>
+        android:icon="@drawable/ic_signal_cellular_alt"/>
 
     <item
         android:id="@+id/action_setting"
         android:title="Setting"
-        android:icon="@drawable/settings_icon"/>
+        android:icon="@drawable/ic_setting"/>
 
 <!--    <item-->
 <!--        android:id="@+id/action_profile"-->

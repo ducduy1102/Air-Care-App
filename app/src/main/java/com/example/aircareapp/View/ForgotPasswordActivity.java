@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.aircareapp.R;
@@ -20,7 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     private TextInputEditText emailVerify;
-    private Button btnSendEmail, btnForgotBackLogin;
+    private Button btnSendEmail;
+    private ImageView imgForgotBackLogin;
     private FirebaseAuth auth;
     private ProgressDialog progressDialog;
 
@@ -32,7 +34,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         emailVerify = findViewById(R.id.emailVerify);
         btnSendEmail = findViewById(R.id.buttonSend);
-        btnForgotBackLogin = findViewById(R.id.buttonForgotBackLogin);
+        imgForgotBackLogin = findViewById(R.id.imageViewForgotBackLogin);
 
 //        progressbarforgetPassword = findViewById(R.id.progressbarforgetPassword);
 //        progressbarforgetPassword.setVisibility(View.GONE);
@@ -52,7 +54,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-        btnForgotBackLogin.setOnClickListener(new View.OnClickListener() {
+        imgForgotBackLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);

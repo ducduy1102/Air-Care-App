@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.aircareapp.R;
@@ -32,7 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private TextInputEditText registerEmail, registerPassword, registerConfirmPassword;
     private TextInputLayout registerPasswordLayout;
-    private Button btnRegister, btnBackLogin;
+    private Button btnRegister;
+    private ImageView imgBackLogin;
     private ProgressDialog progressDialog;
 
     @Override
@@ -102,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        btnBackLogin.setOnClickListener(new View.OnClickListener() {
+        imgBackLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -189,7 +191,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerPassword = findViewById(R.id.registerPassword);
         registerConfirmPassword = findViewById(R.id.registerConfirmPassword);
         btnRegister = findViewById(R.id.buttonRegister);
-        btnBackLogin = findViewById(R.id.buttonBackLogin);
+        imgBackLogin = findViewById(R.id.imageViewBackLogin);
         registerPasswordLayout = findViewById(R.id.registerPasswordLayout);
     }
 }

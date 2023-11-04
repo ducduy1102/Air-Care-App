@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,8 @@ public class SettingFragment extends Fragment {
 
     private View view;
 
-    private TextView txProfile, txLogout, txChangePassword;
+    private TextView tvProfile, tvPassword, tvSignout, tvLanguage, tvMode, tvNoti, tvAbout, tvHelp;
+    private ImageView icArrowProfile, icArrowPassword, icArrowSignout, icArrowLanguage, icToggleMode, icArrowNoti, icArrowAbout, icArrowHelp;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
 
@@ -47,7 +49,7 @@ public class SettingFragment extends Fragment {
     }
 
     private void initListener() {
-        txProfile.setOnClickListener(new View.OnClickListener() {
+        icArrowProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ProfileFragment profileFragment = new ProfileFragment();
@@ -59,7 +61,7 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        txLogout.setOnClickListener(new View.OnClickListener() {
+        tvSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // logout GoogleAccount
@@ -75,7 +77,7 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        txChangePassword.setOnClickListener(new View.OnClickListener() {
+        icArrowPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
@@ -88,8 +90,23 @@ public class SettingFragment extends Fragment {
     }
 
     private void initUi() {
-        txProfile = view.findViewById(R.id.txProfile);
-        txLogout = view.findViewById(R.id.txLogout);
-        txChangePassword = view.findViewById(R.id.txChangePassword);
+
+        icArrowProfile = view.findViewById(R.id.ic_arrow_forward_profile);
+        icArrowPassword = view.findViewById(R.id.ic_arrow_forward_password);
+        icArrowLanguage = view.findViewById(R.id.ic_arrow_forward_language);
+        icToggleMode = view.findViewById(R.id.ic_arrow_forward_dark_mode);
+        icArrowNoti = view.findViewById(R.id.ic_arrow_forward_noti);
+        icArrowAbout = view.findViewById(R.id.ic_arrow_forward_about_us);
+        icArrowHelp = view.findViewById(R.id.ic_arrow_forward_help);
+
+        tvProfile = view.findViewById(R.id.tv_profile);
+        tvPassword = view.findViewById(R.id.tv_password);
+        tvSignout = view.findViewById(R.id.tv_signout);
+        tvLanguage = view.findViewById(R.id.tv_language);
+        tvMode = view.findViewById(R.id.tv_mode);
+        tvNoti = view.findViewById(R.id.tv_notification);
+        tvAbout = view.findViewById(R.id.tv_support);
+        tvHelp = view.findViewById(R.id.tv_help);
+
     }
 }

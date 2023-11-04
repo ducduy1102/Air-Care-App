@@ -11,11 +11,17 @@
         android:id="@+id/formLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="135dp"
-        android:padding="30dp"
         android:background="@drawable/bg_view"
-        android:layout_gravity="center">
+        android:orientation="vertical"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:padding="30dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/green_bg"
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/text_login"
@@ -23,9 +29,10 @@
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:textSize="40sp"
-            android:textColor="@color/blue"
+            android:textColor="@color/bg_green"
+            android:textStyle="bold"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="5dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/loginUsernameInput"
@@ -40,7 +47,7 @@
             app:boxStrokeWidthFocused="2dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/black"
-            app:startIconDrawable="@drawable/email_icon"
+            app:startIconDrawable="@drawable/ic_mail"
             app:startIconTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -68,9 +75,8 @@
             app:boxStrokeWidthFocused="2dp"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/black"
-            app:startIconDrawable="@drawable/password_icon"
+            app:startIconDrawable="@drawable/ic_lock"
             app:startIconTint="@color/black">
-            <!--            app:hintAnimationEnabled="true"-->
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginPassword"
@@ -110,7 +116,8 @@
                 android:layout_alignParentEnd="true"
                 android:background="#00000000"
                 android:text="@string/forgetpw"
-                android:textColor="@color/black"
+                android:textColor="@color/bg_green"
+                android:textStyle="bold"
                 android:gravity="end|center_vertical" />
 
         </RelativeLayout>
@@ -120,7 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/purple"
+            android:backgroundTint="@color/bg_green"
             android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -128,7 +135,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="Or"
             android:textSize="30sp"
             android:gravity="center"/>
@@ -137,22 +144,46 @@
             android:id="@+id/buttonLoginGoogle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/purple"
-            android:text="@string/logingg"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/bg_green"
+            android:text="@string/loginGg"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/registerRedirectText"
+<!--        <Button-->
+<!--            android:id="@+id/registerRedirectText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="#00000000"-->
+<!--            android:text="@string/create_account"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            android:layout_below="@+id/text_login"/>-->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="#00000000"
-            android:text="@string/createaccount"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_below="@+id/text_login"/>
+            android:layout_below="@+id/buttonLoginGoogle"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tvCreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_account"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/registerRedirectText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:text="@string/create"
+                android:textColor="@color/bg_green"
+                android:textSize="13sp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
