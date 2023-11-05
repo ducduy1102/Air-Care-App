@@ -85,6 +85,12 @@ public class SettingFragment extends Fragment {
                 transaction.replace(R.id.settingFragment, changePasswordFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+//                if(R.id.settingFragment != null) {
+//                    fragmentTransaction.remove(fragmentA);
+//                    fragmentTransaction.commit();
+//                } else {
+//                    Toast.makeText(this, "Fragment A khong ton tai!", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
     }

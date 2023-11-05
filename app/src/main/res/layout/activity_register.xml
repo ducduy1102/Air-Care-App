@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/slashscreen"
+    android:background="@drawable/wall"
     tools:context=".View.RegisterActivity">
 
     <ImageView
@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:background="@drawable/bg_view"
+        android:background="@drawable/bg_view_activity"
         android:orientation="vertical"
         android:padding="30dp">
 

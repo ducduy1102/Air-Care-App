@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomNavigationView" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
@@ -20,43 +19,33 @@
         android:padding="5dp"
         app:itemIconTint="@color/custom_color_button_nav"
         app:itemTextColor="@color/custom_color_button_nav"
-        android:background="@drawable/transparent_background"
         app:menu="@menu/bottom_menu" />
 
-    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--        android:id="@+id/bottomNav"-->
-    <!--        android:background="@color/darkblue"-->
-    <!--        app:itemIconTint="@color/custom_color_bottomnav"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        app:menu="@menu/menu_bottom_nav"-->
-    <!--        app:itemTextColor="@color/custom_color_bottomnav" />-->
+<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+<!--        android:id="@+id/coordinatorLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--        <com.google.android.material.bottomappbar.BottomAppBar-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom">-->
+<!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--                android:id="@+id/bottomNavigationView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:padding="5dp"-->
+<!--                app:itemIconTint="@color/custom_color_button_nav"-->
+<!--                app:itemTextColor="@color/custom_color_button_nav"-->
+<!--                android:background="@color/light_green_more"-->
+<!--                app:menu="@menu/bottom_menu" />-->
+<!--        </com.google.android.material.bottomappbar.BottomAppBar>-->
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/ic_add"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            app:layout_anchor="@id/bottomNavigationView">-->
+<!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
-    <!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-    <!--        android:id="@+id/coordinatorLayout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content">-->
-
-
-    <!--        <com.google.android.material.bottomappbar.BottomAppBar-->
-    <!--            android:id="@+id/bottomAppBar"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_alignParentBottom="true"-->
-    <!--            android:layout_gravity="bottom"-->
-    <!--            android:layout_marginBottom="-4dp"-->
-    <!--            app:fabCradleMargin="10dp"-->
-    <!--            app:fabCradleRoundedCornerRadius="10dp"-->
-    <!--            app:fabCradleVerticalOffset="10dp">-->
-
-    <!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--                android:id="@+id/bottomNavigationView"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_marginRight="16dp"-->
-    <!--                android:background="@drawable/transparent_background"-->
-    <!--                app:menu="@menu/bottom_menu" />-->
-    <!--        </com.google.android.material.bottomappbar.BottomAppBar>-->
-    <!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 </RelativeLayout>
