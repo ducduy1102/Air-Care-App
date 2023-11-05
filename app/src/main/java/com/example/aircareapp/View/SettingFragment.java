@@ -54,10 +54,21 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 ProfileFragment profileFragment = new ProfileFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.settingFragment, profileFragment);
+                transaction.replace(R.id.settingFragment, profileFragment, "fragProfile");
                 transaction.addToBackStack(null);
                 transaction.commit();
 //                ((MainActivity) getActivity()).setActionBarTitle("Profile");
+            }
+        });
+
+        icArrowPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.settingFragment, changePasswordFragment,"fragChangePassword");
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -74,17 +85,6 @@ public class SettingFragment extends Fragment {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 Toast.makeText(getActivity(), "Log out Successfull", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        icArrowPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.settingFragment, changePasswordFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
             }
         });
     }

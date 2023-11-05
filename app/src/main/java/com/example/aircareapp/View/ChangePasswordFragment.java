@@ -117,10 +117,9 @@ public class ChangePasswordFragment extends Fragment {
         imgBackSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SettingFragment settingFragment = new SettingFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.changePasswordFragment, settingFragment);
-                transaction.addToBackStack(null);
+                ChangePasswordFragment changePasswordFragment = (ChangePasswordFragment) getFragmentManager().findFragmentByTag("fragChangePassword");
+                transaction.remove(changePasswordFragment);
                 transaction.commit();
             }
         });

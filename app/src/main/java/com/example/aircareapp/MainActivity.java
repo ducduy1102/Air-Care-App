@@ -54,20 +54,6 @@ public class MainActivity extends AppCompatActivity {
                     mViewPager.setCurrentItem(3);
 //                    getSupportActionBar().setTitle("Profile");
                 }
-//                switch(id){
-//                    case R.id.action_home:
-//                        mViewPager.setCurrentItem(0);
-//                        getSupportActionBar().setTitle("Home");
-//                        break;
-//                    case R.id.action_map:
-//                        mViewPager.setCurrentItem(1);
-//                        getSupportActionBar().setTitle("Map");
-//                        break;
-//                    case R.id.action_profile:
-//                        mViewPager.setCurrentItem(2);
-//                        getSupportActionBar().setTitle("Profile");
-//                        break;
-//                }
                 return true;
             }
         });

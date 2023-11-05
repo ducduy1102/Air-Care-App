@@ -126,10 +126,9 @@ public class ProfileFragment extends Fragment {
         imgBackSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SettingFragment settingFragment = new SettingFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.profileFragment, settingFragment);
-                transaction.addToBackStack(null);
+                ProfileFragment profileFragment = (ProfileFragment) getFragmentManager().findFragmentByTag("fragProfile");
+                transaction.remove(profileFragment);
                 transaction.commit();
             }
         });

@@ -32,22 +32,29 @@
             android:src="@drawable/logo_black" />
     </RelativeLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/layoutTile"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/avatar_default"
-        app:civ_border_color="@color/bg_green"
-        app:civ_border_width="3dp" />
+    <RelativeLayout
+        android:id="@+id/layoutImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutTile">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/avatar_default"
+            app:civ_border_color="@color/bg_green"
+            app:civ_border_width="3dp" />
+
+    </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:padding="30dp"
-        android:layout_below="@+id/profileImg">
+        android:layout_below="@+id/layoutImg">
 
         <EditText
             android:id="@+id/profileFullName"
