@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
         initUi();
-        showUserInformation();
+        showUserAvatar();
 
         return view;
     }
@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
         imgAvatar = view.findViewById(R.id.imgAvatar);
     }
 
-    private void showUserInformation() {
+    private void showUserAvatar() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user == null) {

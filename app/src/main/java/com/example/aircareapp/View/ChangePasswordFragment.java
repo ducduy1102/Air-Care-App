@@ -6,10 +6,12 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.TextUtils;
@@ -18,8 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.aircareapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +41,8 @@ public class ChangePasswordFragment extends Fragment {
     private View view;
     private TextInputEditText oldPassword, newPassword, confirmNewPassword;
     private TextInputLayout oldPasswordLayout, newPasswordLayout, confirmNewPasswordLayout;
+    private TextView profileName;
+    private ImageView imgAvatar, imgBackSetting;
     private Button buttonChangePassword;
     private SharedPreferences sharedPreferences;
     private ProgressDialog progressDialog;
@@ -46,11 +53,16 @@ public class ChangePasswordFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_change_password, container, false);
 
         initUi();
+        showUserInformation();
         progressDialog = new ProgressDialog(getContext());
 
         sharedPreferences = getActivity().getSharedPreferences("dataLogin", MODE_PRIVATE);
-//        oldPassword.setText(sharedPreferences.getString("prefPassword", ""));
 
+        initListener();
+        return view;
+    }
+
+    private void initListener() {
         buttonChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +78,7 @@ public class ChangePasswordFragment extends Fragment {
             }
         });
 
+        // Check password weak / strong
         newPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -101,7 +114,17 @@ public class ChangePasswordFragment extends Fragment {
             }
         });
 
-        return view;
+        imgBackSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SettingFragment settingFragment = new SettingFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.changePasswordFragment, settingFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
     }
 
 
@@ -177,6 +200,23 @@ public class ChangePasswordFragment extends Fragment {
         }
     }
 
+    private void showUserInformation() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            return;
+        }
+        String name = user.getDisplayName();
+        Uri photoUrl = user.getPhotoUrl();
+
+        if (name == null) {
+            profileName.setText("");
+        } else {
+            profileName.setText(name);
+        }
+        Glide.with(this).load(photoUrl).error(R.drawable.avatar_default).into(imgAvatar);
+    }
+
     private void initUi() {
         oldPassword = view.findViewById(R.id.oldPassword);
         newPassword = view.findViewById(R.id.newPassword);
@@ -185,5 +225,8 @@ public class ChangePasswordFragment extends Fragment {
         newPasswordLayout = view.findViewById(R.id.newPasswordLayout);
         confirmNewPasswordLayout = view.findViewById(R.id.confirmNewPasswordLayout);
         buttonChangePassword = view.findViewById(R.id.buttonChangePassword);
+        imgAvatar = view.findViewById(R.id.imgAvatarPass);
+        profileName = view.findViewById(R.id.profileName);
+        imgBackSetting = view.findViewById(R.id.imgBackChangePass);
     }
 }

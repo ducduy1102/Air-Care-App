@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -54,10 +55,8 @@ public class ProfileFragment extends Fragment {
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 101;
     private EditText profileFullName;
     private TextView profileEmail;
-    private Button btnUpdateProfile, btnLogout;
-    private ImageView profileAvatar;
-    private GoogleSignInOptions gso;
-    private GoogleSignInClient gsc;
+    private Button btnUpdateProfile;
+    private ImageView profileAvatar, imgBackSetting;
     private ProgressDialog progressDialog;
 
     // Lấy thư viện ảnh để update avatar
@@ -94,12 +93,6 @@ public class ProfileFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getContext());
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        gsc = GoogleSignIn.getClient(getActivity(), gso);
-
         showUserInformation();
 
         initListener();
@@ -111,8 +104,8 @@ public class ProfileFragment extends Fragment {
         profileFullName = view.findViewById(R.id.profileFullName);
         profileEmail = view.findViewById(R.id.profileEmail);
         btnUpdateProfile = view.findViewById(R.id.buttonUpdateProfile);
-        btnLogout = view.findViewById(R.id.logoutButton);
         profileAvatar = view.findViewById(R.id.profileImg);
+        imgBackSetting = view.findViewById(R.id.imgBackProfile);
     }
 
     private void initListener() {
@@ -130,10 +123,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        imgBackSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogOut();
+                SettingFragment settingFragment = new SettingFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.profileFragment, settingFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
     }
@@ -167,25 +164,6 @@ public class ProfileFragment extends Fragment {
                     }
                 });
     }
-
-//    private void reAuthenticate() {
-//        // show 1 dialog login lai r lay email pass gan o duoi
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        AuthCredential credential = EmailAuthProvider
-//                .getCredential(user.getEmail(), profilePassword.getText().toString());
-//        user.reauthenticate(credential)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-////                            onClickUpdateEmail();
-////                            onClickChangePassword();
-//                        } else {
-//                            Toast.makeText(getContext(), "Please enter your email, password", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//    }
 
     private void onClickRequestPermission() {
         // andorid 6 tro xuong ko can permiss
@@ -230,19 +208,5 @@ public class ProfileFragment extends Fragment {
 
     public void setBitmapImageView(Bitmap bitmapImageView){
         profileAvatar.setImageBitmap(bitmapImageView);
-    }
-
-    private void LogOut() {
-        // logout GoogleAccount
-        gsc.signOut();
-
-        // Logout UserAccount
-        FirebaseAuth.getInstance().signOut();
-
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        Toast.makeText(getContext(), "Log out Successfull", Toast.LENGTH_SHORT).show();
-        getActivity().finish();
     }
 }

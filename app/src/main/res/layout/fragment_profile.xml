@@ -10,11 +10,12 @@
 
     <RelativeLayout
         android:id="@+id/layoutTile"
+        android:paddingTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imgAccount"
+            android:id="@+id/imgBackProfile"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginLeft="20dp"
@@ -78,27 +79,13 @@
             android:id="@+id/buttonUpdateProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
             android:layout_marginTop="50dp"
-            android:layout_marginRight="40dp"
             android:textSize="20sp"
             android:text="Update Profile"
             android:textColor="@color/bg_green"
             android:backgroundTint="@color/light_green_more"
             android:layout_below="@+id/profileEmail"/>
 
-        <Button
-            android:id="@+id/logoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="40dp"
-            android:textSize="20sp"
-            android:text="LOGOUT"
-            android:textColor="@color/bg_green"
-            android:backgroundTint="@color/light_green_more"
-            android:layout_below="@+id/buttonUpdateProfile"/>
     </RelativeLayout>
 
 </RelativeLayout>

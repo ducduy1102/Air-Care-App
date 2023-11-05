@@ -5,16 +5,11 @@
     android:layout_height="match_parent"
     android:id="@+id/settingFragment"
     android:background="@color/light_white"
-    android:padding="20dp"
     tools:context=".View.SettingFragment">
-
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_arrow_left"/>
 
     <TextView
         android:id="@+id/title_setting"
+        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Setting and Privacy"
@@ -28,6 +23,8 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/layout_account">
         <View
             android:layout_width="wrap_content"
@@ -134,6 +131,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/layout_common"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_below="@+id/layout_account">
         <View
             android:layout_width="wrap_content"
@@ -148,6 +147,7 @@
             android:text="@string/common"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:textColor="@color/bg_green"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"/>
 
@@ -251,6 +251,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/layout_support"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_below="@+id/layout_common">
         <View
             android:layout_width="wrap_content"
@@ -265,6 +267,7 @@
             android:text="@string/support"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:textColor="@color/bg_green"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"/>
 
