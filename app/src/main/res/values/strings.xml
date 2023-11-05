@@ -33,4 +33,11 @@
     <string name="change_avatar">Change Avatar</string>
     <string name="updatepw">Update Password</string>
     <string name="fullname">Full Name</string>
+
+    <string name="aqi">AQI</string>
+    <string name="update">Update</string>
+
+    <string name="oldpassword">Old Password</string>
+    <string name="newpassword">New Password</string>
+    <string name="confirmnewpassword">Confirm New Password</string>
 </resources>

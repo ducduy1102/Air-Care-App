@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -51,7 +52,8 @@ public class ProfileFragment extends Fragment {
     private View view;
 
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 101;
-    private EditText profileFullName, profileEmail;
+    private EditText profileFullName;
+    private TextView profileEmail;
     private Button btnUpdateProfile, btnLogout;
     private ImageView profileAvatar;
     private GoogleSignInOptions gso;
