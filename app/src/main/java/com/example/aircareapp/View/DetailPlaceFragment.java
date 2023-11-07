@@ -2,6 +2,8 @@ package com.example.aircareapp.View;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -24,9 +26,15 @@ public class DetailPlaceFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_detail_place, container, false);
 
         initUi();
-        initListener();
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initListener();
     }
 
     private void initListener() {

@@ -91,13 +91,18 @@ public class ProfileFragment extends Fragment {
 
         initUi();
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         progressDialog = new ProgressDialog(getContext());
 
         showUserInformation();
 
         initListener();
-
-        return view;
     }
 
     private void initUi() {

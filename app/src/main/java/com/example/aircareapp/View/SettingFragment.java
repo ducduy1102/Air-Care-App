@@ -37,6 +37,13 @@ public class SettingFragment extends Fragment {
 
         initUi();
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -45,7 +52,6 @@ public class SettingFragment extends Fragment {
 
         initListener();
 
-        return view;
     }
 
     private void initListener() {

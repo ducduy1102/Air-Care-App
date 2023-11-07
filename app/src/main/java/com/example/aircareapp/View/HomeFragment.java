@@ -33,10 +33,16 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
         initUi();
-        showUserAvatar();
-        initListener();
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        showUserAvatar();
+        initListener();
     }
 
     private void initListener() {
@@ -65,10 +71,5 @@ public class HomeFragment extends Fragment {
         }
         Uri photoUrl = user.getPhotoUrl();
         Glide.with(this).load(photoUrl).error(R.drawable.avatar_default).into(imgAvatar);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 }

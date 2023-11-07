@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -53,13 +54,21 @@ public class ChangePasswordFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_change_password, container, false);
 
         initUi();
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         showUserInformation();
         progressDialog = new ProgressDialog(getContext());
 
         sharedPreferences = getActivity().getSharedPreferences("dataLogin", MODE_PRIVATE);
 
         initListener();
-        return view;
+
     }
 
     private void initListener() {
