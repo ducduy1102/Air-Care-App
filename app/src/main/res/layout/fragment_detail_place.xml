@@ -100,7 +100,7 @@
                 android:layout_marginTop="120dp"/>
 
             <TextView
-                android:id="@+id/status_aqi"
+                android:id="@+id/statusAqi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Good"
@@ -109,17 +109,17 @@
                 android:textColor="@color/hs_green"
                 android:layout_toEndOf="@id/img_location"
                 android:layout_marginTop="110dp"
-                android:layout_marginStart="50dp"/>
+                android:layout_marginStart="40dp"/>
 
-            <TextView
-                android:id="@+id/point_aqi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="45"
-                android:textSize="45sp"
-                android:textColor="@color/black"
-                android:layout_below="@id/status_aqi"
-                android:layout_marginStart="180dp"/>
+            <!--            <TextView-->
+            <!--                android:id="@+id/point_aqi"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="45"-->
+            <!--                android:textSize="45sp"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:layout_below="@id/statusAqi"-->
+            <!--                android:layout_marginStart="180dp"/>-->
 
             <TextView
                 android:id="@+id/constraint"
@@ -129,10 +129,10 @@
                 android:textStyle="bold"
                 android:textSize="25sp"
                 android:textColor="@color/hs_green"
-                android:layout_below="@id/status_aqi"
-                android:layout_toEndOf="@id/point_aqi"
+                android:layout_below="@id/statusAqi"
+                android:layout_toEndOf="@id/img_location"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="30dp"/>
+                android:layout_marginStart="80dp"/>
         </RelativeLayout>
 
         <TextView
@@ -174,16 +174,17 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
+                            android:id="@+id/txPm10"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3%"
+                            android:text="PM10"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -211,16 +212,17 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
+                            android:id="@+id/txPm25"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3%"
+                            android:text="PM2.5"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -248,16 +250,17 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
+                            android:id="@+id/txCo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3%"
+                            android:text="CO"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -285,16 +288,17 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
+                            android:id="@+id/txO3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3%"
+                            android:text="O3"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -322,16 +326,131 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
+                            android:id="@+id/txNo2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="30sp"
+                            android:textSize="25sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3%"
+                            android:text="NO2"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="20dp"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:src="@drawable/ic_no2"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"/>
+                        <TextView
+                            android:id="@+id/txNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2 µg/m³"
+                            android:textSize="25sp"
+                            android:textColor="@color/bg_green"
+                            android:layout_marginTop="10dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NO"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="20dp"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:src="@drawable/ic_pm25"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"/>
+                        <TextView
+                            android:id="@+id/txSo2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2 µg/m³"
+                            android:textSize="25sp"
+                            android:textColor="@color/bg_green"
+                            android:layout_marginTop="10dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SO2"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="20dp"
+                    app:cardCornerRadius="20dp"
+                    android:elevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal">
+
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:src="@drawable/ic_pm25"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"/>
+                        <TextView
+                            android:id="@+id/txNh3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2 µg/m³"
+                            android:textSize="25sp"
+                            android:textColor="@color/bg_green"
+                            android:layout_marginTop="10dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NH3"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -396,6 +515,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tempValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10℃"
@@ -403,6 +523,7 @@
                 android:layout_marginStart="30dp"/>
 
             <TextView
+                android:id="@+id/humidityValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="77%"
@@ -417,6 +538,7 @@
                 android:layout_marginStart="45dp"/>
 
             <TextView
+                android:id="@+id/windValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="8km/h"
