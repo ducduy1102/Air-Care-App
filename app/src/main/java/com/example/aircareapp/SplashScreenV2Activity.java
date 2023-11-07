@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.example.aircareapp.View.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,12 +18,17 @@ import com.google.firebase.auth.FirebaseUser;
 public class SplashScreenV2Activity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN = 4000;
+    private ImageView textSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen_v2);
+
+        textSplash = findViewById(R.id.textSplash);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_text_splash_screen);
+        textSplash.startAnimation(animation);
 
         new Handler(Looper.myLooper()).postDelayed(new Runnable() {
             @Override

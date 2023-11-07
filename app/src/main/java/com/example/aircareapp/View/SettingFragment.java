@@ -54,10 +54,9 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 ProfileFragment profileFragment = new ProfileFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.settingFragment, profileFragment, "fragProfile");
+                transaction.replace(R.id.mainActivity, profileFragment, "fragProfile");
                 transaction.addToBackStack(null);
                 transaction.commit();
-//                ((MainActivity) getActivity()).setActionBarTitle("Profile");
             }
         });
 
@@ -66,7 +65,7 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.settingFragment, changePasswordFragment,"fragChangePassword");
+                transaction.replace(R.id.mainActivity, changePasswordFragment,"fragChangePassword");
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -107,6 +106,5 @@ public class SettingFragment extends Fragment {
         tvNoti = view.findViewById(R.id.tv_notification);
         tvAbout = view.findViewById(R.id.tv_support);
         tvHelp = view.findViewById(R.id.tv_help);
-
     }
 }

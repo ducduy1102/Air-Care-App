@@ -129,6 +129,7 @@ public class ProfileFragment extends Fragment {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 ProfileFragment profileFragment = (ProfileFragment) getFragmentManager().findFragmentByTag("fragProfile");
                 transaction.remove(profileFragment);
+                transaction.replace(R.id.mainActivity, new SettingFragment());
                 transaction.commit();
             }
         });

@@ -105,15 +105,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/remember"
-                android:textColor="@color/black" />
-
-            <!--        <CheckBox-->
-            <!--            android:id="@+id/checkBoxRemember"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginStart="32dp"-->
-            <!--            android:text="Remember"-->
-            <!--            app:layout_constraintStart_toStartOf="parent" />-->
+                android:button="@drawable/image_checkbox"
+                android:textColor="@color/black"
+                app:buttonTint="@null"/>
 
             <Button
                 android:id="@+id/buttonForgotPassword"

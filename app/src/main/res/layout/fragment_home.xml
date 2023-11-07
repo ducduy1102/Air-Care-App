@@ -319,7 +319,7 @@
             android:layout_marginTop="250dp"/>
 
         <Button
-            android:id="@+id/place"
+            android:id="@+id/buttonPlace"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:text="Places"
@@ -332,7 +332,7 @@
         <GridLayout
             android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/place"
+            android:layout_below="@id/buttonPlace"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:rowCount="2"

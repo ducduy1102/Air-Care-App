@@ -6,11 +6,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomeFragment extends Fragment {
 
+    private Button btnPlace;
     private View view;
     private ImageView imgAvatar;
 
@@ -31,12 +34,27 @@ public class HomeFragment extends Fragment {
 
         initUi();
         showUserAvatar();
+        initListener();
 
         return view;
     }
 
+    private void initListener() {
+        btnPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DetailPlaceFragment detailPlaceFragment = new DetailPlaceFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainActivity, detailPlaceFragment,"fragDetailPlaceFragment");
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+    }
+
     private void initUi() {
         imgAvatar = view.findViewById(R.id.imgAvatar);
+        btnPlace = view.findViewById(R.id.buttonPlace);
     }
 
     private void showUserAvatar() {

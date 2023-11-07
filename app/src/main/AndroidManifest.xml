@@ -3,14 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/icon_load_app"
+        android:icon="@drawable/green_bg"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/icon_load_app"
+        android:roundIcon="@drawable/green_bg"
         android:supportsRtl="true"
         android:theme="@style/Theme.AirCareApp"
         tools:targetApi="31">

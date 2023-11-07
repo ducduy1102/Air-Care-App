@@ -120,6 +120,7 @@ public class ChangePasswordFragment extends Fragment {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 ChangePasswordFragment changePasswordFragment = (ChangePasswordFragment) getFragmentManager().findFragmentByTag("fragChangePassword");
                 transaction.remove(changePasswordFragment);
+                transaction.replace(R.id.mainActivity, new SettingFragment());
                 transaction.commit();
             }
         });
