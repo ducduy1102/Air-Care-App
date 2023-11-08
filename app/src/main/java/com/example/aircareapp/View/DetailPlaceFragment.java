@@ -77,13 +77,12 @@ public class DetailPlaceFragment extends Fragment {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONObject jsonObjectMain = jsonObject.getJSONObject("main");
-//                            JSONObject jsonObjectCloud = jsonObject.getJSONObject("clouds");
                             JSONObject jsonObjectWind = jsonObject.getJSONObject("wind");
 
                             //get and set temp
                             String strTemp = jsonObjectMain.getString("temp");
-                            Double a = Double.valueOf(strTemp);
-                            String temp = String.valueOf(a.intValue());
+                            Double tempDouble = Double.valueOf(strTemp);
+                            String temp = String.valueOf(tempDouble.intValue());
                             Log.e("MyRespond Temp", temp);
                             tvTemp.setText(temp + "°C");
 
@@ -93,12 +92,12 @@ public class DetailPlaceFragment extends Fragment {
                             tvHumidity.setText(humidity + "%");
 
 
-                            //get and set windy
-                            String strWindy = jsonObjectWind.getString("speed");
-                            Double b = Double.valueOf(strWindy);
-                            String windy = String.valueOf(b.intValue());
-                            Log.e("MyRespond Windy", windy);
-                            tvWind.setText(windy + "m/s");
+                            //get and set wind
+                            String strWind = jsonObjectWind.getString("speed");
+                            Double windDouble = Double.valueOf(strWind);
+                            String wind = String.valueOf(windDouble.intValue());
+                            Log.e("MyRespond Windy", wind);
+                            tvWind.setText(wind + "m/s");
 
 
                         } catch (JSONException e) {
