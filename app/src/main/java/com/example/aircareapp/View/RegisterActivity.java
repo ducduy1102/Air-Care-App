@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String pass = s.toString();
-                if(pass.length() > 0) {
+                if(pass.length() > 6) {
                     Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
                     Matcher matcher = pattern.matcher(pass);
                     boolean isPassContainsSpeChar = matcher.find();
@@ -93,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 } else {
                     registerPasswordLayout.setHelperTextColor(ColorStateList.valueOf(Color.RED));
-                    registerPasswordLayout.setHelperText("Enter minimum 8 characters");
+                    registerPasswordLayout.setHelperText("Enter minimum 6 characters");
                     registerPasswordLayout.setError("");
                 }
             }

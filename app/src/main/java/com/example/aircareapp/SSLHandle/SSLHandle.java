@@ -24,7 +24,6 @@ public class SSLHandle {
 
                 @Override
                 public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-
                 }
 
                 @Override

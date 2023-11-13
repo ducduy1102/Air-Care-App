@@ -29,7 +29,7 @@ import org.json.JSONObject;
 public class DetailPlaceFragment extends Fragment {
     private View view;
 
-    private TextView tvTemp, tvHumidity, tvWind, tvPm10, tvPm25, tvCo, tvSo2, tvNh3, tvNo, tvNo2, tvO3, statusAqi;
+    private TextView tvTemp, tvHumidity, tvPressure, tvWind, tvPm10, tvPm25, tvCo, tvSo2, tvNh3, tvNo, tvNo2, tvO3, statusAqi;
     private ImageView imgBackHome;
 
     @Override
@@ -79,12 +79,18 @@ public class DetailPlaceFragment extends Fragment {
                             JSONObject jsonObjectMain = jsonObject.getJSONObject("main");
                             JSONObject jsonObjectWind = jsonObject.getJSONObject("wind");
 
+
                             //get and set temp
                             String strTemp = jsonObjectMain.getString("temp");
                             Double tempDouble = Double.valueOf(strTemp);
                             String temp = String.valueOf(tempDouble.intValue());
                             Log.e("MyRespond Temp", temp);
                             tvTemp.setText(temp + "°C");
+
+                            //get and set pressure
+                            String strPressure = jsonObjectMain.getString("pressure");
+                            Log.e("MyRespond humidity", strPressure);
+                            tvPressure.setText(strPressure + "hPa");
 
                             //get and set humidity
                             String humidity = jsonObjectMain.getString("humidity");
@@ -187,6 +193,7 @@ public class DetailPlaceFragment extends Fragment {
         imgBackHome = view.findViewById(R.id.icBackDetail);
         tvTemp = view.findViewById(R.id.tempValue);
         tvHumidity = view.findViewById(R.id.humidityValue);
+        tvPressure = view.findViewById(R.id.tvPressure);
         tvWind = view.findViewById(R.id.windValue);
         tvPm10 = view.findViewById(R.id.txPm10);
         tvPm25 = view.findViewById(R.id.txPm25);

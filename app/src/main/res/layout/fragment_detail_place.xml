@@ -531,6 +531,7 @@
                 android:layout_marginStart="65dp"/>
 
             <TextView
+                android:id="@+id/tvPressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="998 hPa"
