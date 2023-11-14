@@ -23,6 +23,11 @@
         android:layout_gravity="center"
         android:padding="30dp">
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/green_bg"
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/text_login"

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".View.DetailPlaceFragment">
+    tools:context=".Dashboard.HomeScreen.DetailPlace"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content" >
 
             <ImageView
-                android:id="@+id/icBackDetail"
+                android:id="@+id/ic_left"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_arrow_left"
@@ -29,7 +29,7 @@
                 android:id="@+id/dashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/icBackDetail"
+                android:layout_below="@id/ic_left"
                 android:text="HOME"
                 android:textSize="30sp"
                 android:textColor="@color/bg_green"
@@ -42,7 +42,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_favorite"
-                android:layout_below="@id/icBackDetail"
+                android:layout_below="@id/ic_left"
                 android:layout_toEndOf="@id/dashboard"
                 android:layout_marginTop="25dp"
                 android:layout_marginStart="15dp"/>
@@ -53,7 +53,7 @@
                 android:layout_height="70dp"
                 android:src="@drawable/logo_black"
                 android:layout_alignParentRight="true"
-                android:layout_toEndOf="@id/icBackDetail"
+                android:layout_toEndOf="@id/ic_left"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="170dp"/>
 
@@ -100,7 +100,7 @@
                 android:layout_marginTop="120dp"/>
 
             <TextView
-                android:id="@+id/statusAqi"
+                android:id="@+id/status_aqi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Good"
@@ -109,17 +109,17 @@
                 android:textColor="@color/hs_green"
                 android:layout_toEndOf="@id/img_location"
                 android:layout_marginTop="110dp"
-                android:layout_marginStart="40dp"/>
+                android:layout_marginStart="50dp"/>
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/point_aqi"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="45"-->
-            <!--                android:textSize="45sp"-->
-            <!--                android:textColor="@color/black"-->
-            <!--                android:layout_below="@id/statusAqi"-->
-            <!--                android:layout_marginStart="180dp"/>-->
+            <TextView
+                android:id="@+id/point_aqi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45"
+                android:textSize="45sp"
+                android:textColor="@color/black"
+                android:layout_below="@id/status_aqi"
+                android:layout_marginStart="180dp"/>
 
             <TextView
                 android:id="@+id/constraint"
@@ -129,10 +129,10 @@
                 android:textStyle="bold"
                 android:textSize="25sp"
                 android:textColor="@color/hs_green"
-                android:layout_below="@id/statusAqi"
-                android:layout_toEndOf="@id/img_location"
+                android:layout_below="@id/status_aqi"
+                android:layout_toEndOf="@id/point_aqi"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="80dp"/>
+                android:layout_marginStart="30dp"/>
         </RelativeLayout>
 
         <TextView
@@ -174,17 +174,16 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
-                            android:id="@+id/txPm10"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="25sp"
+                            android:textSize="30sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="PM10"
+                            android:text="3%"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -212,17 +211,16 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
-                            android:id="@+id/txPm25"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="25sp"
+                            android:textSize="30sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="PM2.5"
+                            android:text="3%"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -250,17 +248,16 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
-                            android:id="@+id/txCo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="25sp"
+                            android:textSize="30sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="CO"
+                            android:text="3%"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -288,17 +285,16 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
-                            android:id="@+id/txO3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="25sp"
+                            android:textSize="30sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="O3"
+                            android:text="3%"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -326,131 +322,16 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"/>
                         <TextView
-                            android:id="@+id/txNo2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2 µg/m³"
-                            android:textSize="25sp"
+                            android:textSize="30sp"
                             android:textColor="@color/bg_green"
                             android:layout_marginTop="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="NO2"
-                            android:textSize="25sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="center"/>
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:layout_margin="20dp"
-                    app:cardCornerRadius="20dp"
-                    android:elevation="10dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_horizontal">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@drawable/ic_no2"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:id="@+id/txNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2 µg/m³"
-                            android:textSize="25sp"
-                            android:textColor="@color/bg_green"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="NO"
-                            android:textSize="25sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="center"/>
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:layout_margin="20dp"
-                    app:cardCornerRadius="20dp"
-                    android:elevation="10dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_horizontal">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@drawable/ic_pm25"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:id="@+id/txSo2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2 µg/m³"
-                            android:textSize="25sp"
-                            android:textColor="@color/bg_green"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="SO2"
-                            android:textSize="25sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="center"/>
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:layout_margin="20dp"
-                    app:cardCornerRadius="20dp"
-                    android:elevation="10dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_horizontal">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@drawable/ic_pm25"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:id="@+id/txNh3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2 µg/m³"
-                            android:textSize="25sp"
-                            android:textColor="@color/bg_green"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="NH3"
+                            android:text="3%"
                             android:textSize="25sp"
                             android:textStyle="bold"
                             android:layout_gravity="center"/>
@@ -515,7 +396,6 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tempValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10℃"
@@ -523,7 +403,6 @@
                 android:layout_marginStart="30dp"/>
 
             <TextView
-                android:id="@+id/humidityValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="77%"
@@ -531,7 +410,6 @@
                 android:layout_marginStart="65dp"/>
 
             <TextView
-                android:id="@+id/tvPressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="998 hPa"
@@ -539,7 +417,6 @@
                 android:layout_marginStart="45dp"/>
 
             <TextView
-                android:id="@+id/windValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="8km/h"
