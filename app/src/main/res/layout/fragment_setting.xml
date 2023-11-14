@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/settingFragment"
-    android:background="@color/light_white"
+    android:background="@color/white"
     tools:context=".View.SettingFragment">
 
     <TextView
