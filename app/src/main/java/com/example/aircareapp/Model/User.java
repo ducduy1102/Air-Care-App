@@ -1,24 +1,43 @@
 package com.example.aircareapp.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
-    private String fullname;
-    private String username;
-    private String email;
-    private String password;
+    @SerializedName("realm")
+    public String realm;
+    @SerializedName("realmId")
+    public String realmId;
+    @SerializedName("username")
+    public String username;
+    @SerializedName("id")
+    public String id;
+    @SerializedName("firstName")
+    public String firstName;
+    @SerializedName("lastName")
+    public String lastName;
+    @SerializedName("email")
+    public String email;
+    @SerializedName("enabled")
+    public String enabled;
+    @SerializedName("createdOn")
+    public String createdOn;
+    @SerializedName("serviceAccount")
+    public String serviceAccount;
 
-    public User(String fullname, String username, String email, String password) {
-        this.fullname = fullname;
-        this.username = username;
-        this.email = email;
-        this.password = password;
+    public String getRealm() {
+        return realm;
     }
 
-    public String getFullname() {
-        return fullname;
+    public void setRealm(String realm) {
+        this.realm = realm;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public String getRealmId() {
+        return realmId;
+    }
+
+    public void setRealmId(String realmId) {
+        this.realmId = realmId;
     }
 
     public String getUsername() {
@@ -29,6 +48,30 @@ public class User {
         this.username = username;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -37,11 +80,27 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEnabled() {
+        return enabled;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEnabled(String enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getServiceAccount() {
+        return serviceAccount;
+    }
+
+    public void setServiceAccount(String serviceAccount) {
+        this.serviceAccount = serviceAccount;
     }
 }

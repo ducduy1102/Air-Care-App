@@ -8,15 +8,19 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aircareapp.APIService.APIService;
 import com.example.aircareapp.MainActivity;
+import com.example.aircareapp.Model.LoginResponse;
 import com.example.aircareapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -32,12 +36,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth auth;
-//    FirebaseDatabase database;
+    //    FirebaseDatabase database;
 //    DatabaseReference reference;
     private static final int REQUEST_CODE_GOOGLE = 100;
+    private FirebaseAuth auth;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
     private TextInputLayout loginUsernameInput, loginUPasswordInput;
@@ -50,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private ProgressDialog progressDialog;
 
+    private ProgressBar loadingProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initUi();
-        progressDialog = new ProgressDialog(this);
+//        progressDialog = new ProgressDialog(this);
 
         auth = FirebaseAuth.getInstance();
 
@@ -80,7 +92,9 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickLogIn();
+//                onClickLogIn();
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                login();
                 RememberAccount();
             }
         });
@@ -129,42 +143,81 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void onClickLogIn() {
-        progressDialog.setTitle("Login");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        String email = loginUsername.getText().toString().trim();
-        String pass = loginPassword.getText().toString().trim();
-
-        if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            if (!pass.isEmpty()) {
-                auth.signInWithEmailAndPassword(email, pass)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressDialog.dismiss();
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-//                                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    finishAffinity();
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            } else {
-                progressDialog.dismiss();
-                loginPassword.setError("Password cannot empty");
+    //    private void onClickLogIn() {
+//        progressDialog.setTitle("Login");
+//        progressDialog.setMessage("Please wait...");
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.show();
+//        String email = loginUsername.getText().toString().trim();
+//        String pass = loginPassword.getText().toString().trim();
+//
+//        if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//            if (!pass.isEmpty()) {
+//                auth.signInWithEmailAndPassword(email, pass)
+//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                progressDialog.dismiss();
+//                                if (task.isSuccessful()) {
+//                                    Toast.makeText(LoginV2Activity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+//                                    startActivity(new Intent(LoginV2Activity.this, MainActivity.class));
+//                                    finishAffinity();
+//                                } else {
+//                                    Toast.makeText(LoginV2Activity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+//            } else {
+//                progressDialog.dismiss();
+//                loginPassword.setError("Password cannot empty");
+//            }
+//        } else if (email.isEmpty()) {
+//            progressDialog.dismiss();
+//            loginUsername.setError("Email cannot empty");
+//        } else {
+//            progressDialog.dismiss();
+//            loginUsername.setError("Please enter valid email");
+//        }
+//    }
+    private void login() {
+//        SSLHandle sslHandle = new SSLHandle();
+//        sslHandle.handleSSLHandshake();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://uiot.ixxc.dev/auth/realms/master/protocol/openid-connect/") // Replace with the base URL of your API
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        APIService authService = retrofit.create(APIService.class);
+        String username = loginUsername.getText().toString().trim();
+        String password = loginPassword.getText().toString().trim();
+        Call<LoginResponse> call = authService.login("openremote", username, password, "password");
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful()) {
+                    LoginResponse loginResponse = response.body();
+                    String accessToken = loginResponse.getAccess_token();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("token", accessToken);
+                    editor.commit();
+                    Log.d("tokenLogin", accessToken + username);
+                    loadingProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    // Authentication failed
+                    loadingProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                }
             }
-        } else if (email.isEmpty()) {
-            progressDialog.dismiss();
-            loginUsername.setError("Email cannot empty");
-        } else {
-            progressDialog.dismiss();
-            loginUsername.setError("Please enter valid email");
-        }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                // Handle network or API errors
+                Log.d("API CALL", t.getMessage().toString());
+                Toast.makeText(LoginActivity.this, "Login Failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void LogInWithGoogle() {
@@ -186,7 +239,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     private void firebaseAuth(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         auth.signInWithCredential(credential)
@@ -204,18 +256,17 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    public Boolean validateUserName(){
+    public Boolean validateUserName() {
         String valEmail = loginUsername.getText().toString().trim();
-        if(valEmail.isEmpty()){
+        if (valEmail.isEmpty()) {
             loginUsername.setError("Email cannot be empty");
             loginUsername.requestFocus();
             return false;
-        } else if(!Patterns.EMAIL_ADDRESS.matcher(valEmail).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(valEmail).matches()) {
             loginUsername.setError("Email is invalid");
             loginUsername.requestFocus();
             return false;
-        }
-        else {
+        } else {
             loginUsername.setError(null);
             return true;
         }
@@ -231,5 +282,6 @@ public class LoginActivity extends AppCompatActivity {
         buttonForgotPassword = findViewById(R.id.buttonForgotPassword);
         btnLogin = findViewById(R.id.buttonLogin);
         buttonLoginGoogle = findViewById(R.id.buttonLoginGoogle);
+        loadingProgressBar = findViewById(R.id.loadingProgressBar);
     }
 }

@@ -1,10 +1,10 @@
 package com.example.aircareapp.View;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.MODE_PRIVATE;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,19 +35,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.aircareapp.APICLient.APIClient;
+import com.example.aircareapp.APIService.APIService;
+import com.example.aircareapp.Model.User;
 import com.example.aircareapp.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
@@ -58,6 +61,8 @@ public class ProfileFragment extends Fragment {
     private Button btnUpdateProfile;
     private ImageView profileAvatar, imgBackSetting;
     private ProgressDialog progressDialog;
+
+    private APIService apiService;
 
     // Lấy thư viện ảnh để update avatar
     private Uri mUri;
@@ -100,9 +105,46 @@ public class ProfileFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getContext());
 
-        showUserInformation();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user == null){
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
+            String token = sharedPreferences.getString("token", "");
+            Log.d("tokenProfile",token);
+
+
+            apiService  = APIClient.getClient("https://uiot.ixxc.dev/api/master/user/",token).create(APIService.class);
+            // Make the API call
+            Call<User> call = apiService.getUser();
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful()) {
+                        // Handle the successful response
+                        User data = response.body();
+//                        profileFullName.setText(data.getFirstName()+data.getLastName());
+                        profileFullName.setText(data.getUsername());
+                        profileEmail.setText(data.getEmail());
+                        Log.d("fullname", "onResponse: " + data.getUsername());
+                        Log.d("data", "onResponse: " + response);
+                        Log.d("tokenProfle2", "onResponse: " + data.getCreatedOn());
+                    } else {
+                        // Handle the error response
+                        Toast.makeText(getContext(), "Error" + response.errorBody(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+
+                }
+            });
+        } else {
+            showUserInformation();
+        }
 
         initListener();
+
+
     }
 
     private void initUi() {
@@ -124,7 +166,7 @@ public class ProfileFragment extends Fragment {
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickUpdateProfile();
+//                onClickUpdateProfile();
             }
         });
 
