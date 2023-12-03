@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    android:id="@+id/mapFragment"
-    tools:context=".View.MapFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:textSize="20sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/white"
-        android:text="Fragment Map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".View.MapFragment" />
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -18,6 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCVlOueZtpefF94YuiM4mUM6K740siTVNo" />
+
         <activity
             android:name=".SplashScreenV2Activity"
             android:exported="true">

@@ -61,4 +61,6 @@ dependencies {
 
     // Volley
     implementation ("com.android.volley:volley:1.2.1")
+
+    implementation ("com.google.android.gms:play-services-maps:17.0.1")
 }

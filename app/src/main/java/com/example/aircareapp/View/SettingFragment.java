@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -92,9 +93,9 @@ public class SettingFragment extends Fragment {
                 // Logout UserAccount
                 FirebaseAuth.getInstance().signOut();
 
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.remove("token");
-                editor.commit();
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.remove("token");
+//                editor.commit();
 
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -36,9 +36,6 @@ import com.example.aircareapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -92,8 +89,6 @@ public class ProfileFragment extends Fragment {
                     if (response.isSuccessful()) {
                         User data = response.body();
 //                        profileFullName.setText(data.getFirstName()+data.getLastName());
-                        String username = data.getUsername();
-                        String email = data.getEmail();
                         String firstname = data.getFirstName();
                         String lastname = data.getLastName();
 
@@ -231,122 +226,126 @@ public class ProfileFragment extends Fragment {
         if (webSettings != null) {
             webView.loadUrl(myUrl);
             webView.setWebViewClient(new WebViewClient() {
-//                @Override
-//                public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-//                    Log.d("Url1", request.getUrl().toString());
-//                    if (request.getUrl().toString().contains("manager/#account")) {
-////                        Log.d("Url2", request.getUrl().toString());
-////                            // Thực hiện JavaScript để chuyển hướng đến "/manager#account"
-////                            String redirect = "window.location.href = 'https://uiot.ixxc.dev/manager/#/account';";
-////                            view.evaluateJavascript(redirect, null);
-//////                            webView.getSettings().setJavaScriptEnabled(true);
-//                        return true;
-//                    }
-//                    return false;
-//                }
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                    Log.d("Url1", request.getUrl().toString());
+                    if (request.getUrl().toString().contains("manager/#account")) {
+//                        Log.d("Url2", request.getUrl().toString());
+//                            // Thực hiện JavaScript để chuyển hướng đến "/manager#account"
+//                            String redirect = "window.location.href = 'https://uiot.ixxc.dev/manager/#/account';";
+//                            view.evaluateJavascript(redirect, null);
+////                            webView.getSettings().setJavaScriptEnabled(true);
+                        return true;
+                    }
+                    return false;
+                }
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
 //                    super.onPageFinished(view, "https://uiot.ixxc.dev/auth/realms/master/account/");
 //                    super.onPageFinished(view, "https://uiot.ixxc.dev/manager/#/account");
                     super.onPageFinished(view, url);
-                    if (url.contains("/manager/#state")) {
+//                    if (url.contains("/manager/#state")) {
+//                        // Chuyển hướng đến "/manager#/account"
+//                        String newUrl = "https://uiot.ixxc.dev/manager/#/account";
+//                        view.loadUrl(newUrl);
+//                    } else {
+//
+//                    }
+//                    Log.d("onPageFinished", "Page finished loading: " + url);
+//                    webView.setVisibility(View.GONE);
+//                    String helperText = "document.getElementsByClassName('helper-text')[0].getAttribute('data-error');";
+//                    String redText = "document.getElementsByClassName('red-text')[1].innerText;";
+//                    view.evaluateJavascript(helperText, s -> {
+//                        Log.d("JavaScriptResult 1", "Result: " + s);
+//                        if (s.equals("null")) {
+//                            view.evaluateJavascript(redText, s1 -> {
+//                                Log.d("JavaScriptResult1", "Result: " + s1);
+//                                if (s1.equals("null")) {
+//                                    String userField = "document.getElementById('username').value='" + user + "';";
+//                                    String emailField = "document.getElementById('email').value='" + email + "';";
+//                                    String firstNameField = "document.getElementById('firstName').value='" + firstname + "';";
+//                                    String lastNameField = "document.getElementById('lastName').value='" + lastname + "';";
+//                                    view.evaluateJavascript(userField, null);
+//                                    view.evaluateJavascript(emailField, null);
+//                                    view.evaluateJavascript(firstNameField, null);
+//                                    view.evaluateJavascript(lastNameField, null);
+////                                    view.evaluateJavascript("document.getElementById('stateChecker').value", value -> {
+////                                        // Xử lý giá trị stateChecker ở đây
+////                                        if (value != null && !value.isEmpty()) {
+////                                            String stateChecker = value.replaceAll("\"", ""); // Loại bỏ dấu ngoặc kép nếu có
+////                                            // Sử dụng giá trị stateChecker khi gửi dữ liệu
+////                                            String postData = null;
+////                                            try {
+////                                                postData = "username=" + URLEncoder.encode("user88", "UTF-8") +
+////                                                        "&email=" + URLEncoder.encode("user88@gmail.com", "UTF-8") +
+////                                                        "&firstName=" + URLEncoder.encode("John", "UTF-8") +
+////                                                        "&lastName=" + URLEncoder.encode("Doe", "UTF-8") +
+////                                                        "&stateChecker=" + URLEncoder.encode(stateChecker, "UTF-8");
+////
+////                                                view.evaluateJavascript("document.getElementsByTagName('submitAction')[0].submit();", null);
+////                                                view.postUrl("https://uiot.ixxc.dev/auth/realms/master/#/account/", postData.getBytes());
+////                                            } catch (UnsupportedEncodingException e) {
+////                                                throw new RuntimeException(e);
+////                                            }} else {
+////                                            // Xử lý khi không thể lấy giá trị stateChecker
+////                                        }
+////                                    });
+//
+//                                    view.evaluateJavascript("document.getElementsByTagName('submitAction')[0].submit();", null);
+//                                    loadingProgressBar.setVisibility(View.GONE);
+//                                    Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_SHORT).show();
+//                                } else {
+//                                    loadingProgressBar.setVisibility(View.GONE);
+//                                    Toast.makeText(getActivity(), "Update Failed" + s1, Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+//                        } else {
+//                            loadingProgressBar.setVisibility(View.GONE);
+//                            Toast.makeText(getActivity(), "Singup Failed" + s, Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+
+
+                    if (url.contains("openid-connect/auth")) {
+                        String redirect = "document.getElementsByClassName('btn waves-effect waves-light')[1].click();";
+                        view.evaluateJavascript(redirect, null);
+                    } else if (url.contains("/manager/#state")) {
                         // Chuyển hướng đến "/manager#/account"
                         String newUrl = "https://uiot.ixxc.dev/manager/#/account";
                         view.loadUrl(newUrl);
-                    } else {
-
-                    }
-                    Log.d("onPageFinished", "Page finished loading: " + url);
-                    webView.setVisibility(View.GONE);
-                    String helperText = "document.getElementsByClassName('helper-text')[0].getAttribute('data-error');";
-                    String redText = "document.getElementsByClassName('red-text')[1].innerText;";
-                    view.evaluateJavascript(helperText, s -> {
-                        Log.d("JavaScriptResult 1", "Result: " + s);
-                        if (s.equals("null")) {
-                            view.evaluateJavascript(redText, s1 -> {
-                                Log.d("JavaScriptResult1", "Result: " + s1);
-                                if (s1.equals("null")) {
-                                    String userField = "document.getElementById('username').value='" + user + "';";
-                                    String emailField = "document.getElementById('email').value='" + email + "';";
-                                    String firstNameField = "document.getElementById('firstName').value='" + firstname + "';";
-                                    String lastNameField = "document.getElementById('lastName').value='" + lastname + "';";
-                                    view.evaluateJavascript(userField, null);
-                                    view.evaluateJavascript(emailField, null);
-                                    view.evaluateJavascript(firstNameField, null);
-                                    view.evaluateJavascript(lastNameField, null);
+//                    boolean shouldStopEvaluation = false;
+                        String helperText = "document.getElementsByClassName('helper-text')[0].getAttribute('data-error');";
+                        String redText = "document.getElementsByClassName('red-text')[1].innerText;";
+                        view.evaluateJavascript(helperText, s -> {
+                            Log.d("JavaScriptResult", "Result: " + s);
+                            if (s.equals("null")) {
+                                view.evaluateJavascript(redText, s1 -> {
+                                    Log.d("JavaScriptResult1", "Result: " + s1);
+                                    if (s1.equals("null")) {
+                                        String userField = "document.getElementById('username').value='" + user + "';";
+                                        String emailField = "document.getElementById('email').value='" + email + "';";
+                                        String firstNameField = "document.getElementById('firstName').value='" + firstname + "';";
+                                        String lastNameField = "document.getElementById('lastName').value='" + lastname + "';";
+                                        view.evaluateJavascript(userField, null);
+                                        view.evaluateJavascript(emailField, null);
+                                        view.evaluateJavascript(firstNameField, null);
+                                        view.evaluateJavascript(lastNameField, null);
 //                                    view.evaluateJavascript("document.getElementsByTagName('submitAction')[0].submit();", null);
-//                                    view.evaluateJavascript("document.getElementById('stateChecker').value", value -> {
-//                                        // Xử lý giá trị stateChecker ở đây
-//                                        if (value != null && !value.isEmpty()) {
-//                                            String stateChecker = value.replaceAll("\"", ""); // Loại bỏ dấu ngoặc kép nếu có
-//                                            // Sử dụng giá trị stateChecker khi gửi dữ liệu
-//                                            String postData = null;
-//                                            try {
-//                                                postData = "username=" + URLEncoder.encode("user88", "UTF-8") +
-//                                                        "&email=" + URLEncoder.encode("user88@gmail.com", "UTF-8") +
-//                                                        "&firstName=" + URLEncoder.encode("John", "UTF-8") +
-//                                                        "&lastName=" + URLEncoder.encode("Doe", "UTF-8") +
-//                                                        "&stateChecker=" + URLEncoder.encode(stateChecker, "UTF-8");
-//                                                view.postUrl("https://uiot.ixxc.dev/auth/realms/master/account/", postData.getBytes());
-//                                            } catch (UnsupportedEncodingException e) {
-//                                                throw new RuntimeException(e);
-//                                            }} else {
-//                                            // Xử lý khi không thể lấy giá trị stateChecker
-//                                        }
-//                                    });
-
-                                    view.evaluateJavascript("document.getElementsByTagName('form')[0].submit();", null);
-                                    loadingProgressBar.setVisibility(View.GONE);
-                                    Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    loadingProgressBar.setVisibility(View.GONE);
-                                    Toast.makeText(getActivity(), "Update Failed" + s1, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        } else {
-                            loadingProgressBar.setVisibility(View.GONE);
-                            Toast.makeText(getActivity(), "Singup Failed" + s, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-//                    if (url.contains("openid-connect/auth")) {
-//                        String redirect = "document.getElementsByClassName('btn waves-effect waves-light')[1].click();";
-//                        view.evaluateJavascript(redirect, null);
-//                    } else if (url.contains("account")) {
-////                    boolean shouldStopEvaluation = false;
-//                        String helperText = "document.getElementsByClassName('helper-text')[0].getAttribute('data-error');";
-//                        String redText = "document.getElementsByClassName('red-text')[1].innerText;";
-//                        view.evaluateJavascript(helperText, s -> {
-//                            Log.d("JavaScriptResult", "Result: " + s);
-//                            if (s.equals("null")) {
-//                                view.evaluateJavascript(redText, s1 -> {
-//                                    Log.d("JavaScriptResult1", "Result: " + s1);
-//                                    if (s1.equals("null")) {
-//                                        String userField = "document.getElementById('username').value='" + user + "';";
-//                                        String emailField = "document.getElementById('email').value='" + email + "';";
-//                                        String firstNameField = "document.getElementById('firstName').value='" + firstname + "';";
-//                                        String lastNameField = "document.getElementById('lastName').value='" + lastname + "';";
-//                                        view.evaluateJavascript(userField, null);
-//                                        view.evaluateJavascript(emailField, null);
-//                                        view.evaluateJavascript(firstNameField, null);
-//                                        view.evaluateJavascript(lastNameField, null);
-////                                    view.evaluateJavascript("document.getElementsByTagName('submitAction')[0].submit();", null);
-//                                        view.evaluateJavascript("document.getElementsByTagName('form')[0].submit();", null);
-//                                        loadingProgressBar.setVisibility(View.GONE);
-//                                        Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_SHORT).show();
-//                                    } else {
-//                                        loadingProgressBar.setVisibility(View.GONE);
-//                                        Toast.makeText(getActivity(), "Update Failed" + s1, Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//                            } else {
-//                                loadingProgressBar.setVisibility(View.GONE);
-//                                Toast.makeText(getActivity(), "Singup Failed" + s, Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
+                                        view.evaluateJavascript("document.getElementsByTagName('form')[0].submit();", null);
+                                        loadingProgressBar.setVisibility(View.GONE);
+                                        Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        loadingProgressBar.setVisibility(View.GONE);
+                                        Toast.makeText(getActivity(), "Update Failed" + s1, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                loadingProgressBar.setVisibility(View.GONE);
+                                Toast.makeText(getActivity(), "Singup Failed" + s, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
             });
             webView.setWebChromeClient(new WebChromeClient());
