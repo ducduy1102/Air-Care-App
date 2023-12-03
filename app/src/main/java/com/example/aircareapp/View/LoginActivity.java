@@ -143,45 +143,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    //    private void onClickLogIn() {
-//        progressDialog.setTitle("Login");
-//        progressDialog.setMessage("Please wait...");
-//        progressDialog.setCanceledOnTouchOutside(false);
-//        progressDialog.show();
-//        String email = loginUsername.getText().toString().trim();
-//        String pass = loginPassword.getText().toString().trim();
-//
-//        if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//            if (!pass.isEmpty()) {
-//                auth.signInWithEmailAndPassword(email, pass)
-//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                progressDialog.dismiss();
-//                                if (task.isSuccessful()) {
-//                                    Toast.makeText(LoginV2Activity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-//                                    startActivity(new Intent(LoginV2Activity.this, MainActivity.class));
-//                                    finishAffinity();
-//                                } else {
-//                                    Toast.makeText(LoginV2Activity.this, "Login Failed", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-//            } else {
-//                progressDialog.dismiss();
-//                loginPassword.setError("Password cannot empty");
-//            }
-//        } else if (email.isEmpty()) {
-//            progressDialog.dismiss();
-//            loginUsername.setError("Email cannot empty");
-//        } else {
-//            progressDialog.dismiss();
-//            loginUsername.setError("Please enter valid email");
-//        }
-//    }
     private void login() {
-//        SSLHandle sslHandle = new SSLHandle();
-//        sslHandle.handleSSLHandshake();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://uiot.ixxc.dev/auth/realms/master/protocol/openid-connect/") // Replace with the base URL of your API
                 .addConverterFactory(GsonConverterFactory.create())
@@ -198,7 +161,8 @@ public class LoginActivity extends AppCompatActivity {
                     String accessToken = loginResponse.getAccess_token();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("token", accessToken);
-                    editor.commit();
+//                    editor.commit();
+                    editor.apply();
                     Log.d("tokenLogin", accessToken + username);
                     loadingProgressBar.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();

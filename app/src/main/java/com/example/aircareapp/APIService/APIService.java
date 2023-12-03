@@ -10,16 +10,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface APIService {
-//    Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy HH:mm:ss").create();
-//    APIService apiService = new Retrofit.Builder()
-//            .baseUrl("https://uiot.ixxc.dev/")
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-//            .build()
-//            .create(APIService.class);
-//
-//    @GET("api/master/model/metaItemDescriptors")
-//    Call<List<AirAIQ>> getItemDescriptor();
-
     @FormUrlEncoded
     @POST("token") // Replace "login" with your API endpoint
     Call<LoginResponse> login(

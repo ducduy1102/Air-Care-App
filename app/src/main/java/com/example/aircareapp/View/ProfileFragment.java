@@ -1,51 +1,43 @@
 package com.example.aircareapp.View;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.aircareapp.APICLient.APIClient;
 import com.example.aircareapp.APIService.APIService;
 import com.example.aircareapp.Model.User;
 import com.example.aircareapp.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,41 +45,20 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
-    private View view;
-
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 101;
-    private EditText profileFullName;
-    private TextView profileEmail;
+    private View view;
+    private EditText profileEmail, profileFirstName, profileLastName;
+    private TextView profileUserName;
     private Button btnUpdateProfile;
     private ImageView profileAvatar, imgBackSetting;
     private ProgressDialog progressDialog;
 
+    private ProgressBar loadingProgressBar;
+
     private APIService apiService;
 
-    // Lấy thư viện ảnh để update avatar
-    private Uri mUri;
-    public void setUri(Uri mUri) {
-        this.mUri = mUri;
-    }
-    final private ActivityResultLauncher<Intent> mIntentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            if (result.getResultCode() == RESULT_OK) {
-                Intent intent = result.getData();
-                if (intent == null) {
-                    return;
-                }
-                Uri uri = intent.getData();
-                setUri(uri);
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
-                    setBitmapImageView(bitmap);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-    });
+    private WebView webView;
+
 
     @Nullable
     @Override
@@ -106,29 +77,41 @@ public class ProfileFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null){
+        if (user == null) {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
             String token = sharedPreferences.getString("token", "");
-            Log.d("tokenProfile",token);
+            Log.d("tokenProfile", token);
 
 
-            apiService  = APIClient.getClient("https://uiot.ixxc.dev/api/master/user/",token).create(APIService.class);
+            apiService = APIClient.getClient("https://uiot.ixxc.dev/api/master/user/", token).create(APIService.class);
             // Make the API call
             Call<User> call = apiService.getUser();
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()) {
-                        // Handle the successful response
                         User data = response.body();
 //                        profileFullName.setText(data.getFirstName()+data.getLastName());
-                        profileFullName.setText(data.getUsername());
+                        String username = data.getUsername();
+                        String email = data.getEmail();
+                        String firstname = data.getFirstName();
+                        String lastname = data.getLastName();
+
+                        profileUserName.setText(data.getUsername());
                         profileEmail.setText(data.getEmail());
-                        Log.d("fullname", "onResponse: " + data.getUsername());
-                        Log.d("data", "onResponse: " + response);
-                        Log.d("tokenProfle2", "onResponse: " + data.getCreatedOn());
+
+                        if (firstname == null) {
+                            profileFirstName.setText("First Name");
+                        } else {
+                            profileFirstName.setText(firstname);
+                        }
+                        if (lastname == null) {
+                            profileLastName.setText("Last Name");
+                        } else {
+                            profileLastName.setText(lastname);
+                        }
+
                     } else {
-                        // Handle the error response
                         Toast.makeText(getContext(), "Error" + response.errorBody(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -147,26 +130,12 @@ public class ProfileFragment extends Fragment {
 
     }
 
-    private void initUi() {
-        profileFullName = view.findViewById(R.id.profileFullName);
-        profileEmail = view.findViewById(R.id.profileEmail);
-        btnUpdateProfile = view.findViewById(R.id.buttonUpdateProfile);
-        profileAvatar = view.findViewById(R.id.profileImg);
-        imgBackSetting = view.findViewById(R.id.imgBackProfile);
-    }
-
     private void initListener() {
-        profileAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickRequestPermission();
-            }
-        });
 
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                onClickUpdateProfile();
+                onClickUpdateProfile();
             }
         });
 
@@ -183,56 +152,47 @@ public class ProfileFragment extends Fragment {
     }
 
     private void onClickUpdateProfile() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (!validateEmail()) {
 
-        if(user == null) {
-            return;
-        }
-        progressDialog.setTitle("Update Profile");
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-        String profileFullNameUpdate = profileFullName.getText().toString().trim();
-
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(profileFullNameUpdate)
-                .setPhotoUri(mUri)
-                .build();
-
-        user.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        progressDialog.dismiss();
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Update profile success", Toast.LENGTH_SHORT).show();
-                            showUserInformation();
-                        }
-                    }
-                });
-    }
-
-    private void onClickRequestPermission() {
-        // andorid 6 tro xuong ko can permiss
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            openGallery();
-            return;
-        }
-
-        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-            }, REQUEST_CODE_READ_EXTERNAL_STORAGE);
-            openGallery();
+        } else {
+            loadingProgressBar.setVisibility(View.VISIBLE);
+            String username = profileUserName.getText().toString().trim();
+            String email = profileEmail.getText().toString().trim();
+            String firstname = profileFirstName.getText().toString().trim();
+            String lastname = profileLastName.getText().toString().trim();
+//                    onClickSignUp();
+            loadWebView(username, email, firstname, lastname);
         }
     }
 
-    private void openGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        mIntentActivityResultLauncher.launch(Intent.createChooser(intent, "Select Picture"));
-    }
+//    private void onClickUpdateProfile() {
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        if(user == null) {
+//            return;
+//        }
+//        progressDialog.setTitle("Update Profile");
+//        progressDialog.setMessage("Please wait...");
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.show();
+//        String profileFullNameUpdate = profileUserName.getText().toString().trim();
+//
+//        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                .setDisplayName(profileFullNameUpdate)
+//                .build();
+//
+//        user.updateProfile(profileUpdates)
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        progressDialog.dismiss();
+//                        if (task.isSuccessful()) {
+//                            Toast.makeText(getContext(), "Update profile success", Toast.LENGTH_SHORT).show();
+//                            showUserInformation();
+//                        }
+//                    }
+//                });
+//    }
 
     private void showUserInformation() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -245,15 +205,182 @@ public class ProfileFragment extends Fragment {
         Uri photoUrl = user.getPhotoUrl();
 
         if (name == null) {
-            profileFullName.setText("");
+            profileUserName.setText("");
         } else {
-            profileFullName.setText(name);
+            profileUserName.setText(name);
         }
         profileEmail.setText(email);
         Glide.with(this).load(photoUrl).error(R.drawable.avatar_default).into(profileAvatar);
     }
 
-    public void setBitmapImageView(Bitmap bitmapImageView){
-        profileAvatar.setImageBitmap(bitmapImageView);
+    @SuppressLint("SetJavaScriptEnabled")
+    private void loadWebView(String user, String email, String firstname, String lastname) {
+        String myUrl = "https://uiot.ixxc.dev/auth/realms/master/protocol/openid-connect/auth?client_id=openremote&redirect_uri=https%3A%2F%2Fuiot.ixxc.dev%2Fmanager%2F&state=c19f9e53-887b-46fb-829a-13e3413ac12b&response_mode=fragment&response_type=code&scope=openid&nonce=0147389d-31a1-447b-9083-1f5b447e8d41";
+//        String myUrl ="https://uiot.ixxc.dev/auth/realms/master/account/";
+//        String myUrl ="https://uiot.ixxc.dev/manager/#/account";
+//        CookieManager cookieManager = CookieManager.getInstance();
+//        cookieManager.removeAllCookies(null);
+
+        if (webView == null) {
+            // Khởi tạo WebView và gán giá trị
+            webView = new WebView(getContext());
+        }
+
+        WebSettings webSettings = webView.getSettings();
+        webView.getSettings().setJavaScriptEnabled(true);
+        if (webSettings != null) {
+            webView.loadUrl(myUrl);
+            webView.setWebViewClient(new WebViewClient() {
+//                @Override
+//                public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//                    Log.d("Url1", request.getUrl().toString());
+//                    if (request.getUrl().toString().contains("manager/#account")) {
+////                        Log.d("Url2", request.getUrl().toString());
+////                            // Thực hiện JavaScript để chuyển hướng đến "/manager#account"
+////                            String redirect = "window.location.href = 'https://uiot.ixxc.dev/manager/#/account';";
+////                            view.evaluateJavascript(redirect, null);
+//////                            webView.getSettings().setJavaScriptEnabled(true);
+//                        return true;
+//                    }
+//                    return false;
+//                }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+//                    super.onPageFinished(view, "https://uiot.ixxc.dev/auth/realms/master/account/");
+//                    super.onPageFinished(view, "https://uiot.ixxc.dev/manager/#/account");
+                    super.onPageFinished(view, url);
+                    if (url.contains("/manager/#state")) {
+                        // Chuyển hướng đến "/manager#/account"
+                        String newUrl = "https://uiot.ixxc.dev/manager/#/account";
+                        view.loadUrl(newUrl);
+                    } else {
+
+                    }
+                    Log.d("onPageFinished", "Page finished loading: " + url);
+                    webView.setVisibility(View.GONE);
+                    String helperText = "document.getElementsByClassName('helper-text')[0].getAttribute('data-error');";
+                    String redText = "document.getElementsByClassName('red-text')[1].innerText;";
+                    view.evaluateJavascript(helperText, s -> {
+                        Log.d("JavaScriptResult 1", "Result: " + s);
+                        if (s.equals("null")) {
+                            view.evaluateJavascript(redText, s1 -> {
+                                Log.d("JavaScriptResult1", "Result: " + s1);
+                                if (s1.equals("null")) {
+                                    String userField = "document.getElementById('username').value='" + user + "';";
+                                    String emailField = "document.getElementById('email').value='" + email + "';";
+                                    String firstNameField = "document.getElementById('firstName').value='" + firstname + "';";
+                                    String lastNameField = "document.getElementById('lastName').value='" + lastname + "';";
+                                    view.evaluateJavascript(userField, null);
+                                    view.evaluateJavascript(emailField, null);
+                                    view.evaluateJavascript(firstNameField, null);
+                                    view.evaluateJavascript(lastNameField, null);
+//                                    view.evaluateJavascript("document.getElementsByTagName('submitAction')[0].submit();", null);
+//                                    view.evaluateJavascript("document.getElementById('stateChecker').value", value -> {
+//                                        // Xử lý giá trị stateChecker ở đây
+//                                        if (value != null && !value.isEmpty()) {
+//                                            String stateChecker = value.replaceAll("\"", ""); // Loại bỏ dấu ngoặc kép nếu có
+//                                            // Sử dụng giá trị stateChecker khi gửi dữ liệu
+//                                            String postData = null;
+//                                            try {
+//                                                postData = "username=" + URLEncoder.encode("user88", "UTF-8") +
+//                                                        "&email=" + URLEncoder.encode("user88@gmail.com", "UTF-8") +
+//                                                        "&firstName=" + URLEncoder.encode("John", "UTF-8") +
+//                                                        "&lastName=" + URLEncoder.encode("Doe", "UTF-8") +
+//                                                        "&stateChecker=" + URLEncoder.encode(stateChecker, "UTF-8");
+//                                                view.postUrl("https://uiot.ixxc.dev/auth/realms/master/account/", postData.getBytes());
+//                                            } catch (UnsupportedEncodingException e) {
+//                                                throw new RuntimeException(e);
+//                                            }} else {
+//                                            // Xử lý khi không thể lấy giá trị stateChecker
+//                                        }
+//                                    });
+
+                                    view.evaluateJavascript("document.getElementsByTagName('form')[0].submit();", null);
+                                    loadingProgressBar.setVisibility(View.GONE);
+                                    Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    loadingProgressBar.setVisibility(View.GONE);
+                                    Toast.makeText(getActivity(), "Update Failed" + s1, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            loadingProgressBar.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), "Singup Failed" + s, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+//                    if (url.contains("openid-connect/auth")) {
+//                        String redirect = "document.getElementsByClassName('btn waves-effect waves-light')[1].click();";
+//                        view.evaluateJavascript(redirect, null);
+//                    } else if (url.contains("account")) {
+////                    boolean shouldStopEvaluation = false;
+//                        String helperText = "document.getElementsByClassName('helper-text')[0].getAttribute('data-error');";
+//                        String redText = "document.getElementsByClassName('red-text')[1].innerText;";
+//                        view.evaluateJavascript(helperText, s -> {
+//                            Log.d("JavaScriptResult", "Result: " + s);
+//                            if (s.equals("null")) {
+//                                view.evaluateJavascript(redText, s1 -> {
+//                                    Log.d("JavaScriptResult1", "Result: " + s1);
+//                                    if (s1.equals("null")) {
+//                                        String userField = "document.getElementById('username').value='" + user + "';";
+//                                        String emailField = "document.getElementById('email').value='" + email + "';";
+//                                        String firstNameField = "document.getElementById('firstName').value='" + firstname + "';";
+//                                        String lastNameField = "document.getElementById('lastName').value='" + lastname + "';";
+//                                        view.evaluateJavascript(userField, null);
+//                                        view.evaluateJavascript(emailField, null);
+//                                        view.evaluateJavascript(firstNameField, null);
+//                                        view.evaluateJavascript(lastNameField, null);
+////                                    view.evaluateJavascript("document.getElementsByTagName('submitAction')[0].submit();", null);
+//                                        view.evaluateJavascript("document.getElementsByTagName('form')[0].submit();", null);
+//                                        loadingProgressBar.setVisibility(View.GONE);
+//                                        Toast.makeText(getActivity(), "Update Successfully", Toast.LENGTH_SHORT).show();
+//                                    } else {
+//                                        loadingProgressBar.setVisibility(View.GONE);
+//                                        Toast.makeText(getActivity(), "Update Failed" + s1, Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//                            } else {
+//                                loadingProgressBar.setVisibility(View.GONE);
+//                                Toast.makeText(getActivity(), "Singup Failed" + s, Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }
+                }
+            });
+            webView.setWebChromeClient(new WebChromeClient());
+        } else {
+            // Xử lý trường hợp webSettings là null (có thể xảy ra trong một số tình huống)
+            Toast.makeText(getActivity(), "Failed to load WebView. Please try again.", Toast.LENGTH_SHORT).show();
+        }
+//        webView.stopLoading();
+    }
+
+    public Boolean validateEmail() {
+        String valEmail = profileEmail.getText().toString().trim();
+        if (valEmail.isEmpty()) {
+            profileEmail.setError("Email cannot be empty");
+            profileEmail.requestFocus();
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(valEmail).matches()) {
+            profileEmail.setError("Email is invalid");
+            profileEmail.requestFocus();
+            return false;
+        } else {
+            profileEmail.setError(null);
+            return true;
+        }
+    }
+
+    private void initUi() {
+        profileUserName = view.findViewById(R.id.profileUserName);
+        profileFirstName = view.findViewById(R.id.profileFirstName);
+        profileLastName = view.findViewById(R.id.profileLastName);
+        profileEmail = view.findViewById(R.id.profileEmail);
+        btnUpdateProfile = view.findViewById(R.id.buttonUpdateProfile);
+        profileAvatar = view.findViewById(R.id.profileImg);
+        imgBackSetting = view.findViewById(R.id.imgBackProfile);
+        loadingProgressBar = view.findViewById(R.id.loadingProgressBar);
     }
 }

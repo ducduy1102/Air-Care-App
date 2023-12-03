@@ -1,6 +1,8 @@
 package com.example.aircareapp.View;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,8 @@ public class SettingFragment extends Fragment {
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,6 +53,8 @@ public class SettingFragment extends Fragment {
                 .build();
 
         gsc = GoogleSignIn.getClient(getActivity(), gso);
+
+        sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
 
         initListener();
 
@@ -85,6 +91,10 @@ public class SettingFragment extends Fragment {
 
                 // Logout UserAccount
                 FirebaseAuth.getInstance().signOut();
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("token");
+                editor.commit();
 
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

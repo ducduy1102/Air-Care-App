@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.aircareapp.MainActivity;
 import com.example.aircareapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -159,17 +160,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void loadWebView(String user, String email, String pass, String repass) {
-        String myURL = "https://uiot.ixxc.dev/auth/realms/master/protocol/openid-connect/auth?client_id=openremote&redirect_uri=https%3A%2F%2Fuiot.ixxc.dev%2Fmanager%2F&state=7b7ef2b3-64c3-4693-ba35-33e412d3c277&response_mode=fragment&response_type=code&scope=openid&nonce=c6011dc3-ac6e-46c3-9378-33fe07ab9bec";
+        String myUrl ="https://uiot.ixxc.dev/auth/realms/master/protocol/openid-connect/auth?client_id=openremote&redirect_uri=https%3A%2F%2Fuiot.ixxc.dev%2Fmanager%2F&state=c19f9e53-887b-46fb-829a-13e3413ac12b&response_mode=fragment&response_type=code&scope=openid&nonce=0147389d-31a1-447b-9083-1f5b447e8d41";
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.removeAllCookies(null);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(myURL);
+        webView.loadUrl(myUrl);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Log.d("Url1", request.getUrl().toString());
                 if (request.getUrl().toString().contains("manager/#state")) {
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);
                     return true;
                 }
@@ -194,8 +195,10 @@ public class RegisterActivity extends AppCompatActivity {
                     String helperText = "document.getElementsByClassName('helper-text')[0].getAttribute('data-error');";
                     String redText = "document.getElementsByClassName('red-text')[1].innerText;";
                     view.evaluateJavascript(helperText, s -> {
+                        Log.d("JavaScriptResult 1", "Result: " + s);
                         if (s.equals("null")) {
                             view.evaluateJavascript(redText, s1 -> {
+                                Log.d("JavaScriptResult 1", "Result: " + s);
                                 if (s1.equals("null")) {
                                     String userField = "document.getElementById('username').value='" + user + "';";
                                     String emailField = "document.getElementById('email').value='" + email + "';";
@@ -206,6 +209,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     view.evaluateJavascript(passField, null);
                                     view.evaluateJavascript(repassField, null);
                                     view.evaluateJavascript("document.getElementsByTagName('form')[0].submit();", null);
+                                    Toast.makeText(RegisterActivity.this, "Singup Successfully", Toast.LENGTH_SHORT).show();
                                 } else {
                                     loadingProgressBar.setVisibility(View.GONE);
                                     Toast.makeText(RegisterActivity.this, "Singup Failed" + s1, Toast.LENGTH_SHORT).show();
@@ -218,25 +222,6 @@ public class RegisterActivity extends AppCompatActivity {
                     });
                 }
             }
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                super.onPageFinished(view, url);
-//                webView.setVisibility(View.GONE);
-//                if (url.contains("openid-connect/registrations")) {
-//
-//                    Log.d("ahihi", "onPageFinished: ");
-//
-//                    String userField = "document.getElementById('username').value='" + user + "';";
-//                    String emailField = "document.getElementById('email').value='" + email + "';";
-//                    String passField = "document.getElementById('password').value='" + pass + "';";
-//                    String repassField = "document.getElementById('password-confirm').value='" + repass + "';";
-//                    view.evaluateJavascript(userField, null);
-//                    view.evaluateJavascript(emailField, null);
-//                    view.evaluateJavascript(passField, null);
-//                    view.evaluateJavascript(repassField, null);
-//                    view.evaluateJavascript("document.getElementsByTagName('form')[0].submit();", null);
-//                }
-//            }
         });
         webView.setWebChromeClient(new WebChromeClient());
     }
