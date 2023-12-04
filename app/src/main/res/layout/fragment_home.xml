@@ -162,6 +162,7 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/tvWeather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thurs"
@@ -171,6 +172,7 @@
                 android:layout_marginTop="30dp"
                 android:gravity="center" />
             <TextView
+                android:id="@+id/tvHumidity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="51-100"
@@ -180,6 +182,7 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
+                android:id="@+id/tvCloud"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="32°"
@@ -190,6 +193,7 @@
                 android:gravity="center" />
 
             <TextView
+                android:id="@+id/tvWindy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="24°"

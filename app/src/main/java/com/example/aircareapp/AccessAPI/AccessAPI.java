@@ -18,7 +18,7 @@ public class AccessAPI {
     }
     public static String getUrlUserCurrent () {
         urlUserCurrent = "https://uiot.ixxc.dev/api/master/asset/user/current";
-//        urlUserID = "https://uiot.ixxc.dev/api/master/asset/7TSscVCYKmONsznsgKRmkH";
+//        urlUserCurrent = "https://uiot.ixxc.dev/api/master/asset/7TSscVCYKmONsznsgKRmkH";
         return urlUserCurrent;
     }
 

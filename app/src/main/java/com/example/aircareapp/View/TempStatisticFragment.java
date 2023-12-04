@@ -46,7 +46,7 @@ public class TempStatisticFragment extends Fragment {
     ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
     XYPlot plot;
     String example = "0";
-    SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.aircareapp/databases/WeatherAsset", null, SQLiteDatabase.OPEN_READWRITE);
+    SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.aircareapp/databases/WeatherAsset.db", null, SQLiteDatabase.OPEN_READWRITE);
     ArrayList<Double> temperatures = new ArrayList<>();
     ArrayList<Double> humidities = new ArrayList<>();
     ArrayList<Double> winds = new ArrayList<>();

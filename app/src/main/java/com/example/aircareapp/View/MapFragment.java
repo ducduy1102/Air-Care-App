@@ -93,9 +93,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
         handleSSLHandshake();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("token", "");
-        Log.d("tokenProfile", token);
+//        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
+//        String token = sharedPreferences.getString("token", "");
+//        Log.d("tokenProfile", token);
 
         RequestQueue mRequestQueue = Volley.newRequestQueue(getActivity());
 
@@ -103,7 +103,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.e("MyResponse",""+ response);
+                        Log.e("MyResponseMap",""+ response);
                         try {
                             jsonOptions = response.getJSONObject("options");
                             jsonDefault = jsonOptions.getJSONObject("default");
@@ -124,15 +124,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                         @Override
                                         public void onResponse(JSONArray response) {
                                             Log.e("MyResponseUserCurrent",""+ response);
-                                            for (int i = 0; i < 84; i ++) {
+                                            for (int i = 2; i < 3; i ++) {
                                                 try {
                                                     JSONObject jsonObject = new JSONObject(String.valueOf(response.get(i)));
+                                                    Log.e("MyResponsejsonObject",""+ jsonObject);
+
                                                     JSONObject jsonObjectAttributes = jsonObject.getJSONObject("attributes");
                                                     JSONObject jsonObjectLocation = jsonObjectAttributes.getJSONObject("location");
                                                     JSONObject jsonObjectValue = jsonObjectLocation.getJSONObject("value");
                                                     assetBounds = jsonObjectValue.getJSONArray("coordinates");
+                                                    Log.e("MyTest",""+ assetBounds );
 
                                                     String nameMarker = jsonObject.getString("name");
+                                                    Log.e("nameMarker","nameMarker"+ nameMarker);
 
                                                     if (String.valueOf(assetBounds).isEmpty()) {
                                                     }
@@ -153,14 +157,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                 public boolean onMarkerClick(Marker marker) {
 
                                                     String tempName = marker.getTitle();
-                                                    for (index = 0; index < 84; index ++) {
+                                                    Log.d("tempName", "onMarkerClick: " + tempName);
+                                                    for (index = 2; index < 3; index ++) {
                                                         try {
                                                             JSONObject jsonObject = new JSONObject(String.valueOf(response.get(index)));
+                                                            Log.e("MyResponsejsonObject2",""+ jsonObject);
 
                                                             JSONObject jsonObjectAttributes = jsonObject.getJSONObject("attributes");
                                                             JSONObject jsonObjectLocation = jsonObjectAttributes.getJSONObject("location");
 
-                                                            String nameMarker = jsonObject.getString("name");
+//                                                            String nameMarker = jsonObject.getString("name");
+                                                            String nameMarker = "Trường Đại Học Công Nghệ Thông Tin";
+                                                            Log.d("onMarkerClick22", "onMarkerClick: " + nameMarker);
 
                                                             if (tempName.equals(nameMarker) == true) {
                                                                 View viewDialog= getLayoutInflater().inflate(R.layout.layout_bottom_sheet, null);
@@ -170,10 +178,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                                                                 TextView tvNameAsset = viewDialog.findViewById(R.id.tvNameAsset);
                                                                 tvNameAsset.setText(nameMarker);
+                                                                Log.d("tvNameAsset", "tvNameAsset: " + tvNameAsset);
+
 
                                                                 String ID = jsonObject.getString("id");
                                                                 TextView tvID = viewDialog.findViewById(R.id.tvID);
                                                                 tvID.setText(ID);
+                                                                Log.d("tvID", "onMarkerClick: " + ID);
+
 
                                                                 String version = jsonObject.getString("version");
                                                                 TextView tvVersion = viewDialog.findViewById(R.id.tvVersion);
@@ -193,6 +205,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
 
                                                                 JSONObject jsonObjectWeatherData = jsonObjectAttributes.getJSONObject("weatherData");
+                                                                Log.d("jsonObjectWeatherData", "jsonObjectWeatherData: " + jsonObjectWeatherData);
+
                                                                 JSONObject jsonObjectValue = jsonObjectWeatherData.getJSONObject("value");
                                                                 JSONObject jsonObjectMain = jsonObjectValue.getJSONObject("main");
                                                                 JSONObject jsonObjectWind = jsonObjectValue.getJSONObject("wind");
@@ -227,12 +241,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                                         bottomSheetDialog.dismiss();
                                                                         AqiAssetFragment weatherAssetFragment = new AqiAssetFragment();
                                                                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                                                        transaction.replace(R.id.mapFragment, weatherAssetFragment);
+                                                                        transaction.replace(R.id.mainActivity, weatherAssetFragment, "fragDetails");
                                                                         transaction.addToBackStack(null);
                                                                         transaction.commit();
+
+//                                                                        ProfileFragment profileFragment = new ProfileFragment();
+//                                                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                                                                        transaction.replace(R.id.mainActivity, profileFragment, "fragProfile");
+//                                                                        transaction.addToBackStack(null);
+//                                                                        transaction.commit();
                                                                     }
                                                                 });
                                                             }
+
 
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();

@@ -37,13 +37,13 @@ public class StatisticFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewPagerStatistic);
         navigationView = view.findViewById(R.id.bottomNavStatistic);
 
-//        setUpViewPager();
+        setUpViewPager();
 
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        navigationView = view.findViewById(R.id.bottomNavigationView);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, new HomeFragment()).commit();
-        navigationView.setSelectedItemId(R.id.action_temperature);
+//        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//
+//        navigationView = view.findViewById(R.id.bottomNavigationView);
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, new HomeFragment()).commit();
+//        navigationView.setSelectedItemId(R.id.action_temperature);
 
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
