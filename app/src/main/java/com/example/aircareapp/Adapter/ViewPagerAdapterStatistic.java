@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.aircareapp.View.HumidityStatictisFragment;
+import com.example.aircareapp.View.HumidityStatisticFragment;
 import com.example.aircareapp.View.TempStatisticFragment;
 import com.example.aircareapp.View.WindStatisticFragment;
 
@@ -22,7 +22,7 @@ public class ViewPagerAdapterStatistic extends FragmentStatePagerAdapter {
             case 0:
                 return new TempStatisticFragment();
             case 1:
-                return new HumidityStatictisFragment();
+                return new HumidityStatisticFragment();
             case 2:
                 return new WindStatisticFragment();
             default:

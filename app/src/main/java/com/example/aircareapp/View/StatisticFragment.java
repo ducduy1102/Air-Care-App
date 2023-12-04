@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.example.aircareapp.Adapter.ViewPagerAdapterStatistic;
 import com.example.aircareapp.R;
@@ -53,22 +54,40 @@ private BottomNavigationView navigationView;
 
         setUpViewPager();
 
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//
+//        bottomNav = findViewById(R.id.bottomNavigationView);
+//        getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, new HomeFragment()).commit();
+//        bottomNav.setSelectedItemId(R.id.action_temperature);
+
         //set các lựa chọn fragment vô các vị trí
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                int id = item.getItemId();
+//                switch(id){
+//                    case R.id.action_temperature:
+//                        viewPager.setCurrentItem(0);
+//                        break;
+//                    case R.id.action_humidity:
+//                        viewPager.setCurrentItem(1);
+//                        break;
+//                    case R.id.action_windy:
+//                        viewPager.setCurrentItem(2);
+//                        break;
+//                }
+//                return true;
+
                 int id = item.getItemId();
-                switch(id){
-                    case R.id.action_temperature:
-                        viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.action_humidity:
-                        viewPager.setCurrentItem(1);
-                        break;
-                    case R.id.action_windy:
-                        viewPager.setCurrentItem(2);
-                        break;
+                Fragment fragment = null;
+                if(id == R.id.action_temperature){
+                    fragment = new HomeFragment();
+                } else if(id == R.id.action_humidity){
+                    fragment = new MapFragment();
+                } else if(id == R.id.action_windy){
+                    fragment = new SettingFragment();
                 }
+//                getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, fragment).commit();
                 return true;
             }
         });
@@ -78,7 +97,6 @@ private BottomNavigationView navigationView;
         ViewPagerAdapterStatistic viewPagerAdapter = new ViewPagerAdapterStatistic(getActivity().getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);
 
-        // hiệu ứng kéo các fragment để các menu bên dưới có thể chuyển đổi theo
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
