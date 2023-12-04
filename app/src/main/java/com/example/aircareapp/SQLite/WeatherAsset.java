@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class WeatherAsset extends SQLiteOpenHelper {
-    public static final String DBName = "WeatherAsset";
+    public static final String DBName = "WeatherAsset.db";
     public static final int DBVersion = 1;
 
     public WeatherAsset(Context context) {

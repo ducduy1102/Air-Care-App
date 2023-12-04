@@ -5,14 +5,13 @@ import static com.example.aircareapp.SSLHandle.SSLHandle.handleSSLHandshake;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -37,7 +36,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class HumidityStatisticFragment extends Fragment {
-
     RequestQueue mRequestQueue;
     JsonObjectRequest jsonObjectRequest;
     JsonArrayRequest jsonArrayRequest;
@@ -45,7 +43,7 @@ public class HumidityStatisticFragment extends Fragment {
     ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
     XYPlot plot;
     String example = "0";
-    SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.aircareapp/databases/WeatherAsset", null, SQLiteDatabase.OPEN_READWRITE);
+    SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.aircareapp/databases/WeatherAsset.db", null, SQLiteDatabase.OPEN_READWRITE);
     ArrayList<Double> temperatures = new ArrayList<>();
     ArrayList<Double> humidities = new ArrayList<>();
     ArrayList<Double> winds = new ArrayList<>();
@@ -90,7 +88,7 @@ public class HumidityStatisticFragment extends Fragment {
 
         LineAndPointFormatter series1Format =
                 new LineAndPointFormatter(getActivity(), R.xml.line_point_formatter_with_labels);
-
+        new LineAndPointFormatter(getActivity(), R.xml.backup_rules);
         series1Format.setInterpolationParams(
                 new CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Centripetal));
 

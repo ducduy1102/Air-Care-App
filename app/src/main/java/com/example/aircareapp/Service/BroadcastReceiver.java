@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.aircareapp.AccessAPI.AccessAPI;
+import com.example.aircareapp.SQLite.DBHelper;
 import com.example.aircareapp.SQLite.WeatherAsset;
 
 import org.json.JSONArray;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BroadcastReceiver extends android.content.BroadcastReceiver {
+
     JsonArrayRequest jsonArrayRequest;
     JSONArray assetBounds;
     int Count = 0;
@@ -42,7 +44,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
             if (isNetworkAvailable(context)) {
                 //Create Database
                 WeatherAsset weatherAsset = new WeatherAsset(context);
-
+//                weatherAsset.QueryData("CREATE TABLE IF NOT EXISTS WeatherAsset(temperature char, humidity integer, wind char, time char)");
                 handleSSLHandshake();
                 RequestQueue aRequestQueue = Volley.newRequestQueue(context);
 
@@ -79,7 +81,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
                                                 String formatDays = simpleDateFormat1.format(date1);
                                                 Log.e("Days",formatDays );
 
-                                                weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES("+temp+","+humidity+","+speed+","+time+")");
+                                                weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('"+temp+"','"+humidity+"','"+speed+"','"+time+"')");
 
                                             }
 

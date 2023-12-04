@@ -1,66 +1,115 @@
 package com.example.aircareapp.View;
 
+import static com.example.aircareapp.SSLHandle.SSLHandle.handleSSLHandshake;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.androidplot.xy.CatmullRomInterpolator;
+import com.androidplot.xy.LineAndPointFormatter;
+import com.androidplot.xy.SimpleXYSeries;
+import com.androidplot.xy.XYGraphWidget;
+import com.androidplot.xy.XYPlot;
+import com.androidplot.xy.XYSeries;
 import com.example.aircareapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TempStatisticFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class TempStatisticFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    RequestQueue mRequestQueue;
+    JsonObjectRequest jsonObjectRequest;
+    JsonArrayRequest jsonArrayRequest;
+    JSONArray assetBounds;
+    ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
+    XYPlot plot;
+    String example = "0";
+    SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.aircareapp/databases/WeatherAsset", null, SQLiteDatabase.OPEN_READWRITE);
+    ArrayList<Double> temperatures = new ArrayList<>();
+    ArrayList<Double> humidities = new ArrayList<>();
+    ArrayList<Double> winds = new ArrayList<>();
+    ArrayList<String> times = new ArrayList<>();
+    ArrayList<String> timesCheck = new ArrayList<>();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public TempStatisticFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TempStatisticFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TempStatisticFragment newInstance(String param1, String param2) {
-        TempStatisticFragment fragment = new TempStatisticFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_temp_statistic, container, false);
+        return view;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        plot = (XYPlot) view.findViewById(R.id.plot1);
+        handleSSLHandshake();
+        mRequestQueue = Volley.newRequestQueue(getActivity());
+
+        Cursor cursor = db.rawQuery("SELECT * FROM WeatherAsset", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Long time = cursor.getLong(3);
+            long l1 = time;
+            Date date1 = new Date(l1*1000L);
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd-MM");
+            String formatDays = simpleDateFormat1.format(date1);
+            if (formatDays.equals(example) == false) {
+                temperatures.add(cursor.getDouble(0));
+                humidities.add(cursor.getDouble(1));
+                winds.add(cursor.getDouble(2));
+                times.add(formatDays);
+                example = formatDays;
+            }
+            cursor.moveToNext();
         }
-    }
+        cursor.close();
+        Log.e("times", String.valueOf(times));
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_temp_statistic, container, false);
+        XYSeries series1 = new SimpleXYSeries(
+                temperatures, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, null);
+
+        LineAndPointFormatter series1Format =
+                new LineAndPointFormatter(getActivity(), R.xml.line_point_formatter_with_labels);
+
+        series1Format.setInterpolationParams(
+                new CatmullRomInterpolator.Params(10, CatmullRomInterpolator.Type.Centripetal));
+
+        plot.addSeries(series1, series1Format);
+
+        plot.getGraph().getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).setFormat(new Format() {
+            @Override
+            public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+
+                int i = Math.round(((Number) obj).floatValue());
+                return toAppendTo.append(times.get(i));
+            }
+            @Override
+            public Object parseObject(String source, ParsePosition pos) {
+                return null;
+            }
+        });
     }
 }

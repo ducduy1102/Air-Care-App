@@ -1,4 +1,4 @@
-package com.example.aircareapp.Model;
+package com.example.aircareapp.SQLite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

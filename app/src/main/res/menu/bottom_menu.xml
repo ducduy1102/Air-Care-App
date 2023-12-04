@@ -12,7 +12,7 @@
         android:icon="@drawable/ic_map"/>
 
     <item
-        android:id="@+id/action_history"
+        android:id="@+id/action_statistic"
         android:title="History"
         android:icon="@drawable/ic_signal_cellular_alt"/>
 

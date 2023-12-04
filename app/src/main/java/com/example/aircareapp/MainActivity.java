@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import com.example.aircareapp.Service.BroadcastReceiver;
 import com.example.aircareapp.View.StatisticFragment;
 import com.example.aircareapp.View.HomeFragment;
 import com.example.aircareapp.View.MapFragment;
@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        broadcastReceiver = new BroadcastReceiver();
 
 //        broadcastReceiver = new BroadcastReceiver();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new HomeFragment();
                 } else if(id == R.id.action_map){
                     fragment = new MapFragment();
-                } else if(id == R.id.action_history){
+                } else if(id == R.id.action_statistic){
                     fragment = new StatisticFragment();
                 } else if(id == R.id.action_setting){
                     fragment = new SettingFragment();
