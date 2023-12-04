@@ -43,7 +43,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
         if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
             if (isNetworkAvailable(context)) {
                 //Create Database
-                WeatherAsset weatherAsset = new WeatherAsset(context);
+//                WeatherAsset weatherAsset = new WeatherAsset(context);
 //                weatherAsset.QueryData("CREATE TABLE IF NOT EXISTS WeatherAsset(temperature char, humidity integer, wind char, time char)");
                 handleSSLHandshake();
                 RequestQueue aRequestQueue = Volley.newRequestQueue(context);
@@ -52,7 +52,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
                         new Response.Listener<JSONArray>() {
                             @Override
                             public void onResponse(JSONArray response) {
-                                Log.e("MyResponseData",""+ response);
+                                Log.e("MyResponseData2222",""+ response);
                                 for (int i = 0; i < 84; i ++) {
                                     try {
                                         JSONObject jsonObject = new JSONObject(String.valueOf(response.get(i)));
@@ -64,6 +64,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
                                         JSONObject jsonObjectMain = jsonObjectValueWeather.getJSONObject("main");
                                         JSONObject jsonObjectWind = jsonObjectValueWeather.getJSONObject("wind");
                                         assetBounds = jsonObjectValue.getJSONArray("coordinates");
+                                        Log.e("MyResponseassetBounds",""+ assetBounds);
 
                                         if (String.valueOf(assetBounds).isEmpty()) {
                                         }
@@ -81,7 +82,7 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
                                                 String formatDays = simpleDateFormat1.format(date1);
                                                 Log.e("Days",formatDays );
 
-                                                weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('"+temp+"','"+humidity+"','"+speed+"','"+time+"')");
+//                                                weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('"+temp+"','"+humidity+"','"+speed+"','"+time+"')");
 
                                             }
 
@@ -109,8 +110,8 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
                     }
                 };
                 aRequestQueue.add(jsonArrayRequest);
-                SQLiteDatabase database = weatherAsset.getReadableDatabase();
-                database.close();
+//                SQLiteDatabase database = weatherAsset.getReadableDatabase();
+//                database.close();
 
             } else {
                 //Toast.makeText(context, "No Connect Internet", Toast.LENGTH_SHORT).show();
