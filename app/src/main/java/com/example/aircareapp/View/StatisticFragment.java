@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.aircareapp.R;
 
-public class HistoryFragment extends Fragment {
+public class StatisticFragment extends Fragment {
 
     @Nullable
     @Override

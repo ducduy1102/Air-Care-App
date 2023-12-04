@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.example.aircareapp.View.HistoryFragment;
+import com.example.aircareapp.View.StatisticFragment;
 import com.example.aircareapp.View.HomeFragment;
 import com.example.aircareapp.View.MapFragment;
 import com.example.aircareapp.View.SettingFragment;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if(id == R.id.action_map){
                     fragment = new MapFragment();
                 } else if(id == R.id.action_history){
-                    fragment = new HistoryFragment();
+                    fragment = new StatisticFragment();
                 } else if(id == R.id.action_setting){
                     fragment = new SettingFragment();
                 }
@@ -56,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-//        registerReceiver(broadcastReceiver, intentFilter);
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(broadcastReceiver);
     }
 }
