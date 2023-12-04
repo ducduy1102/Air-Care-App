@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:id="@+id/statisticFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/statisticFragment"
-    tools:context=".View.StatisticFragment">
-<!--    tools:context=".MainActivity">-->
+    android:background="@color/white"
+    tools:context=".MainActivity">
+    <!--    tools:context=".View.StatisticFragment">-->
 
 
     <androidx.viewpager.widget.ViewPager
@@ -15,17 +15,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/bottomNavStatistic"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavStatistic"
-        android:background="@drawable/bg_menu_statistic"
-        app:itemIconTint="@color/custom_color_bottom_nav_statistic"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu_statistic"
-        app:itemTextColor="@color/custom_color_bottom_nav_statistic" />
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_menu_statistic"
+        app:itemIconTint="@color/custom_color_bottom_nav_statistic"
+        app:itemTextColor="@color/custom_color_bottom_nav_statistic"
+        app:menu="@menu/menu_statistic" />
 
 </RelativeLayout>

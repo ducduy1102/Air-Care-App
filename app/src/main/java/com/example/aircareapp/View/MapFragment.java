@@ -124,7 +124,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                         @Override
                                         public void onResponse(JSONArray response) {
                                             Log.e("MyResponseUserCurrent",""+ response);
-                                            for (int i = 2; i < 3; i ++) {
+                                            for (int i = 2; i < 4; i ++) {
                                                 try {
                                                     JSONObject jsonObject = new JSONObject(String.valueOf(response.get(i)));
                                                     Log.e("MyResponsejsonObject",""+ jsonObject);
@@ -158,7 +158,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                                                     String tempName = marker.getTitle();
                                                     Log.d("tempName", "onMarkerClick: " + tempName);
-                                                    for (index = 2; index < 3; index ++) {
+                                                    for (index = 2; index < 4; index ++) {
                                                         try {
                                                             JSONObject jsonObject = new JSONObject(String.valueOf(response.get(index)));
                                                             Log.e("MyResponsejsonObject2",""+ jsonObject);
@@ -198,6 +198,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                                 String formatDays = simpleDateFormat1.format(date1);
                                                                 TextView tvCreatedOn = viewDialog.findViewById(R.id.tvCreatedOn);
                                                                 tvCreatedOn.setText(formatDays);
+                                                                Log.d("tvCreatedOn", "tvCreatedOn: " + tvCreatedOn);
+
 
                                                                 String type = jsonObject.getString("type");
                                                                 TextView tvType = viewDialog.findViewById(R.id.tvType);
@@ -241,7 +243,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                                         bottomSheetDialog.dismiss();
                                                                         AqiAssetFragment weatherAssetFragment = new AqiAssetFragment();
                                                                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                                                        transaction.replace(R.id.mainActivity, weatherAssetFragment, "fragDetails");
+                                                                        transaction.replace(R.id.mapFragment, weatherAssetFragment, "fragDetails");
                                                                         transaction.addToBackStack(null);
                                                                         transaction.commit();
 
@@ -282,6 +284,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UIT, (float) maxZoom - 2));
                                                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(UIT, (float)maxZoom - 2));
                                                 googleMap.setLatLngBoundsForCameraTarget(UITBounds);
+
+
+                                                googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870464609989156,106.80273973945748
+                                                )).title("Weather Asset"));
+                                                googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870537960015568, 106.80390988702072
+                                                )).title("Weather Asset 2"));
+                                                googleMap.addMarker(new MarkerOptions().position(new LatLng(10.869792504441904, 106.80308672274282
+                                                )).title("Weather Asset 3"));
+
                                             } catch (JSONException e) {
                                                 Log.e("MyErrorLoadMakerMap", "" + e);
                                             }

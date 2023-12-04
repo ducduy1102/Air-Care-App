@@ -40,38 +40,23 @@ public class StatisticFragment extends Fragment {
         setUpViewPager();
 
 //        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//
-//        navigationView = view.findViewById(R.id.bottomNavigationView);
-//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, new HomeFragment()).commit();
+//        navigationView = view.findViewById(R.id.bottomNavStatistic);
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.statisticFragment, new TempStatisticFragment()).commit();
 //        navigationView.setSelectedItemId(R.id.action_temperature);
 
         navigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                int id = item.getItemId();
-//                switch(id){
-//                    case R.id.action_temperature:
-//                        viewPager.setCurrentItem(0);
-//                        break;
-//                    case R.id.action_humidity:
-//                        viewPager.setCurrentItem(1);
-//                        break;
-//                    case R.id.action_windy:
-//                        viewPager.setCurrentItem(2);
-//                        break;
-//                }
-//                return true;
-
                 int id = item.getItemId();
                 Fragment fragment = null;
                 if (id == R.id.action_temperature) {
-                    fragment = new HomeFragment();
+                    fragment = new TempStatisticFragment();
                 } else if (id == R.id.action_humidity) {
-                    fragment = new MapFragment();
+                    fragment = new HumidityStatisticFragment();
                 } else if (id == R.id.action_windy) {
-                    fragment = new SettingFragment();
+                    fragment = new WindStatisticFragment();
                 }
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, fragment).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.statisticFragment, fragment).commit();
                 return true;
             }
         });
@@ -87,7 +72,6 @@ public class StatisticFragment extends Fragment {
 
             }
 
-            // set  các fragment vào đúng các con số menu để hiệu ứng chuyển đổi diễn ra đúng
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
