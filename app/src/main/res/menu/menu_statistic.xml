@@ -16,4 +16,16 @@
         android:icon="@drawable/ic_air"
         android:title="Wind"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_pm10"
+        android:icon="@drawable/ic_pm10"
+        android:title="PM10"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_pm25"
+        android:icon="@drawable/ic_pm25"
+        android:title="PM25"
+        app:showAsAction="never"/>
 </menu>

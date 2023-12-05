@@ -2,9 +2,11 @@ package com.example.aircareapp.View;
 
 import static com.example.aircareapp.SSLHandle.SSLHandle.handleSSLHandshake;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.androidplot.xy.CatmullRomInterpolator;
 import com.androidplot.xy.LineAndPointFormatter;
+import com.androidplot.xy.PanZoom;
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYGraphWidget;
 import com.androidplot.xy.XYPlot;
@@ -30,6 +33,7 @@ import org.json.JSONObject;
 
 import java.text.FieldPosition;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,12 +41,7 @@ import java.util.Date;
 
 public class HumidityStatisticFragment extends Fragment {
     RequestQueue mRequestQueue;
-    JsonObjectRequest jsonObjectRequest;
-    JsonArrayRequest jsonArrayRequest;
-    JSONArray assetBounds;
-    ArrayList<JSONObject> arr = new ArrayList<JSONObject>();
     XYPlot plot;
-    String example = "0";
     SQLiteDatabase db = SQLiteDatabase.openDatabase("/data/data/com.example.aircareapp/databases/WeatherAsset.db", null, SQLiteDatabase.OPEN_READWRITE);
     ArrayList<Double> temperatures = new ArrayList<>();
     ArrayList<Double> humidities = new ArrayList<>();
@@ -63,28 +62,29 @@ public class HumidityStatisticFragment extends Fragment {
         plot = (XYPlot) view.findViewById(R.id.plot2);
         handleSSLHandshake();
         mRequestQueue = Volley.newRequestQueue(getActivity());
-
         Cursor cursor = db.rawQuery("SELECT * FROM WeatherAsset", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Long time = cursor.getLong(3);
-            long l1 = time;
-            Date date1 = new Date(l1*1000L);
-            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd-MM");
-            String formatDays = simpleDateFormat1.format(date1);
-            if (formatDays.equals(example) == false) {
+            @SuppressLint("Range") String dateString = cursor.getString(cursor.getColumnIndex("time"));
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-dd-MM");
+            Date date = null;
+            try {
+                date = inputFormat.parse(dateString);
+                SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM");
+                String formattedDate =  outputFormat.format(date);
                 temperatures.add(cursor.getDouble(0));
                 humidities.add(cursor.getDouble(1));
                 winds.add(cursor.getDouble(2));
-                times.add(formatDays);
-                example = formatDays;
+                times.add(formattedDate);
+                cursor.moveToNext();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
-            cursor.moveToNext();
         }
         cursor.close();
 
         XYSeries series1 = new SimpleXYSeries(
-                humidities, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, null);
+                humidities, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Humidity (%)");
 
         LineAndPointFormatter series1Format =
                 new LineAndPointFormatter(getActivity(), R.xml.line_point_formatter_with_labels);
@@ -105,5 +105,6 @@ public class HumidityStatisticFragment extends Fragment {
                 return null;
             }
         });
+        PanZoom.attach(plot);
     }
 }

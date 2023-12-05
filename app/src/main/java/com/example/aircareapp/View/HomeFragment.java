@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.aircareapp.AccessAPI.AccessAPI;
 import com.example.aircareapp.R;
 import com.example.aircareapp.SQLite.WeatherAsset;
 import com.google.firebase.auth.FirebaseAuth;
@@ -85,7 +86,7 @@ public class HomeFragment extends Fragment {
     public void GetCurrentWeatherData () {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         String url = "https://api.openweathermap.org/data/2.5/weather?q=Saigon&units=metric&appid=2cd54a866e6c50acd7951f230be4b369";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AccessAPI.getUrlGoogleWeather(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -100,25 +101,25 @@ public class HomeFragment extends Fragment {
                             String strTemp = jsonObjectMain.getString("temp");
                             Double a = Double.valueOf(strTemp);
                             String temp = String.valueOf(a.intValue());
-                            Log.e("MyRespond Temp",temp);
+//                            Log.e("MyRespond Temp",strTemp);
                             tvWeather.setText(temp + "°");
 
                             //get and set humidity
                             String humidity = jsonObjectMain.getString("humidity");
-                            Log.e("MyRespond humidity",humidity);
+//                            Log.e("MyRespond humidity",humidity);
                             tvHumidity.setText(humidity + "%");
 
                             //get and set cloud
                             String cloud = jsonObjectCloud.getString("all");
-                            Log.e("MyRespond Cloud",cloud);
+//                            Log.e("MyRespond Cloud",cloud);
                             tvCloud.setText(cloud + "%");
 
                             //get and set windy
                             String strWindy = jsonObjectWind.getString("speed");
-                            Double b = Double.valueOf(strWindy);
-                            String windy = String.valueOf(b.intValue());
-                            Log.e("MyRespond Windy",windy);
-                            tvWindy.setText(windy + "m/s");
+//                            Double b = Double.valueOf(strWindy);
+//                            String windy = String.valueOf(b.intValue());
+//                            Log.e("MyRespond Windy",strWindy);
+                            tvWindy.setText(strWindy + "m/s");
 
 
 

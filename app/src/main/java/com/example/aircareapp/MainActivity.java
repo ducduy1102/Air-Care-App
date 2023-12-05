@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver, intentFilter);
+//        unregisterReceiver(broadcastReceiver);
     }
 
     @Override

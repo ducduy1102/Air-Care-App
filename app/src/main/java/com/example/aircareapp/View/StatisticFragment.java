@@ -55,6 +55,10 @@ public class StatisticFragment extends Fragment {
                     fragment = new HumidityStatisticFragment();
                 } else if (id == R.id.action_windy) {
                     fragment = new WindStatisticFragment();
+                } else if (id == R.id.action_pm10) {
+                    fragment = new Pm10StatisticFragment();
+                } else if (id == R.id.action_pm25) {
+                    fragment = new Pm25StatisticFragment();
                 }
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.statisticFragment, fragment).commit();
                 return true;
@@ -83,6 +87,12 @@ public class StatisticFragment extends Fragment {
                         break;
                     case 2:
                         navigationView.getMenu().findItem(R.id.action_windy).setChecked(true);
+                        break;
+                    case 3:
+                        navigationView.getMenu().findItem(R.id.action_pm10).setChecked(true);
+                        break;
+                    case 4:
+                        navigationView.getMenu().findItem(R.id.action_pm25).setChecked(true);
                         break;
                 }
             }

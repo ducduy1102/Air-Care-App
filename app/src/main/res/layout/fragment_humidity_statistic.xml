@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ap="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_marginTop="100dp"
+    android:layout_marginBottom="83dp">
 
-    <com.androidplot.xy.XYPlot
-        style="@style/APDefacto.Light"
-        android:id="@+id/plot2"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        ap:title="Wind Speed"
-        ap:lineLabelRotationBottom="-45"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.androidplot.xy.XYPlot
+            android:id="@+id/plot2"
+            style="@style/APDefacto.Light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ap:domainTitle="Time"
+            ap:domainTitleTextSize="16sp"
+            ap:graphMarginBottom="40dp"
+            ap:lineLabelRotationBottom="-45"
+            ap:rangeTitle="Humidity (%)"
+            ap:rangeTitleTextSize="16sp"
+            ap:titleTextSize="18sp" />
+
+        <TextView
+            android:id="@+id/domainLabelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/plot2"
+            android:text="Time"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
 </LinearLayout>

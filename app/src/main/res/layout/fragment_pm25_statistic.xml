@@ -11,14 +11,14 @@
         android:layout_height="match_parent">
 
         <com.androidplot.xy.XYPlot
-            android:id="@+id/plot3"
+            android:id="@+id/plot5"
             style="@style/APDefacto.Light"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             ap:domainTitle="Time"
             ap:domainTitleTextSize="16sp"
             ap:lineLabelRotationBottom="-45"
-            ap:rangeTitle="Wind Speed (m/s)"
+            ap:rangeTitle="PM25 (µg/m³)"
             ap:rangeTitleTextSize="16sp"
             ap:titleTextSize="18sp" />
 
@@ -26,7 +26,7 @@
             android:id="@+id/domainLabelTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/plot3"
+            android:layout_below="@id/plot5"
             android:text="Time"
             android:textSize="18sp" />
 

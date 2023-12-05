@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
-    <!--    tools:context=".View.StatisticFragment">-->
+    tools:context=".View.StatisticFragment">
+    <!--    tools:context=".MainActivity">-->
 
 
     <androidx.viewpager.widget.ViewPager
@@ -15,14 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/bottomNavStatistic"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="80dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavStatistic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/bg_menu_statistic"
         app:itemIconTint="@color/custom_color_bottom_nav_statistic"
         app:itemTextColor="@color/custom_color_bottom_nav_statistic"

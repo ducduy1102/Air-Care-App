@@ -158,8 +158,6 @@ public class TokenManager {
         queue = Volley.newRequestQueue(context.getApplicationContext());
         this.refreshToken = refreshToken;
     }
-
-
     public void makeRequest(String url, final TokenRequestCallback callback) {
         if (isTokenExpired()) {
             refreshToken(callback);
