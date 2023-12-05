@@ -21,8 +21,6 @@ public class AqiAssetFragment extends Fragment {
 
     ListView listView;
     static ArrayList<ItemsDetail> arrayList;
-    DetailAssetAdapter detailAssetAdapter;
-    MapFragment mapFragment;
     DetailAssetAdapter adapter;
 
     @Override

@@ -20,5 +20,8 @@
     <color name="red">#F66868</color>
 
     <color name="grey">#909497</color>
+
+    <color name="colorDetailIcon">#f7fad6</color>
+    <color name="colorDetailTitle">#f7f2c0</color>
     <color name="silver">#C0C0C0</color>
 </resources>

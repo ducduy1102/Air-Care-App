@@ -13,7 +13,7 @@
         android:id="@+id/imgIconApp"
         android:layout_width="126dp"
         android:layout_height="109dp"
-        android:src="@drawable/icon_load_app" />
+        android:src="@drawable/ic_load_app" />
 
     <LinearLayout
         android:layout_marginTop="8dp"

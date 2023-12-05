@@ -419,7 +419,7 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="50dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_temperature"
+                android:src="@drawable/ic_temperature_color"
                 app:civ_border_width="3dp"
                 app:civ_border_color="@color/hs_green"
                 android:layout_marginStart="30dp"

@@ -3,17 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.AqiAssetFragment"
-    android:background="@color/light_green">
+    tools:context=".View.AqiAssetFragment">
+<!--    android:background="@color/light_green">-->
 
     <RelativeLayout
         android:layout_width="180dp"
-        android:layout_height="match_parent"
-        android:background="@color/light_green_more"/>
+        android:layout_height="match_parent"/>
+<!--        android:background="@color/light_green_more"/>-->
     <ListView
         android:id="@+id/lvItemDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80dp">
 
     </ListView>
 </RelativeLayout>
