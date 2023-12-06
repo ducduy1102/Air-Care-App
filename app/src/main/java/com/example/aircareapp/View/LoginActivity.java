@@ -119,8 +119,6 @@ public class LoginActivity extends AppCompatActivity {
         gsc = GoogleSignIn.getClient(this, gso);
 
         initListener();
-<<<<<<< HEAD
-=======
 
         // Bắt đầu code get api
         handleSSLHandshake();
@@ -182,7 +180,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         mRequestQueue.add(jsonObjectRequest);
->>>>>>> 11bceca89e1956d640512e52e0997f90104762cc
     }
 
     private void initListener() {
