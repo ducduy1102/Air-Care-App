@@ -17,7 +17,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Weather Asset Detail"/>
+        android:text="Asset Details"/>
 
     <ListView
         android:id="@+id/lvItemDetail"

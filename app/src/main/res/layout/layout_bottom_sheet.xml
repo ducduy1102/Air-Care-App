@@ -28,6 +28,7 @@
         android:layout_marginBottom="5dp">
 
         <TextView
+            android:id="@+id/tvTitle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ID"
@@ -52,6 +53,7 @@
         android:layout_marginVertical="5dp">
 
         <TextView
+            android:id="@+id/tvTitle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Version"
@@ -76,6 +78,7 @@
         android:layout_marginVertical="5dp">
 
         <TextView
+            android:id="@+id/tvTitle3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Type"
@@ -100,6 +103,7 @@
         android:layout_marginVertical="5dp">
 
         <TextView
+            android:id="@+id/tvTitle4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Created On"

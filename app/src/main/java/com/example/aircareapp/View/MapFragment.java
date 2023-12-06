@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.aircareapp.AccessAPI.AccessAPI;
@@ -48,22 +49,25 @@ import java.util.Map;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
-    private int humidity, pressure;
+    private int humidity, pressure, valueBrightness2, valueColourTemperature2, aqi, aqiPredict;
     private long sunriseTimestamp, sunsetTimestamp;
     private double temp, temp_max, temp_min, feels_like, speed, all;
-    private TextView tvNameAsset, tvID, tvVersion, tvCreatedOn, tvType;
-    private JsonObjectRequest jsonObjectRequest, jsonObjectAssetRequest, jsonObjectAsset2Request;
+    private TextView tvNameAsset, tvID, tvVersion, tvCreatedOn, tvType, tvTitle2, tvTitle3;
+    private JsonObjectRequest jsonObjectRequest, jsonObjectAssetRequest, jsonObjectAsset2Request, jsonObjectAsset3Request;
     private JSONObject jsonOptions, jsonDefault, jsonObjectWeatherData, jsonObjectValue, jsonObjectMain, jsonObjectWind, jsonObjectSys, jsonObjectCloud,
-            jsonObjectAttributes, jsonObjectRequestQueryParameters, jsonObjectLocation, jsonObjectBrightness, jsonObjectColourTemperature, jsonObjectEmail;
-    private JSONArray center, bounds, assetBounds1, assetBounds2, jsonObjectCoordinates;
-    private double zoom, maxZoom, minZoom;
+            jsonObjectAttributes, jsonObjectRequestQueryParameters, jsonObjectAttributes2, jsonObjectLocation2, jsonObjectValue2, jsonObjectBrightness2, jsonObjectColourTemperature2, jsonObjectEmail2,
+            jsonObjectAttributes3, jsonObjectPM25, jsonObjectPM10, jsonObjectCO2, jsonObjectHumidity, jsonObjectAQI, jsonObjectAQIPredict, jsonObjectAssetUser, jsonObjectId;
+    private JSONArray center, bounds, assetBounds1, assetBounds2, jsonObjectCoordinates2;
+    private JsonArrayRequest jsonArrayAssetUser;
+    private double zoom, maxZoom, minZoom, pm25, pm10, C02;
     private boolean boxZoom;
     private Date sunriseDate, sunsetDate;
-    private String geocodeUrl, sunrise, sunset, ID, version, createdOn, formatDays, type, nameMarker;
+    private String geocodeUrl, sunrise, sunset, ID, version, createdOn, formatDays, type, nameMarker1, nameMarker2, ID2, version2, createdOn2, formatDays2, type2,
+            email2, nameMarkerAssetUser, createdOnAssetUser, assetName, parentAssetName,userFullName, idAssetUser, user1, user2, user3, user4, user5;
     private View viewDialog;
     private Button btnDetail;
     private BottomSheetDialog bottomSheetDialog;
-    private RequestQueue mapRequestQueue, asset1RequestQueue, asset2RequestQueue;
+    private RequestQueue mapRequestQueue, asset1RequestQueue, asset2RequestQueue, asset3RequestQueue, assetUserRequestQueue;
 
     //    private TokenManager tokenManager;
 //
@@ -100,6 +104,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         tvVersion = viewDialog.findViewById(R.id.tvVersion);
         tvCreatedOn = viewDialog.findViewById(R.id.tvCreatedOn);
         tvType = viewDialog.findViewById(R.id.tvType);
+        tvTitle2 = viewDialog.findViewById(R.id.tvTitle2);
+        tvTitle3 = viewDialog.findViewById(R.id.tvTitle3);
         btnDetail = viewDialog.findViewById(R.id.btnDetail);
     }
 
@@ -136,13 +142,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             Log.e("MyResponsejsonObject1", "" + response);
-
                                             try {
                                                 ID = response.getString("id");
                                                 version = response.getString("version");
                                                 type = response.getString("type");
                                                 createdOn = response.getString("createdOn");
-                                                nameMarker = response.getString("name");
                                                 jsonObjectAttributes = response.getJSONObject("attributes");
                                                 jsonObjectRequestQueryParameters = jsonObjectAttributes.getJSONObject("requestQueryParameters");
                                                 jsonObjectValue = jsonObjectRequestQueryParameters.getJSONObject("value");
@@ -168,8 +172,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                 sunsetTimestamp = jsonObjectSys.getLong("sunset");
                                                 Log.e("MyAssetBounds", "" + assetBounds1 + " - " + assetBounds2);
 
-                                                nameMarker = response.getString("name");
-                                                Log.e("nameMarker", "nameMarker: " + nameMarker);
+                                                nameMarker1 = response.getString("name");
+                                                Log.e("nameMarker", "nameMarker: " + nameMarker1);
 
                                                 if (assetBounds1.length() > 0 && assetBounds2.length() > 0) {
                                                     try {
@@ -182,7 +186,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                             double doublelat = ((Number) lat).doubleValue();
                                                             double doublelon = ((Number) lon).doubleValue();
                                                             LatLng locationsAssetCurrent = new LatLng(doublelat, doublelon);
-                                                            googleMap.addMarker(new MarkerOptions().position(locationsAssetCurrent).title(nameMarker));
+                                                            googleMap.addMarker(new MarkerOptions().position(locationsAssetCurrent).title(nameMarker1));
                                                         } else {
                                                         }
                                                     } catch (JSONException e) {
@@ -193,50 +197,108 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.e("MyErrorAsset1", "" + error);
+                                        }
+                                    }) {
+                                @Override
+                                public java.util.Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    params.put("accept", "application/json;");
+                                    params.put("Authorization", "Bearer " + AccessAPI.getToken());
+                                    return params;
+                                }
+                            };
 
-                                            //set onclick marker
-                                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                                                @Override
-                                                public boolean onMarkerClick(Marker marker) {
-                                                    String tempName = marker.getTitle();
-                                                    Log.d("tempName", "onMarkerClick: " + tempName);
-                                                        Log.d("onMarkerClick22", "onMarkerClick: " + nameMarker);
+                            // Call API asset 2
+                            asset2RequestQueue = Volley.newRequestQueue(getActivity());
+                            jsonObjectAsset2Request = new JsonObjectRequest(Request.Method.GET, AccessAPI.getUrlAsset2(), null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Log.e("MyResponsejsonObject2", "" + response);
 
-                                                        if (tempName.equals(nameMarker) == true) {
-                                                            bottomSheetDialog = new BottomSheetDialog(getActivity());
-                                                            bottomSheetDialog.setContentView(viewDialog);
-                                                            bottomSheetDialog.show();
+                                            try {
+                                                jsonObjectAttributes2 = response.getJSONObject("attributes");
+                                                jsonObjectLocation2 = jsonObjectAttributes2.getJSONObject("location");
+                                                jsonObjectValue2 = jsonObjectLocation2.getJSONObject("value");
+                                                jsonObjectCoordinates2 = jsonObjectValue2.getJSONArray("coordinates");
 
-                                                            tvNameAsset.setText(nameMarker);
-                                                            tvID.setText(ID);
-                                                            tvVersion.setText(version);
-                                                            tvType.setText(type);
+                                                jsonObjectBrightness2 = jsonObjectAttributes2.getJSONObject("brightness");
+                                                jsonObjectColourTemperature2 = jsonObjectAttributes2.getJSONObject("colourTemperature");
+                                                jsonObjectEmail2 = jsonObjectAttributes2.getJSONObject("email");
 
-                                                            long l1 = Long.valueOf(createdOn);
-                                                            Date date1 = new Date(l1 * 1000L);
-                                                            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
-                                                            formatDays = simpleDateFormat1.format(date1);
-                                                            tvCreatedOn.setText(formatDays);
+                                                ID2 = response.getString("id");
+                                                version2 = response.getString("version");
+                                                type2 = response.getString("type");
+                                                createdOn2 = response.getString("createdOn");
+                                                valueBrightness2 = jsonObjectBrightness2.getInt("value");
+                                                valueColourTemperature2 = jsonObjectColourTemperature2.getInt("value");
+                                                email2 = jsonObjectEmail2.getString("value");
 
-                                                            // Convert timestamps to Date objects & seconds to milliseconds
-                                                            sunriseDate = new Date(sunriseTimestamp * 1000L);
-                                                            sunsetDate = new Date(sunsetTimestamp * 1000L);
-                                                            // Format the dates as strings with HH:mm format
-                                                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                                                            sunrise = sdf.format(sunriseDate);
-                                                            sunset = sdf.format(sunsetDate);
-                                                            Log.d("dataAsset1", "onMarkerClick: " + temp + humidity + pressure + sunrise + sunset + temp_max + temp_min + feels_like + speed + all);
+                                                double lat = jsonObjectCoordinates2.getDouble(1);
+                                                double lon = jsonObjectCoordinates2.getDouble(0);
+                                                Log.e("MyAsset2Bounds", "" + lat + " - " + lon);
 
-                                                            btnDetail.setOnClickListener(new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View v) {
-                                                                    ViewAssetData1();
-                                                                }
-                                                            });
-                                                        }
-                                                    return false;
+                                                nameMarker2 = response.getString("name");
+                                                Log.e("nameMarker", "nameMarker: " + nameMarker2);
+
+                                                if (lat > 0 && lon > 0) {
+                                                    LatLng locationsAsset2 = new LatLng(lat, lon);
+                                                    googleMap.addMarker(new MarkerOptions().position(locationsAsset2).title(nameMarker2));
                                                 }
-                                            });
+                                                Log.e("MyassetBounds", "" + lat + " - " + lon);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.e("MyErrorAsset2", "" + error);
+                                        }
+                                    }) {
+                                @Override
+                                public java.util.Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    params.put("accept", "application/json;");
+                                    params.put("Authorization", "Bearer " + AccessAPI.getToken());
+                                    return params;
+                                }
+                            };
+
+                            // Call API asset 3
+                            asset3RequestQueue = Volley.newRequestQueue(getActivity());
+                            jsonObjectAsset3Request = new JsonObjectRequest(Request.Method.GET, AccessAPI.getUrlAsset3(), null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Log.e("MyResponsejsonObject3", "" + response);
+
+                                            try {
+                                                jsonObjectAttributes3 = response.getJSONObject("attributes");
+                                                jsonObjectPM25 = jsonObjectAttributes3.getJSONObject("PM25");
+                                                jsonObjectPM10 = jsonObjectAttributes3.getJSONObject("PM10");
+                                                jsonObjectCO2 = jsonObjectAttributes3.getJSONObject("CO2");
+                                                jsonObjectHumidity = jsonObjectAttributes3.getJSONObject("humidity");
+                                                jsonObjectAQI = jsonObjectAttributes3.getJSONObject("AQI");
+                                                jsonObjectAQIPredict = jsonObjectAttributes3.getJSONObject("AQI_Predict");
+
+                                                pm10 = jsonObjectPM10.getDouble("value");
+                                                pm25 = jsonObjectPM25.getDouble("value");
+                                                C02 = jsonObjectCO2.getDouble("value");
+                                                humidity = jsonObjectHumidity.getInt("value");
+                                                aqi = jsonObjectAQI.getInt("value");
+                                                aqiPredict = jsonObjectAQIPredict.getInt("value");
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
                                     },
                                     new Response.ErrorListener() {
@@ -254,119 +316,167 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 }
                             };
 
-//                            asset2RequestQueue = Volley.newRequestQueue(getActivity());
-//                            jsonObjectAsset2Request = new JsonObjectRequest(Request.Method.GET, AccessAPI.getUrlAsset2(), null,
-//                                    new Response.Listener<JSONObject>() {
-//                                        @Override
-//                                        public void onResponse(JSONObject response) {
-//                                            Log.e("MyResponsejsonObject2", "" + response);
-//
-//                                            try {
-//                                                jsonObjectAttributes = response.getJSONObject("attributes");
-//                                                jsonObjectLocation = jsonObjectAttributes.getJSONObject("location");
-//                                                jsonObjectValue = jsonObjectLocation.getJSONObject("value");
-//                                                jsonObjectCoordinates = jsonObjectValue.getJSONArray("coordinates");
-//
-//                                                jsonObjectBrightness = jsonObjectAttributes.getJSONObject("brightness");
-//                                                jsonObjectColourTemperature = jsonObjectAttributes.getJSONObject("colourTemperature");
-//                                                jsonObjectEmail = jsonObjectAttributes.getJSONObject("email");
-//
-//                                                ID = response.getString("id");
-//                                                version = response.getString("version");
-//                                                type = response.getString("type");
-//                                                createdOn = response.getString("createdOn");
-//                                                int valueBrightness = jsonObjectBrightness.getInt("value");
-//                                                int valueColourTemperature = jsonObjectColourTemperature.getInt("value");
-//                                                String email = jsonObjectEmail.getString("value");
-//
-//                                                double lat = jsonObjectCoordinates.getDouble(0);
-//                                                double lon = jsonObjectCoordinates.getDouble(1);
-//                                                Log.e("MyAsset2Bounds", "" + lat + " - " + lon);
-//
-//                                                nameMarker = response.getString("name");
-//                                                Log.e("nameMarker", "nameMarker: " + nameMarker);
-//
-//                                                if (lat > 0 && lon > 0) {
-//                                                    LatLng locationsAsset2 = new LatLng(lat, lon);
-//                                                    googleMap.addMarker(new MarkerOptions().position(locationsAsset2).title(nameMarker));
-//                                                }
-//                                                Log.e("MyassetBounds", "" + lat + " - " + lon);
-//                                            } catch (JSONException e) {
-//                                                e.printStackTrace();
-//                                            }
-//
-//                                            //set onclick marker
-//                                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//                                                @Override
-//                                                public boolean onMarkerClick(Marker marker) {
-//                                                    String tempName = marker.getTitle();
-//                                                    Log.d("tempName", "onMarkerClick: " + tempName);
-//                                                    try {
-//                                                        nameMarker = response.getString("name");
-//                                                        Log.d("onMarkerClick22", "onMarkerClick: " + nameMarker);
-//
-//                                                        if (tempName.equals(nameMarker) == true) {
-////                                                            ViewGroup parent = (ViewGroup) viewDialog.getParent();
-////                                                            if (parent != null) {
-////                                                                parent.removeView(viewDialog);
-////                                                            }
-//
-//                                                            bottomSheetDialog = new BottomSheetDialog(getActivity());
-//                                                            bottomSheetDialog.setContentView(viewDialog);
-//                                                            bottomSheetDialog.show();
-//
-//                                                            tvNameAsset.setText(nameMarker);
-//                                                            tvID.setText(ID);
-//                                                            tvVersion.setText(version);
-//                                                            tvType.setText(type);
-//
-//                                                            long l1 = Long.valueOf(createdOn);
-//                                                            Date date1 = new Date(l1 * 1000L);
-//                                                            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
-//                                                            formatDays = simpleDateFormat1.format(date1);
-//                                                            tvCreatedOn.setText(formatDays);
-//
-////                                                            sunriseTimestamp = jsonObjectSys.getLong("sunrise");
-////                                                            sunsetTimestamp = jsonObjectSys.getLong("sunset");
-////                                                            // Convert timestamps to Date objects & seconds to milliseconds
-////                                                            sunriseDate = new Date(sunriseTimestamp * 1000L);
-////                                                            sunsetDate = new Date(sunsetTimestamp * 1000L);
-////                                                            // Format the dates as strings with HH:mm format
-////                                                            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
-////                                                            sunrise = sdf.format(sunriseDate);
-////                                                            sunset = sdf.format(sunsetDate);
-////                                                            Log.d("dataAsset1", "onMarkerClick: " + temp + humidity + pressure + sunrise + sunset + temp_max + temp_min + feels_like + speed + all);
-//
-//                                                            btnDetail.setOnClickListener(new View.OnClickListener() {
-//                                                                @Override
-//                                                                public void onClick(View v) {
-//                                                                    ViewAssetData2();
-//                                                                }
-//                                                            });
-//                                                        }
-//                                                    } catch (JSONException e) {
-//                                                        e.printStackTrace();
-//                                                    }
-//                                                    return false;
-//                                                }
-//                                            });
-//                                        }
-//                                    },
-//                                    new Response.ErrorListener() {
-//                                        @Override
-//                                        public void onErrorResponse(VolleyError error) {
-//                                            Log.e("MyErrorUserCurrent", "" + error);
-//                                        }
-//                                    }) {
-//                                @Override
-//                                public java.util.Map<String, String> getHeaders() throws AuthFailureError {
-//                                    Map<String, String> params = new HashMap<String, String>();
-//                                    params.put("accept", "application/json;");
-//                                    params.put("Authorization", "Bearer " + AccessAPI.getToken());
-//                                    return params;
-//                                }
-//                            };
-//                            asset2RequestQueue.add(jsonObjectAsset2Request);
+                            // Call API asset user
+                            assetUserRequestQueue = Volley.newRequestQueue(getActivity());
+                            jsonArrayAssetUser = new JsonArrayRequest(Request.Method.GET, AccessAPI.getUrlAssetUser(), null,
+                                    new Response.Listener<JSONArray>() {
+                                        @Override
+                                        public void onResponse(JSONArray response) {
+                                            Log.e("MyResponsejsonObjetAsserUser", "" + response);
+
+                                            user1 = "user2302";
+                                            user2 = "user32312123xjuccf7f";
+                                            user3 ="user32312123xjcjuccuc";
+                                            user4 = "user32312123iff7fugg";
+
+                                            for (int i = 0; i < 4; i++) {
+                                                try {
+                                                    jsonObjectAssetUser = response.getJSONObject(i);
+                                                    jsonObjectId = jsonObjectAssetUser.getJSONObject("id");
+                                                    createdOnAssetUser = jsonObjectAssetUser.getString("createdOn");
+                                                    Log.d("createdOnAssetUser", "onResponse: " + createdOn);
+                                                    assetName = jsonObjectAssetUser.getString("assetName");
+                                                    parentAssetName = jsonObjectAssetUser.getString("parentAssetName");
+                                                    userFullName = jsonObjectAssetUser.getString("userFullName");
+                                                    idAssetUser = jsonObjectId.getString("assetId");
+
+                                                    if(userFullName.equals(user1)){
+                                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870537960015568, 106.80390988702072
+                                                        )).title(userFullName));
+                                                    } else if(userFullName.equals(user2)){
+                                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870464609989156, 106.80273973945748
+                                                        )).title(userFullName));
+                                                    } else if(userFullName.equals(user3)){
+                                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870167914043385, 106.80381878819092
+                                                        )).title(userFullName));
+                                                    } else if(userFullName.equals(user4)){
+                                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(10.869504706653828, 106.80310165581015
+                                                        )).title(userFullName));
+                                                    }
+
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                                @Override
+                                                public boolean onMarkerClick(Marker marker) {
+                                                    String tempName = marker.getTitle();
+                                                    ViewGroup parentViewGroup = (ViewGroup) viewDialog.getParent();
+                                                    if (parentViewGroup != null) {
+                                                        // Nếu có parent, loại bỏ nó trước khi thêm vào bottomSheetDialog
+                                                        parentViewGroup.removeView(viewDialog);
+                                                    }
+                                                    bottomSheetDialog = new BottomSheetDialog(getActivity());
+                                                    bottomSheetDialog.setContentView(viewDialog);
+                                                    bottomSheetDialog.show();                                                    Log.d("tempName", "onMarkerClick: " + tempName);
+
+                                                    if (tempName.equals(nameMarker1)) {
+                                                        tvNameAsset.setText(nameMarker1);
+                                                        tvID.setText(ID);
+                                                        tvVersion.setText(version);
+                                                        tvType.setText(type);
+
+                                                        long l1 = Long.valueOf(createdOn);
+                                                        Date date1 = new Date(l1 * 1000L);
+                                                        Log.d("dataAsset1", "onMarkerClick: " + date1);
+
+                                                        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
+                                                        formatDays = simpleDateFormat1.format(date1);
+                                                        tvCreatedOn.setText(formatDays);
+
+                                                        // Convert timestamps to Date objects & seconds to milliseconds
+                                                        sunriseDate = new Date(sunriseTimestamp * 1000L);
+                                                        sunsetDate = new Date(sunsetTimestamp * 1000L);
+                                                        // Format the dates as strings with HH:mm format
+                                                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                                                        sunrise = sdf.format(sunriseDate);
+                                                        sunset = sdf.format(sunsetDate);
+
+                                                        btnDetail.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                ViewAssetData1();
+                                                            }
+                                                        });
+                                                    } else if (tempName.equals(nameMarker2)) {
+                                                        tvNameAsset.setText(nameMarker2);
+                                                        tvID.setText(ID2);
+                                                        tvVersion.setText(version2);
+                                                        tvType.setText(type2);
+
+                                                        long l1 = Long.valueOf(createdOn2);
+                                                        Date date1 = new Date(l1 * 1000L);
+                                                        Log.d("dataAsset2", "onMarkerClick: " + date1);
+
+                                                        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
+                                                        formatDays2 = simpleDateFormat1.format(date1);
+                                                        tvCreatedOn.setText(formatDays2);
+
+                                                        Log.d("dataAsset2", "onMarkerClick: " + email2 + valueBrightness2 + valueColourTemperature2);
+
+                                                        btnDetail.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                ViewAssetData2();
+                                                            }
+                                                        });
+                                                    } else {
+                                                        for (int i = 0; i < 4; i++) {
+                                                            try {
+                                                                jsonObjectAssetUser = response.getJSONObject(i);
+                                                                jsonObjectId = jsonObjectAssetUser.getJSONObject("id");
+                                                                createdOnAssetUser = jsonObjectAssetUser.getString("createdOn");
+                                                                Log.d("createdOnAssetUser", "onResponse: " + createdOn);
+                                                                assetName = jsonObjectAssetUser.getString("assetName");
+                                                                parentAssetName = jsonObjectAssetUser.getString("parentAssetName");
+                                                                userFullName = jsonObjectAssetUser.getString("userFullName");
+                                                                idAssetUser = jsonObjectId.getString("assetId");
+
+                                                                if(tempName.equals(userFullName)){
+                                                                    tvNameAsset.setText(userFullName);
+                                                                    tvID.setText(idAssetUser);
+                                                                    tvVersion.setText(assetName);
+                                                                    tvType.setText(parentAssetName);
+                                                                    tvTitle2.setText("Asset Name");
+                                                                    tvTitle3.setText("Parent Asset Name");
+
+                                                                    long l1 = Long.valueOf(createdOnAssetUser);
+                                                                    Date date1 = new Date(l1 * 1000L);
+                                                                    Log.d("dataAsset3", "onMarkerClick: " + date1);
+
+                                                                    SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
+                                                                    formatDays2 = simpleDateFormat1.format(date1);
+                                                                    tvCreatedOn.setText(formatDays2);
+
+                                                                    Log.d("user1", "onMarkerClick: " + userFullName);
+                                                                }
+
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+                                                    }
+                                                    return false;
+                                                }
+                                            });
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.e("MyErrorUserCurrent", "" + error);
+                                        }
+                                    }) {
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    params.put("accept", "application/json;");
+                                    params.put("Authorization", "Bearer " + AccessAPI.getToken());
+                                    return params;
+                                }
+                            };
 
                             // Add data on Map
                             try {
@@ -381,17 +491,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UIT, (float) maxZoom - 2));
                                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(UIT, (float) maxZoom - 2));
                                 googleMap.setLatLngBoundsForCameraTarget(UITBounds);
-                                googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870464609989156, 106.80273973945748
-                                )).title("Weather Asset"));
-                                googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870537960015568, 106.80390988702072
-                                )).title("Weather Asset 2"));
-                                googleMap.addMarker(new MarkerOptions().position(new LatLng(10.869905172970164, 106.80345028525176
-                                )).title("Light"));
 
                             } catch (JSONException e) {
                                 Log.e("MyErrorLoadMakerMap", "" + e);
                             }
                             asset1RequestQueue.add(jsonObjectAssetRequest);
+                            asset2RequestQueue.add(jsonObjectAsset2Request);
+                            asset3RequestQueue.add(jsonObjectAsset3Request);
+                            assetUserRequestQueue.add(jsonArrayAssetUser);
                         } catch (JSONException e) {
                             Log.e("MyErrorGetDataMap", "" + e);
                         }
@@ -407,7 +514,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void ViewAssetData2() {
+        AqiAssetFragment.arrayList = new ArrayList<>();
+        AqiAssetFragment.arrayList.add(new ItemsDetail("PM10", pm10 + "µg/m³", R.drawable.ic_pm10));
+        AqiAssetFragment.arrayList.add(new ItemsDetail("PM25", pm25 + "µg/m³", R.drawable.ic_pm25));
+        AqiAssetFragment.arrayList.add(new ItemsDetail("C02", C02 + "µg/m³", R.drawable.ic_co));
+        AqiAssetFragment.arrayList.add(new ItemsDetail("Humidity", humidity + "%", R.drawable.ic_humidity));
+        AqiAssetFragment.arrayList.add(new ItemsDetail("AQI", aqi + "", R.drawable.ic_account));
+        AqiAssetFragment.arrayList.add(new ItemsDetail("AQI Predict", aqiPredict + "", R.drawable.ic_account));
 
+        bottomSheetDialog.dismiss();
+        AqiAssetFragment weatherAssetFragment = new AqiAssetFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainActivity, weatherAssetFragment, "fragDetails");
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void ViewAssetData1() {

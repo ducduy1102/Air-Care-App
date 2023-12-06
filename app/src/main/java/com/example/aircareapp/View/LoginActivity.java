@@ -139,20 +139,16 @@ public class LoginActivity extends AppCompatActivity {
                             jsonObjectMain = jsonObjectValue.getJSONObject("main");
                             jsonObjectWind = jsonObjectValue.getJSONObject("wind");
                             jsonObjectCloud = jsonObjectValue.getJSONObject("clouds");
-                            jsonObjectSys = jsonObjectValue.getJSONObject("sys");
                             jsonArrayWeather = jsonObjectValue.getJSONArray("weather");
 
                             temp = jsonObjectMain.getDouble("temp");
                             humidity = jsonObjectMain.getInt("humidity");
-                            feels_like = jsonObjectMain.getDouble("feels_like");
                             speed = jsonObjectWind.getDouble("speed");
                             all = jsonObjectCloud.getDouble("all");
-                            sunriseTimestamp = jsonObjectSys.getLong("sunrise");
-                            sunsetTimestamp = jsonObjectSys.getLong("sunset");
                             weatherDescription = new JSONObject(String.valueOf(jsonArrayWeather.get(0)));
 
                             String description = weatherDescription.getString("description");
-                            // khúc này là để t viết hoa chữ cái đầu cho cái description
+                            // Viết hoa chữ cái đầu description
                             String firstLetter = description.substring(0, 1);
                             String remainingLetters = description.substring(1, description.length());
                             firstLetter = firstLetter.toUpperCase();
@@ -163,15 +159,13 @@ public class LoginActivity extends AppCompatActivity {
                             manager.createNotificationChannel(channel);
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(LoginActivity.this, "MyAirApp")
                                     .setSmallIcon(R.drawable.green_bg)
-                                    .setContentTitle(temp + "° in UIT")
-                                    .setContentText("Temp " + temp + "° • " + description);
+                                    .setContentTitle(temp + "°C in UIT")
+                                    .setContentText("Wind " + speed + "m/s • " + description + "\nHumidity " + humidity + "%");
                             manager.notify(1, builder.build());
                             Log.d("notificationDEs", "onResponse: " + description);
 
-                            notification = builder.build();
-                            notificationManagerCompat = NotificationManagerCompat.from(LoginActivity.this);
+//                            notificationManagerCompat = NotificationManagerCompat.from(LoginActivity.this);
                             // Kết thúc code gửi thông báo
-
                         } catch (JSONException e) {
                             Log.e("MyError", "" + e);
                         }
