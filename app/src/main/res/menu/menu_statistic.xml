@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_temperature"
-        android:icon="@drawable/mintemp"
+        android:icon="@drawable/ic_temperature"
         android:title="Temperature"
         app:showAsAction="never"/>
     <item

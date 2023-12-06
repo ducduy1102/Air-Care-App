@@ -25,16 +25,14 @@
             android:value="AIzaSyCVlOueZtpefF94YuiM4mUM6K740siTVNo" />
 
         <activity
-            android:name=".SplashScreenV2Activity"
+            android:name=".SplashScreenActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SplashActivity"
-            android:exported="false" />
         <activity
             android:name=".View.ForgotPasswordActivity"
             android:exported="false" />
@@ -44,12 +42,6 @@
         <activity
             android:name=".View.LoginActivity"
             android:exported="false" />
-        <!--            android:exported="true">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
         <activity
             android:name=".MainActivity"
             android:exported="false" />
