@@ -5,15 +5,18 @@ import static com.example.aircareapp.SSLHandle.SSLHandle.handleSSLHandshake;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -67,8 +70,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //    FirebaseDatabase database;
-//    DatabaseReference reference;
     private static final int REQUEST_CODE_GOOGLE = 100;
     private FirebaseAuth auth;
     private GoogleSignInOptions gso;
@@ -87,11 +88,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private RequestQueue mRequestQueue;
     private JsonObjectRequest jsonObjectRequest;
-    private JsonArrayRequest jsonArrayRequest;
-    private JSONObject attributes, weatherData, value, main, weatherMain;
-    private JSONArray weather;
-    private double temp, feels_like;
-    private JSONObject weatherDescription;
+    private JSONArray jsonArrayWeather;
+    private JSONObject weatherDescription, jsonObjectAttributes, jsonObjectRequestQueryParameters, jsonObjectValue, jsonObjectMain, jsonObjectWind, jsonObjectSys,
+            jsonObjectCloud, jsonObjectWeatherData;
+    private int humidity, pressure;
+    private long sunriseTimestamp, sunsetTimestamp;
+    private double temp, temp_max, temp_min, feels_like, speed, all;
 
     NotificationManagerCompat notificationManagerCompat;
     Notification notification;
@@ -123,19 +125,32 @@ public class LoginActivity extends AppCompatActivity {
         // Bắt đầu code get api
         handleSSLHandshake();
         mRequestQueue = Volley.newRequestQueue(LoginActivity.this);
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, "https://103.126.161.199/api/master/asset/6H4PeKLRMea1L0WsRXXWp9", null,
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, AccessAPI.getUrlAsset1(), null,
                 new com.android.volley.Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d("notification", "onResponse: " + response);
                         try {
-                            attributes = response.getJSONObject("attributes");
-                            weatherData = attributes.getJSONObject("weatherData");
-                            value = weatherData.getJSONObject("value");
-                            main = value.getJSONObject("main");
-                            weather = value.getJSONArray("weather");
-                            temp = main.getDouble("temp");
-                            feels_like = main.getDouble("feels_like");
-                            weatherDescription = new JSONObject(String.valueOf(weather.get(0)));
+                            jsonObjectAttributes = response.getJSONObject("attributes");
+                            jsonObjectRequestQueryParameters = jsonObjectAttributes.getJSONObject("requestQueryParameters");
+                            jsonObjectValue = jsonObjectRequestQueryParameters.getJSONObject("value");
+                            jsonObjectWeatherData = jsonObjectAttributes.getJSONObject("data");
+                            jsonObjectValue = jsonObjectWeatherData.getJSONObject("value");
+                            jsonObjectMain = jsonObjectValue.getJSONObject("main");
+                            jsonObjectWind = jsonObjectValue.getJSONObject("wind");
+                            jsonObjectCloud = jsonObjectValue.getJSONObject("clouds");
+                            jsonObjectSys = jsonObjectValue.getJSONObject("sys");
+                            jsonArrayWeather = jsonObjectValue.getJSONArray("weather");
+
+                            temp = jsonObjectMain.getDouble("temp");
+                            humidity = jsonObjectMain.getInt("humidity");
+                            feels_like = jsonObjectMain.getDouble("feels_like");
+                            speed = jsonObjectWind.getDouble("speed");
+                            all = jsonObjectCloud.getDouble("all");
+                            sunriseTimestamp = jsonObjectSys.getLong("sunrise");
+                            sunsetTimestamp = jsonObjectSys.getLong("sunset");
+                            weatherDescription = new JSONObject(String.valueOf(jsonArrayWeather.get(0)));
+
                             String description = weatherDescription.getString("description");
                             // khúc này là để t viết hoa chữ cái đầu cho cái description
                             String firstLetter = description.substring(0, 1);
@@ -143,20 +158,17 @@ public class LoginActivity extends AppCompatActivity {
                             firstLetter = firstLetter.toUpperCase();
                             description = firstLetter + remainingLetters;
 
-                            // Bắt đầu code gửi thông báo
-                            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                                NotificationChannel channel = new NotificationChannel("MyChannel","MyChannel", NotificationManager.IMPORTANCE_DEFAULT);
-                                NotificationManager manager = getSystemService(NotificationManager.class);
-                                manager.createNotificationChannel(channel);
-                            }
-
-                            NotificationCompat.Builder builder = new NotificationCompat.Builder(LoginActivity.this,"MyChannel").
-                                    setSmallIcon(R.drawable.ic_launcher_foreground)
+                            NotificationChannel channel = new NotificationChannel("MyAirApp", "MyAirApp", NotificationManager.IMPORTANCE_DEFAULT);
+                            NotificationManager manager = (NotificationManager) getSystemService(getApplicationContext().NOTIFICATION_SERVICE);
+                            manager.createNotificationChannel(channel);
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(LoginActivity.this, "MyAirApp")
+                                    .setSmallIcon(R.drawable.green_bg)
                                     .setContentTitle(temp + "° in UIT")
-                                    .setContentText("Feels like " + feels_like + "° • " + description);
+                                    .setContentText("Temp " + temp + "° • " + description);
+                            manager.notify(1, builder.build());
+                            Log.d("notificationDEs", "onResponse: " + description);
 
                             notification = builder.build();
-
                             notificationManagerCompat = NotificationManagerCompat.from(LoginActivity.this);
                             // Kết thúc code gửi thông báo
 
