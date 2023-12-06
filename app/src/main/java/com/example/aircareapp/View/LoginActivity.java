@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         gsc = GoogleSignIn.getClient(this, gso);
 
         initListener();
+        // dg code
     }
 
     private void initListener() {
