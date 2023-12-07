@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.UserInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,8 +45,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -63,7 +67,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private boolean boxZoom;
     private Date sunriseDate, sunsetDate;
     private String geocodeUrl, sunrise, sunset, ID, version, createdOn, formatDays, type, nameMarker1, nameMarker2, ID2, version2, createdOn2, formatDays2, type2,
-            email2, nameMarkerAssetUser, createdOnAssetUser, assetName, parentAssetName,userFullName, idAssetUser, user1, user2, user3, user4, user5;
+            email2, nameMarkerAssetUser, createdOnAssetUser, assetName, parentAssetName, userFullName, idAssetUser;
+    private String[] users = new String[4];
     private View viewDialog;
     private Button btnDetail;
     private BottomSheetDialog bottomSheetDialog;
@@ -324,11 +329,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                         public void onResponse(JSONArray response) {
                                             Log.e("MyResponsejsonObjetAsserUser", "" + response);
 
-                                            user1 = "user2302";
-                                            user2 = "user32312123xjuccf7f";
-                                            user3 ="user32312123xjcjuccuc";
-                                            user4 = "user32312123iff7fugg";
-
                                             for (int i = 0; i < 4; i++) {
                                                 try {
                                                     jsonObjectAssetUser = response.getJSONObject(i);
@@ -340,19 +340,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                     userFullName = jsonObjectAssetUser.getString("userFullName");
                                                     idAssetUser = jsonObjectId.getString("assetId");
 
-                                                    if(userFullName.equals(user1)){
-                                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870537960015568, 106.80390988702072
-                                                        )).title(userFullName));
-                                                    } else if(userFullName.equals(user2)){
-                                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870464609989156, 106.80273973945748
-                                                        )).title(userFullName));
-                                                    } else if(userFullName.equals(user3)){
-                                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(10.870167914043385, 106.80381878819092
-                                                        )).title(userFullName));
-                                                    } else if(userFullName.equals(user4)){
-                                                        googleMap.addMarker(new MarkerOptions().position(new LatLng(10.869504706653828, 106.80310165581015
-                                                        )).title(userFullName));
-                                                    }
+                                                    users[i] = userFullName;
+
+                                                    googleMap.addMarker(new MarkerOptions().position(getLatLngForUser(i)).title(userFullName));
 
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
@@ -370,7 +360,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                     }
                                                     bottomSheetDialog = new BottomSheetDialog(getActivity());
                                                     bottomSheetDialog.setContentView(viewDialog);
-                                                    bottomSheetDialog.show();                                                    Log.d("tempName", "onMarkerClick: " + tempName);
+                                                    bottomSheetDialog.show();
+                                                    Log.d("tempName", "onMarkerClick: " + tempName);
 
                                                     if (tempName.equals(nameMarker1)) {
                                                         tvNameAsset.setText(nameMarker1);
@@ -434,24 +425,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                                 userFullName = jsonObjectAssetUser.getString("userFullName");
                                                                 idAssetUser = jsonObjectId.getString("assetId");
 
-                                                                if(tempName.equals(userFullName)){
-                                                                    tvNameAsset.setText(userFullName);
-                                                                    tvID.setText(idAssetUser);
-                                                                    tvVersion.setText(assetName);
-                                                                    tvType.setText(parentAssetName);
-                                                                    tvTitle2.setText("Asset Name");
-                                                                    tvTitle3.setText("Parent Asset Name");
+                                                                if (tempName.equals(userFullName)) {
+                                                                        tvNameAsset.setText(userFullName);
+                                                                        tvID.setText(idAssetUser);
+                                                                        tvVersion.setText(assetName);
+                                                                        tvType.setText(parentAssetName);
+                                                                        tvTitle2.setText("Asset Name");
+                                                                        tvTitle3.setText("Parent Asset Name");
 
-                                                                    long l1 = Long.valueOf(createdOnAssetUser);
-                                                                    Date date1 = new Date(l1 * 1000L);
-                                                                    Log.d("dataAsset3", "onMarkerClick: " + date1);
+                                                                        long l1 = Long.valueOf(createdOnAssetUser);
+                                                                        Date date1 = new Date(l1 * 1000L);
+                                                                        Log.d("dataAsset3", "onMarkerClick: " + date1);
 
-                                                                    SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
-                                                                    formatDays2 = simpleDateFormat1.format(date1);
-                                                                    tvCreatedOn.setText(formatDays2);
+                                                                        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
+                                                                        formatDays2 = simpleDateFormat1.format(date1);
+                                                                        tvCreatedOn.setText(formatDays2);
 
-                                                                    Log.d("user1", "onMarkerClick: " + userFullName);
-                                                                }
+                                                                        Log.d("user1", "onMarkerClick: " + userFullName + "formatDays2" + formatDays2);
+                                                                    }
+
 
                                                             } catch (JSONException e) {
                                                                 e.printStackTrace();
@@ -511,6 +503,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     }
                 });
         mapRequestQueue.add(jsonObjectRequest);
+    }
+
+    private LatLng getLatLngForUser(int i) {
+        switch (i) {
+            case 0:
+                return new LatLng(10.870537960015568, 106.80390988702072);
+            case 1:
+                return new LatLng(10.870464609989156, 106.80273973945748);
+            case 2:
+                return new LatLng(10.870167914043385, 106.80381878819092);
+            case 3:
+                return new LatLng(10.869504706653828, 106.80310165581015);
+            default:
+                return new LatLng(10.8698, 106.8031); // Giả sử một giá trị mặc định nếu không có trường hợp nào khớp
+        }
     }
 
     private void ViewAssetData2() {
