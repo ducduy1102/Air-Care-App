@@ -15,11 +15,11 @@
             style="@style/APDefacto.Light"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            ap:domainTitle="Time"
+            ap:domainTitle="@string/time"
             ap:domainTitleTextSize="16sp"
             ap:graphMarginBottom="40dp"
             ap:lineLabelRotationBottom="-45"
-            ap:rangeTitle="Humidity (%)"
+            ap:rangeTitle="@string/titleHumidity"
             ap:rangeTitleTextSize="16sp"
             ap:titleTextSize="18sp" />
 
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/plot2"
-            android:text="Time"
+            android:text="@string/time"
             android:textSize="18sp" />
 
     </RelativeLayout>

@@ -4,28 +4,28 @@
     <item
         android:id="@+id/action_temperature"
         android:icon="@drawable/ic_temperature"
-        android:title="Temperature"
+        android:title="@string/temperature"
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_humidity"
         android:icon="@drawable/ic_water"
-        android:title="Humidity"
+        android:title="@string/humidity"
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_windy"
         android:icon="@drawable/ic_air"
-        android:title="Wind"
+        android:title="@string/wind"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_pm10"
         android:icon="@drawable/ic_pm10"
-        android:title="PM10"
+        android:title="@string/pm10"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_pm25"
         android:icon="@drawable/ic_pm25"
-        android:title="PM25"
+        android:title="@string/pm25"
         app:showAsAction="never"/>
 </menu>

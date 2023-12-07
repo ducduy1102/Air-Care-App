@@ -73,6 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
+                    android:background="@color/light_green_more"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -99,6 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
+                    android:background="@color/light_green_more"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -125,6 +127,7 @@
                     android:id="@+id/registerPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/light_green_more"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -135,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:hint="Confirm password"
+                android:hint="@string/confirm_password"
                 app:counterMaxLength="100"
                 app:boxStrokeColor="@color/bg_green"
                 app:boxStrokeWidth="2dp"
@@ -151,6 +154,7 @@
                     android:id="@+id/registerConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/light_green_more"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>

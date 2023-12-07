@@ -12,12 +12,12 @@
         android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Setting and Privacy"
+        android:text="@string/titleSetting"
         android:textColor="@color/bg_green"
         android:textSize="30sp"
         android:textStyle="bold"
         android:layout_marginTop="40dp"
-        android:layout_marginStart="70dp"/>
+        android:layout_centerHorizontal="true"/>
 
     <!--    Account-->
     <RelativeLayout
@@ -57,7 +57,7 @@
             android:layout_width="132dp"
             android:layout_height="wrap_content"
             android:text="@string/profile"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="18dp"
             android:layout_toRightOf="@id/ic_account"
@@ -88,9 +88,9 @@
             android:layout_width="222dp"
             android:layout_height="wrap_content"
             android:text="@string/change_password"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/ic_lock"
             android:layout_below="@id/tv_profile"/>
 
@@ -111,7 +111,7 @@
             android:layout_height="30dp"
             android:src="@drawable/ic_logout"
             android:layout_below="@id/ic_lock"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="22dp"
             android:layout_marginStart="20dp"/>
 
         <TextView
@@ -119,9 +119,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_out"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/ic_signout"
             android:layout_below="@id/tv_password"/>
     </RelativeLayout>
@@ -165,9 +165,9 @@
             android:layout_width="132dp"
             android:layout_height="wrap_content"
             android:text="@string/language"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="14dp"
             android:layout_toRightOf="@id/ic_language"
             android:layout_below="@id/title_common"/>
 
@@ -196,7 +196,7 @@
             android:layout_width="132dp"
             android:layout_height="wrap_content"
             android:text="@string/mode"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/ic_mode"
@@ -227,7 +227,7 @@
             android:layout_width="132dp"
             android:layout_height="wrap_content"
             android:text="@string/notification"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/ic_notification"
@@ -285,7 +285,7 @@
             android:layout_width="132dp"
             android:layout_height="wrap_content"
             android:text="@string/about_us"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/ic_about_us"
@@ -316,7 +316,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="@string/help"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/ic_help"

@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/action_home"
-        android:title="Home"
+        android:title="@string/home"
         android:icon="@drawable/ic_home"/>
 
     <item
         android:id="@+id/action_map"
-        android:title="Map"
+        android:title="@string/map"
         android:icon="@drawable/ic_map"/>
 
     <item
         android:id="@+id/action_statistic"
-        android:title="History"
+        android:title="@string/history"
         android:icon="@drawable/ic_signal_cellular_alt"/>
 
     <item
         android:id="@+id/action_setting"
-        android:title="Setting"
+        android:title="@string/settings"
         android:icon="@drawable/ic_setting"/>
 
 <!--    <item-->

@@ -1,7 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Air Care App</string>
-    <string name="default_web_client_id" translatable="false">51223982832-seeiftpb3dabo614mceelsv8h4imp2nr.apps.googleusercontent.com</string>
-
     <string name="login">LOGIN</string>
     <string name="register">REGISTER</string>
     <string name="loginGg">Continue with GOOGLE</string>
@@ -18,10 +16,7 @@
     <string name="password_sample">*********</string>
     <string name="send">Send Code</string>
     <string name="titleSetting">Setting and Privacy</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="common">Common</string>
     <string name="language">Language</string>
     <string name="mode">Dark Mode</string>
@@ -32,42 +27,26 @@
     <string name="about_us">About Us</string>
     <string name="help">Need a help?</string>
     <string name="notification">Notification</string>
-
     <string name="change_avatar">Change Avatar</string>
     <string name="updatepw">Update Password</string>
     <string name="firstname">First Name</string>
     <string name="lastname">Last Name</string>
-    <string name="updateProfile">Update Profile</string>
-
-
-    <string name="aqi" translatable="false">AQI</string>
     <string name="update">Update</string>
-
     <string name="oldpassword">Old Password</string>
     <string name="newpassword">New Password</string>
     <string name="confirmnewpassword">Confirm New Password</string>
-
-    <!--    Title bottom home-->
-    <string name="home">Home</string>
     <string name="map">Map</string>
-    <string name="history">History</string>
     <string name="settings">Settings</string>
-
-    <!--    Title bottom statistic-->
     <string name="temperature">Temperature</string>
     <string name="humidity">Humidity</string>
     <string name="wind">Wind</string>
-    <string name="pm10" translatable="false">PM10</string>
-    <string name="pm25" translatable="false">PM25</string>
-
+    <string name="home">Home</string>
+    <string name="history">History</string>
     <string name="time">Time (day)</string>
     <string name="titleTemp">Temperatures (°C)</string>
-    <string name="titleHumidity">Humidity (%)</string>
     <string name="titleWind">Wind (m/s)</string>
-    <string name="titlePM10" translatable="false">PM10 (µg/m³)</string>
-    <string name="titlePM25" translatable="false">PM25 (µg/m³)</string>
-
+    <string name="titleHumidity">Humidity (%)</string>
     <string name="titleDetail">Asset Details</string>
     <string name="titleOr">Or</string>
-
+    <string name="updateProfile">Update Profile</string>
 </resources>

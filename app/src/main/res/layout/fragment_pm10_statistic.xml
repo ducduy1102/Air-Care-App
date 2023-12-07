@@ -15,10 +15,10 @@
             style="@style/APDefacto.Light"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            ap:domainTitle="Time"
+            ap:domainTitle="@string/time"
             ap:domainTitleTextSize="16sp"
             ap:lineLabelRotationBottom="-45"
-            ap:rangeTitle="PM25 (µg/m³)"
+            ap:rangeTitle="@string/titlePM10"
             ap:rangeTitleTextSize="16sp"
             ap:titleTextSize="18sp" />
 
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/plot4"
-            android:text="Time"
+            android:text="@string/time"
             android:textSize="18sp" />
 
     </RelativeLayout>

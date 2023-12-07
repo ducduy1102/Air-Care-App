@@ -67,7 +67,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif"
                     android:textColor="@color/black"
-                    android:background="@color/light_white"
+                    android:background="@color/light_green_more"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -93,7 +93,7 @@
                     android:id="@+id/loginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/light_white"
+                    android:background="@color/light_green_more"
                     android:fontFamily="sans-serif"
                     android:inputType="textPassword" />
 

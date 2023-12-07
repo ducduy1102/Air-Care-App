@@ -17,7 +17,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Asset Details"/>
+        android:text="@string/titleDetail"/>
 
     <ListView
         android:id="@+id/lvItemDetail"

@@ -114,9 +114,9 @@
             android:layout_marginTop="50dp"
             android:textSize="20sp"
             android:padding="10dp"
-            android:text="Update Profile"
-            android:textColor="@color/bg_green"
-            android:backgroundTint="@color/light_green_more"
+            android:text="@string/updateProfile"
+            android:textColor="@color/light_white"
+            android:backgroundTint="@color/bg_green"
             android:layout_below="@+id/profileLastName"/>
 
     </RelativeLayout>
