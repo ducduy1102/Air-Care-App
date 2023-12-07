@@ -102,17 +102,17 @@ public class RegisterActivity extends AppCompatActivity {
                     Matcher matcher = pattern.matcher(pass);
                     boolean isPassContainsSpeChar = matcher.find();
                     if (isPassContainsSpeChar) {
-                        registerPasswordLayout.setHelperText("Strong Password");
+                        registerPasswordLayout.setHelperText(getResources().getString(R.string.strongPass));
                         registerPasswordLayout.setHelperTextColor(ColorStateList.valueOf(Color.GREEN));
                         registerPasswordLayout.setError("");
                     } else {
                         registerPasswordLayout.setHelperText("");
                         registerPasswordLayout.setHelperTextColor(ColorStateList.valueOf(Color.YELLOW));
-                        registerPasswordLayout.setError("Weak Password. Include minimum 1 special char");
+                        registerPasswordLayout.setError(getResources().getString(R.string.weakPass));
                     }
                 } else {
                     registerPasswordLayout.setHelperTextColor(ColorStateList.valueOf(Color.RED));
-                    registerPasswordLayout.setHelperText("Enter minimum 6 characters");
+                    registerPasswordLayout.setHelperText(getResources().getString(R.string.invalidPass));
                     registerPasswordLayout.setError("");
                 }
             }
@@ -148,11 +148,11 @@ public class RegisterActivity extends AppCompatActivity {
 //                progressDialog.dismiss();
                 loadingProgressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
-                    Toast.makeText(RegisterActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.singupSuccess), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     finishAffinity();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "SignUp Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.signupFailed) + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -209,15 +209,15 @@ public class RegisterActivity extends AppCompatActivity {
                                     view.evaluateJavascript(passField, null);
                                     view.evaluateJavascript(repassField, null);
                                     view.evaluateJavascript("document.getElementsByTagName('form')[0].submit();", null);
-                                    Toast.makeText(RegisterActivity.this, "Singup Successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.singupSuccess), Toast.LENGTH_SHORT).show();
                                 } else {
                                     loadingProgressBar.setVisibility(View.GONE);
-                                    Toast.makeText(RegisterActivity.this, "Singup Failed" + s1, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.signupFailed) + s1, Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {
                             loadingProgressBar.setVisibility(View.GONE);
-                            Toast.makeText(RegisterActivity.this, "Singup Failed" + s, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, getResources().getString(R.string.signupFailed) + s, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -229,7 +229,7 @@ public class RegisterActivity extends AppCompatActivity {
     public Boolean validateUsername() {
         String valUsername = registerUsername.getText().toString().trim();
         if (valUsername.isEmpty()) {
-            registerUsername.setError("Username cannot be empty");
+            registerUsername.setError(getResources().getString(R.string.emptyUsername));
             registerUsername.requestFocus();
             return false;
         } else {
@@ -241,11 +241,11 @@ public class RegisterActivity extends AppCompatActivity {
     public Boolean validateEmail() {
         String valEmail = registerEmail.getText().toString().trim();
         if (valEmail.isEmpty()) {
-            registerEmail.setError("Email cannot be empty");
+            registerEmail.setError(getResources().getString(R.string.emptyEmail));
             registerEmail.requestFocus();
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(valEmail).matches()) {
-            registerEmail.setError("Email is invalid");
+            registerEmail.setError(getResources().getString(R.string.invalidEmail));
             registerEmail.requestFocus();
             return false;
         } else {
@@ -257,7 +257,7 @@ public class RegisterActivity extends AppCompatActivity {
     public Boolean validatePassword() {
         String valPassword = registerPassword.getText().toString().trim();
         if (valPassword.isEmpty()) {
-            registerPassword.setError("Password cannot be empty");
+            registerPassword.setError(getResources().getString(R.string.emptyPass));
             registerPassword.requestFocus();
             return false;
         } else {
@@ -270,13 +270,13 @@ public class RegisterActivity extends AppCompatActivity {
         String valPassword = registerPassword.getText().toString().trim();
         String valConfirmPassword = registerConfirmPassword.getText().toString().trim();
         if (TextUtils.isEmpty(valConfirmPassword)) {
-            Toast.makeText(RegisterActivity.this, "Confirm your password", Toast.LENGTH_SHORT).show();
-            registerConfirmPassword.setError("Passsword confirmation is required");
+            Toast.makeText(RegisterActivity.this, getResources().getString(R.string.notiConfirmPass), Toast.LENGTH_SHORT).show();
+            registerConfirmPassword.setError(getResources().getString(R.string.notiRequiredPass));
             registerConfirmPassword.requestFocus();
             return false;
         } else if (!valConfirmPassword.equals(valPassword)) {
-            Toast.makeText(RegisterActivity.this, "Please same same password", Toast.LENGTH_SHORT).show();
-            registerConfirmPassword.setError("Passsword confirmation is incorrect");
+            Toast.makeText(RegisterActivity.this, getResources().getString(R.string.notiCorrectPass), Toast.LENGTH_SHORT).show();
+            registerConfirmPassword.setError(getResources().getString(R.string.notiIncorrectPass));
             registerConfirmPassword.requestFocus();
             return false;
         } else {

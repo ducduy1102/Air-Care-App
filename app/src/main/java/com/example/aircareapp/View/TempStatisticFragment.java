@@ -91,7 +91,7 @@ public class TempStatisticFragment extends Fragment {
         Log.d("timeWeather", "onViewCreated: " + times);
 
         XYSeries series1 = new SimpleXYSeries(
-                temperatures, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Temperature (°C)");
+                temperatures, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, getResources().getString(R.string.titleTemp));
 
         LineAndPointFormatter series1Format =
                 new LineAndPointFormatter(getActivity(), R.xml.line_point_formatter_with_labels);

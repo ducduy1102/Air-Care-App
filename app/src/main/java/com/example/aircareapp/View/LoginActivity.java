@@ -265,13 +265,13 @@ public class LoginActivity extends AppCompatActivity {
                     editor.apply();
                     Log.d("tokenLogin", accessToken + username);
                     loadingProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.loginSuccess), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     // Authentication failed
                     loadingProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.loginFailed), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -279,7 +279,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 // Handle network or API errors
                 Log.d("API CALL", t.getMessage().toString());
-                Toast.makeText(LoginActivity.this, "Login Failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, getResources().getString(R.string.loginFailed) + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -325,11 +325,11 @@ public class LoginActivity extends AppCompatActivity {
     public Boolean validateUserName() {
         String valEmail = loginUsername.getText().toString().trim();
         if (valEmail.isEmpty()) {
-            loginUsername.setError("Email cannot be empty");
+            loginUsername.setError(getResources().getString(R.string.emptyEmail));
             loginUsername.requestFocus();
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(valEmail).matches()) {
-            loginUsername.setError("Email is invalid");
+            loginUsername.setError(getResources().getString(R.string.invalidEmail));
             loginUsername.requestFocus();
             return false;
         } else {

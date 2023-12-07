@@ -84,7 +84,7 @@ public class HumidityStatisticFragment extends Fragment {
         cursor.close();
 
         XYSeries series1 = new SimpleXYSeries(
-                humidities, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Humidity (%)");
+                humidities, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, getResources().getString(R.string.titleHumidity));
 
         LineAndPointFormatter series1Format =
                 new LineAndPointFormatter(getActivity(), R.xml.line_point_formatter_with_labels);

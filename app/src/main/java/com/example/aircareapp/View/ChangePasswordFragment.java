@@ -102,17 +102,17 @@ public class ChangePasswordFragment extends Fragment {
                     Matcher matcher = pattern.matcher(pass);
                     boolean isPassContainsSpeChar = matcher.find();
                     if(isPassContainsSpeChar){
-                        newPasswordLayout.setHelperText("Strong Password");
+                        newPasswordLayout.setHelperText(getResources().getString(R.string.strongPass));
                         newPasswordLayout.setHelperTextColor(ColorStateList.valueOf(Color.GREEN));
                         newPasswordLayout.setError("");
                     } else {
                         newPasswordLayout.setHelperText("");
                         newPasswordLayout.setHelperTextColor(ColorStateList.valueOf(Color.YELLOW));
-                        newPasswordLayout.setError("Weak Password. Include minimum 1 special char");
+                        newPasswordLayout.setError(getResources().getString(R.string.weakPass));
                     }
                 } else {
                     newPasswordLayout.setHelperTextColor(ColorStateList.valueOf(Color.RED));
-                    newPasswordLayout.setHelperText("Enter minimum 8 characters");
+                    newPasswordLayout.setHelperText(getResources().getString(R.string.invalidPass));
                     newPasswordLayout.setError("");
                 }
             }
@@ -141,8 +141,8 @@ public class ChangePasswordFragment extends Fragment {
         String newPassword = confirmNewPassword.getText().toString().trim();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        progressDialog.setTitle("Update Password");
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setTitle(getResources().getString(R.string.notiTitleUpdatePass));
+        progressDialog.setMessage(getResources().getString(R.string.notiWait));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         user.updatePassword(newPassword)
@@ -151,10 +151,10 @@ public class ChangePasswordFragment extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "User password updated.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getResources().getString(R.string.notiUpdatePassSuccess), Toast.LENGTH_SHORT).show();
                         } else {
                             // show dialog re-Authenticate
-                            Toast.makeText(getContext(), "User password failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getResources().getString(R.string.notiUpdatePassFailed), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -164,12 +164,12 @@ public class ChangePasswordFragment extends Fragment {
     public Boolean validateOldPassword(){
         String valOldPassword = oldPassword.getText().toString().trim();
         if(valOldPassword.isEmpty()){
-            oldPassword.setError("Password cannot be empty");
+            oldPassword.setError(getResources().getString(R.string.emptyPass));
             oldPassword.requestFocus();
             return false;
         } else if(!valOldPassword.equals(sharedPreferences.getString("prefPassword", ""))) {
-            Toast.makeText(getContext(), "Please enter your old password", Toast.LENGTH_SHORT).show();
-            oldPassword.setError("Old password is incorrect");
+            Toast.makeText(getContext(), getResources().getString(R.string.notiOldPass), Toast.LENGTH_SHORT).show();
+            oldPassword.setError(getResources().getString(R.string.notiIncorrectOldPass));
             oldPassword.requestFocus();
             return false;}
         else {
@@ -181,7 +181,7 @@ public class ChangePasswordFragment extends Fragment {
     public Boolean validateNewPassword(){
         String valNewPassword = newPassword.getText().toString().trim();
         if(valNewPassword.isEmpty()){
-            newPassword.setError("Password cannot be empty");
+            newPassword.setError(getResources().getString(R.string.emptyNewPass));
             newPassword.requestFocus();
             return false;
         } else {
@@ -194,13 +194,13 @@ public class ChangePasswordFragment extends Fragment {
         String valNewPassword = newPassword.getText().toString().trim();
         String valConfirmNewPassword = confirmNewPassword.getText().toString().trim();
         if(TextUtils.isEmpty(valConfirmNewPassword)) {
-            Toast.makeText(getContext(), "Confirm your password", Toast.LENGTH_SHORT).show();
-            confirmNewPassword.setError("Passsword confirmation is required");
+            Toast.makeText(getContext(), getResources().getString(R.string.notiConfirmPass), Toast.LENGTH_SHORT).show();
+            confirmNewPassword.setError(getResources().getString(R.string.emptyNewPass));
             confirmNewPassword.requestFocus();
             return false;
         }else if(!valConfirmNewPassword.equals(valNewPassword)) {
-            Toast.makeText(getContext(), "Please same same password", Toast.LENGTH_SHORT).show();
-            confirmNewPassword.setError("Passsword confirmation is incorrect");
+            Toast.makeText(getContext(), getResources().getString(R.string.notiCorrectPass), Toast.LENGTH_SHORT).show();
+            confirmNewPassword.setError(getResources().getString(R.string.notiIncorrectPass));
             confirmNewPassword.requestFocus();
             return false;
         } else {
