@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
     private RequestQueue mRequestQueue;
     private JsonObjectRequest jsonObjectRequest;
     private JSONArray jsonArrayWeather;
-    private JSONObject weatherDescription, jsonObjectAttributes, jsonObjectRequestQueryParameters, jsonObjectValue, jsonObjectMain, jsonObjectWind, jsonObjectSys,
+    private JSONObject jsonWeatherDes, jsonObjectAttributes, jsonObjectRequestQueryParameters, jsonObjectValue, jsonObjectMain, jsonObjectWind, jsonObjectSys,
             jsonObjectCloud, jsonObjectWeatherData;
     private int humidity, pressure;
     private long sunriseTimestamp, sunsetTimestamp;
@@ -145,9 +145,12 @@ public class LoginActivity extends AppCompatActivity {
                             humidity = jsonObjectMain.getInt("humidity");
                             speed = jsonObjectWind.getDouble("speed");
                             all = jsonObjectCloud.getDouble("all");
-                            weatherDescription = new JSONObject(String.valueOf(jsonArrayWeather.get(0)));
+                            jsonWeatherDes = new JSONObject(String.valueOf(jsonArrayWeather.get(0)));
 
-                            String description = weatherDescription.getString("description");
+                            // convert float -> int
+                            int tempInt = (int) Math.round(temp);
+
+                            String description = jsonWeatherDes.getString("description");
                             // Viết hoa chữ cái đầu description
                             String firstLetter = description.substring(0, 1);
                             String remainingLetters = description.substring(1, description.length());
@@ -159,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                             manager.createNotificationChannel(channel);
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(LoginActivity.this, "MyAirApp")
                                     .setSmallIcon(R.drawable.green_bg)
-                                    .setContentTitle(temp + "°C in UIT")
+                                    .setContentTitle(tempInt + "°C in UIT")
                                     .setContentText("Wind " + speed + "m/s • " + description + "\nHumidity " + humidity + "%");
                             manager.notify(1, builder.build());
                             Log.d("notificationDEs", "onResponse: " + description);

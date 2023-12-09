@@ -1,336 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settingV2Fragment"
+    style="@style/SCREEN"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/settingFragment"
-    android:background="@color/white"
     tools:context=".View.SettingFragment">
 
-    <TextView
-        android:id="@+id/title_setting"
-        android:layout_marginLeft="20dp"
+    <View
+        style="@style/ViewImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/titleSetting"
-        android:textColor="@color/bg_green"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"/>
-
-    <!--    Account-->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:id="@+id/layout_account">
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="160dp"
-            android:layout_marginTop="140dp"
-            android:background="@drawable/bg_view"/>
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/title_account"
+            android:id="@+id/title_setting"
+            style="@style/TEXT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/account"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="@color/bg_green"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="100dp"/>
+            android:layout_marginStart="120dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/settings"
+            android:textSize="50sp"
+            android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ic_account"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_account"
-            android:layout_below="@id/title_account"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"/>
-
-        <TextView
-            android:id="@+id/tv_profile"
-            android:layout_width="132dp"
-            android:layout_height="wrap_content"
-            android:text="@string/profile"
-            android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="18dp"
-            android:layout_toRightOf="@id/ic_account"
-            android:layout_below="@id/title_account"/>
-
-        <ImageView
-            android:id="@+id/ic_arrow_forward_profile"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_forward"
-            android:layout_toEndOf="@id/tv_profile"
-            android:layout_below="@id/title_account"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="80dp"/>
-
-        <ImageView
-            android:id="@+id/ic_lock"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_lock"
-            android:layout_below="@id/ic_account"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"/>
-
-        <TextView
-            android:id="@+id/tv_password"
-            android:layout_width="222dp"
-            android:layout_height="wrap_content"
-            android:text="@string/change_password"
-            android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/ic_lock"
-            android:layout_below="@id/tv_profile"/>
-
-        <ImageView
-            android:id="@+id/ic_arrow_forward_password"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_forward"
-            android:layout_toEndOf="@id/tv_password"
-            android:layout_below="@id/ic_arrow_forward_profile"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="-10dp"/>
-
-        <ImageView
-            android:id="@+id/ic_signout"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_logout"
-            android:layout_below="@id/ic_lock"
-            android:layout_marginTop="22dp"
-            android:layout_marginStart="20dp"/>
-
-        <TextView
-            android:id="@+id/tv_signout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_out"
-            android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/ic_signout"
-            android:layout_below="@id/tv_password"/>
-    </RelativeLayout>
-
-    <!--    Common-->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/layout_common"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_below="@+id/layout_account">
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="160dp"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/bg_view" />
-
-        <TextView
-            android:id="@+id/title_common"
+        <RelativeLayout
+            android:id="@+id/layout_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/common"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="@color/bg_green"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
-        <ImageView
-            android:id="@+id/ic_language"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_language"
-            android:layout_below="@id/title_common"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="20dp"/>
+            <View
+                style="@style/ViewBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_marginTop="30dp" />
 
-        <TextView
-            android:id="@+id/tv_language"
-            android:layout_width="132dp"
-            android:layout_height="wrap_content"
-            android:text="@string/language"
-            android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="14dp"
-            android:layout_toRightOf="@id/ic_language"
-            android:layout_below="@id/title_common"/>
+            <TextView
+                android:id="@+id/title_account"
+                style="@style/TEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/account"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ic_arrow_forward_language"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_forward"
-            android:layout_toEndOf="@id/tv_language"
-            android:layout_below="@id/title_common"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="80dp"/>
+            <ImageView
+                android:id="@+id/ic_account"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/title_account"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_account" />
 
-        <ImageView
-            android:id="@+id/ic_mode"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_darkmode"
-            android:layout_below="@id/ic_language"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="20dp"/>
+            <TextView
+                android:id="@+id/tv_profile"
+                style="@style/TEXT"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_account"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="18dp"
+                android:layout_toRightOf="@id/ic_account"
+                android:text="@string/profile"
+                android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/tv_mode"
-            android:layout_width="132dp"
-            android:layout_height="wrap_content"
-            android:text="@string/mode"
-            android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/ic_mode"
-            android:layout_below="@id/tv_language"/>
+            <ImageView
+                android:id="@+id/ic_arrow_forward_profile"
+                style="@style/arrowBackground"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_below="@id/title_account"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@id/tv_profile"
+                android:layout_toRightOf="@+id/tv_profile" />
 
-        <ImageView
-            android:id="@+id/ic_arrow_forward_dark_mode"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_toggle_off"
-            android:layout_toEndOf="@id/tv_mode"
-            android:layout_below="@id/ic_arrow_forward_language"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="23dp"
-            android:layout_marginStart="80dp"/>
+            <ImageView
+                android:id="@+id/ic_lock"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/ic_account"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_lock" />
 
-        <ImageView
-            android:id="@+id/ic_notification"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_notification"
-            android:layout_below="@id/ic_mode"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"/>
+            <TextView
+                android:id="@+id/tv_password"
+                style="@style/TEXT"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_profile"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:layout_toRightOf="@id/ic_lock"
+                android:text="@string/change_password"
+                android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/tv_notification"
-            android:layout_width="132dp"
-            android:layout_height="wrap_content"
-            android:text="@string/notification"
-            android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/ic_notification"
-            android:layout_below="@id/tv_mode"/>
+            <ImageView
+                android:id="@+id/ic_arrow_forward_password"
+                style="@style/arrowBackground"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_below="@id/ic_arrow_forward_profile"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="52dp"
+                android:layout_toEndOf="@id/tv_password"
+                android:layout_toRightOf="@+id/tv_password" />
 
-        <ImageView
-            android:id="@+id/ic_arrow_forward_noti"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_forward"
-            android:layout_toEndOf="@id/tv_mode"
-            android:layout_below="@id/ic_arrow_forward_dark_mode"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="80dp"/>
+            <ImageView
+                android:id="@+id/ic_signout"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/ic_lock"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/ic_logout" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_signout"
+                style="@style/TEXT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_password"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="35dp"
+                android:layout_toRightOf="@id/ic_signout"
+                android:text="@string/sign_out"
+                android:textSize="30sp" />
+        </RelativeLayout>
 
-    <!--    Support-->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/layout_support"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_below="@+id/layout_common">
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="110dp"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/bg_view" />
-
-        <TextView
-            android:id="@+id/title_support"
+        <RelativeLayout
+            android:id="@+id/layout_common"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/support"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="@color/bg_green"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_below="@+id/layout_account"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
-        <ImageView
-            android:id="@+id/ic_about_us"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_reference"
-            android:layout_below="@id/title_support"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"/>
+            <View
+                style="@style/ViewBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginTop="40dp" />
 
-        <TextView
-            android:id="@+id/tv_support"
-            android:layout_width="132dp"
-            android:layout_height="wrap_content"
-            android:text="@string/about_us"
-            android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/ic_about_us"
-            android:layout_below="@id/title_support"/>
+            <TextView
+                android:id="@+id/title_common"
+                style="@style/TEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="45dp"
+                android:text="@string/common"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ic_arrow_forward_about_us"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_forward"
-            android:layout_toEndOf="@id/tv_support"
-            android:layout_below="@id/title_support"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="80dp"/>
+            <ImageView
+                android:id="@+id/ic_language"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/title_common"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/ic_language" />
 
-        <ImageView
-            android:id="@+id/ic_help"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_help"
-            android:layout_below="@id/ic_about_us"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="20dp"/>
+            <TextView
+                android:id="@+id/tv_language"
+                style="@style/TEXT"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_common"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="22dp"
+                android:layout_toRightOf="@id/ic_language"
+                android:text="@string/language"
+                android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/tv_help"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="@string/help"
-            android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/ic_help"
-            android:layout_below="@id/ic_about_us"/>
+            <ImageView
+                android:id="@+id/ic_arrow_forward_language"
+                style="@style/arrowBackground"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_below="@id/title_common"
+                android:layout_toRightOf="@+id/tv_language"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="35dp"
+                android:layout_toEndOf="@id/tv_language" />
 
-        <ImageView
-            android:id="@+id/ic_arrow_forward_help"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_arrow_forward"
-            android:layout_toEndOf="@id/tv_help"
-            android:layout_below="@id/ic_arrow_forward_about_us"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="60dp"/>
-    </RelativeLayout>
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/ic_mode"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/ic_language"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_darkmode" />
+
+            <TextView
+                android:id="@+id/tv_mode"
+                style="@style/TEXT"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_language"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_toRightOf="@id/ic_mode"
+                android:text="@string/mode"
+                android:textSize="30sp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="175dp"
+                android:layout_toEndOf="@id/tv_mode"
+                android:thumb="@drawable/thumb"
+                app:track="@drawable/track" />
+        </RelativeLayout>
+    </LinearLayout>
+</FrameLayout>

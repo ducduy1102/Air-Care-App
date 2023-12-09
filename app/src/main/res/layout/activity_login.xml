@@ -51,14 +51,14 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
+                android:hint="@string/username"
                 app:hintTextColor="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidth="2dp"
                 app:boxStrokeWidthFocused="2dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
-                app:startIconDrawable="@drawable/ic_mail"
+                app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -141,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Or"
+                android:text="@string/titleOr"
                 android:textSize="30sp"
                 android:gravity="center"/>
 

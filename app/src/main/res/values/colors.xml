@@ -24,4 +24,9 @@
     <color name="colorDetailIcon">#f7fad6</color>
     <color name="colorDetailTitle">#f7f2c0</color>
     <color name="silver">#C0C0C0</color>
+
+    <color name="slide1">#5e70b8</color>
+    <color name="slide2">#949be9</color>
+    <color name="slide3">#fee19b</color>
+    <color name="dark_black">#222222</color>
 </resources>

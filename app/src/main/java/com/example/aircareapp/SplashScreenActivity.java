@@ -43,7 +43,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         // check user da login chua
         if(user == null) {
             // chua login
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AppIntroActivity.class);
             startActivity(intent);
         } else {
             // da login

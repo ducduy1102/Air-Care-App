@@ -19,10 +19,34 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <!-- Checkbox styles -->
-<!--    <style name="colored_checkbox" parent="Theme.AppCompat.Light">-->
-<!--        <item name="colorAccent">@color/hs_green</item>-->
-<!--        <item name="android:textColorSecondary">@color/hs_green</item>-->
-<!--    </style>-->
+    <!-- Light mode -->
+    <style name="SCREEN" >
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="TEXT" >
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BUTTON" >
+        <item name="android:background">@color/bg_green</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="CardBackground">
+        <item name="android:background">@color/light_green_more</item>
+    </style>
+
+    <style name="ViewBackground">
+        <item name="android:background">@drawable/hs_retangle</item>
+    </style>
+
+    <style name="ViewImage">
+        <item name="android:background">@drawable/blur_green</item>
+    </style>
+
+    <style name="arrowBackground">
+        <item name="android:background">@drawable/ic_arrow_forward</item>
+    </style>
 
 </resources>

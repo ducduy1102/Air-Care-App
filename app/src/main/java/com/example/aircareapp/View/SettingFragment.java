@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -33,7 +35,10 @@ public class SettingFragment extends Fragment {
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
 
+    SwitchCompat switchMode;
+    boolean nightMode;
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +47,29 @@ public class SettingFragment extends Fragment {
 
         initUi();
 
+        sharedPreferences = getActivity().getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        nightMode = sharedPreferences.getBoolean("nightMode",false);
+
+        if(nightMode)
+        {
+            switchMode.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        switchMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (nightMode) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("nightMode", false);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("nightMode", true);
+                }
+                editor.apply();
+            }
+        });
         return view;
     }
 
@@ -110,18 +138,12 @@ public class SettingFragment extends Fragment {
         icArrowProfile = view.findViewById(R.id.ic_arrow_forward_profile);
         icArrowPassword = view.findViewById(R.id.ic_arrow_forward_password);
         icArrowLanguage = view.findViewById(R.id.ic_arrow_forward_language);
-        icToggleMode = view.findViewById(R.id.ic_arrow_forward_dark_mode);
-        icArrowNoti = view.findViewById(R.id.ic_arrow_forward_noti);
-        icArrowAbout = view.findViewById(R.id.ic_arrow_forward_about_us);
-        icArrowHelp = view.findViewById(R.id.ic_arrow_forward_help);
+        switchMode = view.findViewById(R.id.switchMode);
 
         tvProfile = view.findViewById(R.id.tv_profile);
         tvPassword = view.findViewById(R.id.tv_password);
         tvSignout = view.findViewById(R.id.tv_signout);
         tvLanguage = view.findViewById(R.id.tv_language);
         tvMode = view.findViewById(R.id.tv_mode);
-        tvNoti = view.findViewById(R.id.tv_notification);
-        tvAbout = view.findViewById(R.id.tv_support);
-        tvHelp = view.findViewById(R.id.tv_help);
     }
 }

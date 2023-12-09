@@ -73,4 +73,8 @@
     <string name="notiUpdatePassSuccess">Updated password successfully</string>
     <string name="notiUpdatePassFailed">Password update failed</string>
     <string name="emptyNewPass">New password cannot be empty</string>
+    <string name="Hello">Hi,</string>
+    <string name="titleSlide1">Welcome to explore the \nmysteries within \nevery breath</string>
+    <string name="titleSlide2">Explore global air quality \nand discover forecasts for cities worldwide</string>
+    <string name="titleSlide3">Manage your well-being \nwith daily air quality notifications</string>
 </resources>

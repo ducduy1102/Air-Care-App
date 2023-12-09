@@ -160,35 +160,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-//    private void onClickUpdateProfile() {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if(user == null) {
-//            return;
-//        }
-//        progressDialog.setTitle("Update Profile");
-//        progressDialog.setMessage("Please wait...");
-//        progressDialog.setCanceledOnTouchOutside(false);
-//        progressDialog.show();
-//        String profileFullNameUpdate = profileUserName.getText().toString().trim();
-//
-//        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                .setDisplayName(profileFullNameUpdate)
-//                .build();
-//
-//        user.updateProfile(profileUpdates)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        progressDialog.dismiss();
-//                        if (task.isSuccessful()) {
-//                            Toast.makeText(getContext(), "Update profile success", Toast.LENGTH_SHORT).show();
-//                            showUserInformation();
-//                        }
-//                    }
-//                });
-//    }
-
     private void showUserInformation() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 

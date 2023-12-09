@@ -59,6 +59,11 @@
     <string name="wind">Wind</string>
     <string name="pm10" translatable="false">PM10</string>
     <string name="pm25" translatable="false">PM25</string>
+    <string name="pressure" translatable="false">Pressure</string>
+    <string name="co2" translatable="false">C02</string>
+    <string name="sunrise" translatable="false">06:09</string>
+    <string name="sunset" translatable="false">17:39</string>
+    <string name="Hello">Hi,</string>
 
     <string name="time">Time (day)</string>
     <string name="titleTemp">Temperatures (°C)</string>
@@ -100,5 +105,9 @@
     <string name="notiUpdatePassSuccess">Updated password successfully</string>
     <string name="notiUpdatePassFailed">Password update failed</string>
 
+
+    <string name="titleSlide1">Welcome to explore the \nmysteries within \nevery breath</string>
+    <string name="titleSlide2">Explore global air quality \nand discover forecasts for cities worldwide</string>
+    <string name="titleSlide3">Manage your well-being \nwith daily air quality notifications</string>
 
 </resources>

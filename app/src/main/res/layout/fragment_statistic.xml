@@ -5,6 +5,7 @@
     android:id="@+id/statisticFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     android:background="@color/white"
     tools:context=".View.StatisticFragment">
     <!--    tools:context=".MainActivity">-->

@@ -67,4 +67,7 @@ dependencies {
 
     // Chart Pilot
     implementation ("com.androidplot:androidplot-core:1.5.10")
+
+    // AppIntro
+    implementation("com.github.AppIntro:AppIntro:6.3.1")
 }

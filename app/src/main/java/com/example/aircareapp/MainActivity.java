@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         bottomNav = findViewById(R.id.bottomNavigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, new HomeFragment()).commit();
-        bottomNav.setSelectedItemId(R.id.action_home);
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, new MapFragment()).commit();
+        bottomNav.setSelectedItemId(R.id.action_map);
 
         //set các lựa chọn fragment vô các vị trí
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 Fragment fragment = null;
-                if(id == R.id.action_home){
-                    fragment = new HomeFragment();
-                } else if(id == R.id.action_map){
+                if(id == R.id.action_map){
                     fragment = new MapFragment();
+                } else if(id == R.id.action_home){
+                    fragment = new HomeFragment();
                 } else if(id == R.id.action_statistic){
                     fragment = new StatisticFragment();
                 } else if(id == R.id.action_setting){
