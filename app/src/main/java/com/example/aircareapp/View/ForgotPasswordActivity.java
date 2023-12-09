@@ -36,8 +36,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnSendEmail = findViewById(R.id.buttonSend);
         imgForgotBackLogin = findViewById(R.id.imageViewForgotBackLogin);
 
-//        progressbarforgetPassword = findViewById(R.id.progressbarforgetPassword);
-//        progressbarforgetPassword.setVisibility(View.GONE);
         auth = FirebaseAuth.getInstance();
 
         progressDialog = new ProgressDialog(this);
@@ -45,7 +43,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnSendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                progressbarforgetPassword.setVisibility(View.VISIBLE);
                 if(!validateEmail()){
 
                 } else {

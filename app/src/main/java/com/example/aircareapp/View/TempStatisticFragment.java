@@ -70,7 +70,6 @@ public class TempStatisticFragment extends Fragment {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             @SuppressLint("Range") String dateString = cursor.getString(cursor.getColumnIndex("time"));
-            // Chuyển đổi ngày từ chuỗi sang đối tượng Date
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-dd-MM");
             Date date = null;
             try {

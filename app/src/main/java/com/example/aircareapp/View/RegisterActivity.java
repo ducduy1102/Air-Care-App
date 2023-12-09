@@ -44,7 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout registerPasswordLayout;
     private Button btnRegister;
     private ImageView imgBackLogin;
-    //    private ProgressDialog progressDialog;
     private WebView webView;
     private ProgressBar loadingProgressBar;
 
@@ -53,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-//        progressDialog = new ProgressDialog(this);
         initUi();
 
         auth = FirebaseAuth.getInstance();
@@ -137,15 +135,9 @@ public class RegisterActivity extends AppCompatActivity {
         String email = registerEmail.getText().toString();
         String pass = registerPassword.getText().toString();
 
-//        progressDialog.setTitle("SignUp");
-//        progressDialog.setMessage("Please wait...");
-//        progressDialog.setCanceledOnTouchOutside(false);
-//        progressDialog.show();
-
         auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-//                progressDialog.dismiss();
                 loadingProgressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, getResources().getString(R.string.singupSuccess), Toast.LENGTH_SHORT).show();
