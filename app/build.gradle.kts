@@ -70,4 +70,7 @@ dependencies {
 
     // AppIntro
     implementation("com.github.AppIntro:AppIntro:6.3.1")
+
+    implementation ("androidx.cardview:cardview:1.0.0")
+
 }

@@ -40,9 +40,7 @@ public class AqiAssetFragment extends Fragment {
 
         listView = view.findViewById(R.id.lvItemDetail);
 
-
         adapter = new DetailAssetAdapter(getActivity(), R.layout.custom_list_asset_current, arrayList);
         listView.setAdapter(adapter);
     }
-
 }

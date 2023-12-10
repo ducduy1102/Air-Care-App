@@ -74,6 +74,7 @@
                     android:id="@+id/registerUsername"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textSize="20sp"
                     android:textColor="@color/black"
                     android:background="@color/light_green_more"
                     android:inputType="text" />
@@ -102,6 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:background="@color/light_green_more"
                     android:inputType="text" />
 
@@ -129,6 +131,7 @@
                     android:id="@+id/registerPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textSize="20sp"
                     android:background="@color/light_green_more"
                     android:inputType="textPassword" />
 
@@ -156,6 +159,7 @@
                     android:id="@+id/registerConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textSize="20sp"
                     android:background="@color/light_green_more"
                     android:inputType="textPassword" />
 

@@ -33,10 +33,6 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="CardBackground">
-        <item name="android:background">@color/light_green_more</item>
-    </style>
-
     <style name="ViewBackground">
         <item name="android:background">@drawable/hs_retangle</item>
     </style>
@@ -47,6 +43,15 @@
 
     <style name="arrowBackground">
         <item name="android:background">@drawable/ic_arrow_forward</item>
+    </style>
+
+    <style name="CardBackground" parent="Widget.MaterialComponents.CardView">
+        <!-- Đổi màu nền -->
+        <item name="cardBackgroundColor">@color/light_white</item>
+
+        <!-- Đổi màu viền -->
+        <item name="cardElevation">4dp</item>
+        <item name="cardCornerRadius">8dp</item>
     </style>
 
 </resources>

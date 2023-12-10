@@ -4,6 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,14 +17,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.CookieManager;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aircareapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -28,17 +26,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingFragment extends Fragment {
 
-    private View view;
-
-    private TextView tvProfile, tvPassword, tvSignout, tvLanguage, tvMode, tvNoti, tvAbout, tvHelp;
-    private ImageView icArrowProfile, icArrowPassword, icArrowSignout, icArrowLanguage, icToggleMode, icArrowNoti, icArrowAbout, icArrowHelp;
-    private GoogleSignInOptions gso;
-    private GoogleSignInClient gsc;
-
     SwitchCompat switchMode;
     boolean nightMode;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    private View view;
+    private TextView tvProfile, tvPassword, tvSignout, tvLanguage, tvMode, tvNoti, tvAbout, tvHelp;
+    private ImageView icArrowProfile, icArrowPassword, icArrowSignout, icArrowLanguage, icToggleMode, icArrowNoti, icArrowAbout, icArrowHelp;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient gsc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,13 +44,9 @@ public class SettingFragment extends Fragment {
         initUi();
 
         sharedPreferences = getActivity().getSharedPreferences("MODE", Context.MODE_PRIVATE);
-        nightMode = sharedPreferences.getBoolean("nightMode",false);
+        nightMode = sharedPreferences.getBoolean("nightMode", false);
+        switchMode.setChecked(false);
 
-        if(nightMode)
-        {
-            switchMode.setChecked(true);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
         switchMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,11 +54,13 @@ public class SettingFragment extends Fragment {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     editor = sharedPreferences.edit();
                     editor.putBoolean("nightMode", false);
+                    switchMode.setChecked(true);
                     nightMode = false;
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     editor = sharedPreferences.edit();
                     editor.putBoolean("nightMode", true);
+                    switchMode.setChecked(false);
                     nightMode = true;
                 }
                 editor.apply();
@@ -108,7 +102,7 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.mainActivity, changePasswordFragment,"fragChangePassword");
+                transaction.replace(R.id.mainActivity, changePasswordFragment, "fragChangePassword");
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
