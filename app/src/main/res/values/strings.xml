@@ -59,7 +59,7 @@
     <string name="wind">Wind</string>
     <string name="pm10" translatable="false">PM10</string>
     <string name="pm25" translatable="false">PM25</string>
-    <string name="pressure" translatable="false">Pressure</string>
+    <string name="pressure">Pressure</string>
     <string name="co2" translatable="false">C02</string>
     <string name="sunrise" translatable="false">06:09</string>
     <string name="sunset" translatable="false">17:39</string>

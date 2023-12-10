@@ -62,10 +62,12 @@ public class SettingFragment extends Fragment {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     editor = sharedPreferences.edit();
                     editor.putBoolean("nightMode", false);
+                    nightMode = false;
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     editor = sharedPreferences.edit();
                     editor.putBoolean("nightMode", true);
+                    nightMode = true;
                 }
                 editor.apply();
             }

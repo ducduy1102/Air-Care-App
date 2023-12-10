@@ -7,16 +7,17 @@
     android:background="@color/slide1">
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_marginTop="-40dp"
+        android:layout_width="282dp"
+        android:layout_height="282dp"
+        android:layout_gravity="center"
         android:background="@drawable/slide1" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="120dp"
         android:gravity="center"
         android:text="@string/titleSlide1"
         android:textColor="@color/white"

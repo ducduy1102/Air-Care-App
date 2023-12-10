@@ -73,8 +73,9 @@
     <string name="notiUpdatePassSuccess">Cập nhật mật khẩu thành công</string>
     <string name="notiUpdatePassFailed">Cập nhật mật khẩu thất bại</string>
     <string name="emptyNewPass">Mật khẩu mới không được để trống</string>
+    <string name="pressure">Áp xuất</string>
     <string name="Hello">Xin chào,</string>
-    <string name="titleSlide1">Chào mừng bạn đến khám phá bí ẩn trong \nAir Care App</string>
+    <string name="titleSlide1">Chào mừng bạn đến khám phá bí ẩn trong Air Care App</string>
     <string name="titleSlide2">Khám phá chất lượng không khí toàn cầu và khám phá dự báo cho các thành phố trên toàn thế giới</string>
     <string name="titleSlide3">Quản lý sức khỏe của bạn \nvới thông báo chất lượng không khí thời tiết hàng ngày</string>
 </resources>

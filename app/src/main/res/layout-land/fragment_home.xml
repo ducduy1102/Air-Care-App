@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Đoạn mã FrameLayout ban đầu -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/SCREEN"
+            android:id="@+id/homeFragment"
+            tools:context=".View.HomeFragment">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                style="@style/ViewImage"/>
+
+            <LinearLayout
+                style="@style/ViewImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="30dp">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/ic_account" />
+
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_toEndOf="@id/imgAvatar"
+                        android:text="@string/Hello"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgCloud"
+                            android:layout_width="150dp"
+                            android:layout_height="130dp"
+                            android:layout_marginStart="230dp"
+                            android:background="@drawable/ic_cloud_v2" />
+
+                        <TextView
+                            android:id="@+id/tvWeatherDes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_below="@+id/imgCloud"
+                            android:layout_marginStart="240dp"
+                            android:text="Mostly sunny"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tvDate"
+                            style="@style/TEXT"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="33dp"
+                            android:layout_marginStart="135dp"
+                            android:text="Wednesday"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvTemp"
+                            style="@style/TEXT"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="63dp"
+                            android:layout_marginStart="150dp"
+                            android:layout_marginRight="3dp"
+                            android:text="27\u00b0C"
+                            android:textSize="50sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="50dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="50dp"
+                        style="@style/ViewBackground" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sunrise"
+                        style="@style/TEXT"
+                        android:textSize="20sp"
+                        android:layout_marginStart="213dp"
+                        android:layout_marginTop="60dp"/>
+
+                    <TextView
+                        android:id="@+id/tvSunrise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sunrise"
+                        style="@style/TEXT"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="210dp"
+                        android:layout_marginTop="90dp"/>
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/sun"
+                        android:layout_marginStart="200dp"
+                        android:layout_marginTop="130dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sunset"
+                        style="@style/TEXT"
+                        android:textSize="20sp"
+                        android:layout_marginStart="499dp"
+                        android:layout_marginTop="60dp"/>
+
+                    <TextView
+                        android:id="@+id/tvSunset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sunset"
+                        style="@style/TEXT"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="490dp"
+                        android:layout_marginTop="90dp"/>
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/sun"
+                        android:layout_marginStart="480dp"
+                        android:layout_marginTop="130dp"/>
+
+                </RelativeLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/CardBackground"
+                            android:layout_width="180dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="20dp"
+                            android:elevation="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/ic_humidity_v2" />
+
+                                <TextView
+                                    android:id="@+id/tvHumidity"
+                                    style="@style/TEXT"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/humidity"
+                                    android:textSize="25sp" />
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/CardBackground"
+                            android:layout_width="180dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="20dp"
+                            android:elevation="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/ic_wind_v2" />
+
+                                <TextView
+                                    android:id="@+id/tvWind"
+                                    style="@style/TEXT"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/wind"
+                                    android:textSize="25sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/CardBackground"
+                            android:layout_width="180dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="20dp"
+                            android:elevation="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/ic_pressure_v2" />
+
+                                <TextView
+                                    android:id="@+id/tvPressure"
+                                    style="@style/TEXT"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/pressure"
+                                    android:textSize="25sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/CardBackground"
+                            android:layout_width="180dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="20dp"
+                            android:elevation="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/ic_co2" />
+
+                                <TextView
+                                    android:id="@+id/tvC02"
+                                    style="@style/TEXT"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/co2"
+                                    android:textSize="25sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/CardBackground"
+                            android:layout_width="180dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="20dp"
+                            android:elevation="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/ic_pm25" />
+
+                                <TextView
+                                    android:id="@+id/tvPm25"
+                                    style="@style/TEXT"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/pm25"
+                                    android:textSize="25sp" />
+
+                            </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            style="@style/CardBackground"
+                            android:layout_width="180dp"
+                            android:layout_height="150dp"
+                            android:layout_margin="20dp"
+                            android:elevation="10dp"
+                            app:cardCornerRadius="20dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/ic_pm10" />
+
+                                <TextView
+                                    android:id="@+id/tvPm10"
+                                    style="@style/TEXT"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/pm10"
+                                    android:textSize="25sp" />
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/settingV2Fragment"
+        style="@style/SCREEN"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".View.SettingFragment">
+        <View
+            style="@style/ViewImage"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_setting"
+                style="@style/TEXT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/settings"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/layout_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <View
+                    style="@style/ViewBackground"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="30dp" />
+
+                <TextView
+                    android:id="@+id/title_account"
+                    style="@style/TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/account"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ic_account"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/title_account"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_account" />
+
+                <TextView
+                    android:id="@+id/tv_profile"
+                    style="@style/TEXT"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title_account"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_toRightOf="@id/ic_account"
+                    android:text="@string/profile"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/ic_arrow_forward_profile"
+                    style="@style/arrowBackground"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_below="@id/title_account"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="280dp"
+
+                    android:layout_toRightOf="@+id/tv_profile" />
+
+                <ImageView
+                    android:id="@+id/ic_lock"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/ic_account"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/ic_lock" />
+
+                <TextView
+                    android:id="@+id/tv_password"
+                    style="@style/TEXT"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_profile"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_toRightOf="@id/ic_lock"
+                    android:text="@string/change_password"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/ic_arrow_forward_password"
+                    style="@style/arrowBackground"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_below="@id/ic_arrow_forward_profile"
+                    android:layout_marginStart="280dp"
+                    android:layout_marginTop="52dp"
+                    android:layout_toEndOf="@id/tv_password"
+                    android:layout_toRightOf="@+id/tv_password" />
+
+                <ImageView
+                    android:id="@+id/ic_signout"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/ic_lock"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/ic_logout" />
+
+                <TextView
+                    android:id="@+id/tv_signout"
+                    style="@style/TEXT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_password"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_toRightOf="@id/ic_signout"
+                    android:text="@string/sign_out"
+                    android:textSize="30sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_common"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_below="@+id/layout_account"
+                android:layout_marginBottom="150dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <View
+                    style="@style/ViewBackground"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="40dp" />
+
+                <TextView
+                    android:id="@+id/title_common"
+                    style="@style/TEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="45dp"
+                    android:text="@string/common"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ic_language"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/title_common"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/ic_language" />
+
+                <TextView
+                    android:id="@+id/tv_language"
+                    style="@style/TEXT"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title_common"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_toRightOf="@id/ic_language"
+                    android:text="@string/language"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/ic_arrow_forward_language"
+                    style="@style/arrowBackground"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_below="@id/title_common"
+                    android:layout_toRightOf="@+id/tv_language"
+                    android:layout_marginStart="340dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_toEndOf="@id/tv_language" />
+
+                <ImageView
+                    android:id="@+id/ic_mode"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/ic_language"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/ic_darkmode" />
+
+                <TextView
+                    android:id="@+id/tv_mode"
+                    style="@style/TEXT"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_language"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@id/ic_mode"
+                    android:text="@string/mode"
+                    android:textSize="30sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="175dp"
+                    android:layout_marginStart="640dp"
+                    android:thumb="@drawable/thumb"
+                    app:track="@drawable/track" />
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+</ScrollView>
