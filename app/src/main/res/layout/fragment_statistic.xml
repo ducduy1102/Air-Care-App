@@ -25,9 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bg_menu_statistic"
-        app:itemIconTint="@color/custom_color_bottom_nav_statistic"
-        app:itemTextColor="@color/custom_color_bottom_nav_statistic"
+        style="@style/ColorMenuStatistic"
         app:menu="@menu/menu_statistic" />
 
 </RelativeLayout>

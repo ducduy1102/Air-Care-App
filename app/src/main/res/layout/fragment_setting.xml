@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/settingV2Fragment"
-    style="@style/SCREEN"
+    style="@style/ViewImage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.SettingFragment">
 
     <View
-        style="@style/ViewImage"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
@@ -55,6 +54,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                style="@style/ICON"
                 android:id="@+id/ic_account"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -87,6 +87,7 @@
                 android:layout_toRightOf="@+id/tv_profile" />
 
             <ImageView
+                style="@style/ICON"
                 android:id="@+id/ic_lock"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -119,6 +120,7 @@
                 android:layout_toRightOf="@+id/tv_password" />
 
             <ImageView
+                style="@style/ICON"
                 android:id="@+id/ic_signout"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -166,6 +168,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                style="@style/ICON"
                 android:id="@+id/ic_language"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -198,6 +201,7 @@
                 android:layout_toEndOf="@id/tv_language" />
 
             <ImageView
+                style="@style/ICON"
                 android:id="@+id/ic_mode"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

@@ -35,7 +35,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.auth.UserInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,11 +44,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -426,24 +422,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                                 idAssetUser = jsonObjectId.getString("assetId");
 
                                                                 if (tempName.equals(userFullName)) {
-                                                                        tvNameAsset.setText(userFullName);
-                                                                        tvID.setText(idAssetUser);
-                                                                        tvVersion.setText(assetName);
-                                                                        tvType.setText(parentAssetName);
-                                                                        tvTitle2.setText("Asset Name");
-                                                                        tvTitle3.setText("Parent Asset Name");
+                                                                    tvNameAsset.setText(userFullName);
+                                                                    tvID.setText(idAssetUser);
+                                                                    tvVersion.setText(assetName);
+                                                                    tvType.setText(parentAssetName);
+                                                                    tvTitle2.setText("Asset Name");
+                                                                    tvTitle3.setText("Parent Asset Name");
 
-                                                                        long l1 = Long.valueOf(createdOnAssetUser);
-                                                                        Date date1 = new Date(l1 * 1000L);
-                                                                        Log.d("dataAsset3", "onMarkerClick: " + date1);
+                                                                    long l1 = Long.valueOf(createdOnAssetUser);
+                                                                    Date date1 = new Date(l1 * 1000L);
+                                                                    Log.d("dataAsset3", "onMarkerClick: " + date1);
 
-                                                                        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
-                                                                        formatDays2 = simpleDateFormat1.format(date1);
-                                                                        tvCreatedOn.setText(formatDays2);
+                                                                    SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
+                                                                    formatDays2 = simpleDateFormat1.format(date1);
+                                                                    tvCreatedOn.setText(formatDays2);
 
-                                                                        Log.d("user1", "onMarkerClick: " + userFullName + "formatDays2" + formatDays2);
+                                                                    Log.d("user1", "onMarkerClick: " + userFullName + "formatDays2" + formatDays2);
+                                                                }
+
+                                                                btnDetail.setOnClickListener(new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View v) {
+                                                                        ViewAssetDataUser();
                                                                     }
-
+                                                                });
 
                                                             } catch (JSONException e) {
                                                                 e.printStackTrace();
@@ -503,6 +505,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     }
                 });
         mapRequestQueue.add(jsonObjectRequest);
+    }
+
+    private void ViewAssetDataUser() {
+        AqiAssetFragment.arrayList = new ArrayList<>();
+        AqiAssetFragment.arrayList.add(new ItemsDetail("Id Asset User", idAssetUser + "", R.drawable.ic_id));
+        AqiAssetFragment.arrayList.add(new ItemsDetail("Full Name", userFullName + "", R.drawable.ic_full_name));
+        AqiAssetFragment.arrayList.add(new ItemsDetail("Asset Name", assetName + "", R.drawable.ic_asset_name));
+        AqiAssetFragment.arrayList.add(new ItemsDetail("Parent Asset Name", parentAssetName + "", R.drawable.ic_parent_asset_name));
+        AqiAssetFragment.arrayList.add(new ItemsDetail("Created On", formatDays2 + "", R.drawable.ic_created_on));
+
+        bottomSheetDialog.dismiss();
+        AqiAssetFragment weatherAssetFragment = new AqiAssetFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.mainActivity, weatherAssetFragment, "fragDetails");
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private LatLng getLatLngForUser(int i) {

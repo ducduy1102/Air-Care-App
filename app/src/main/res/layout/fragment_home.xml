@@ -25,12 +25,14 @@
             android:layout_height="wrap_content" >
 
             <ImageView
+                style="@style/ICON"
                 android:id="@+id/imgAvatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/ic_account" />
+                android:src="@drawable/ic_account" />
 
             <TextView
+                style="@style/TEXT"
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,6 +183,7 @@
                         android:layout_gravity="center_horizontal">
 
                         <ImageView
+                            style="@style/ICON"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:src="@drawable/ic_humidity_v2"
@@ -214,6 +217,7 @@
                         android:layout_gravity="center_horizontal">
 
                         <ImageView
+                            style="@style/ICON"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:src="@drawable/ic_wind_v2"
@@ -243,6 +247,7 @@
                         android:orientation="vertical"
                         android:layout_gravity="center_horizontal">
                         <ImageView
+                            style="@style/ICON"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:src="@drawable/ic_pressure_v2"
@@ -274,6 +279,7 @@
                         android:layout_gravity="center_horizontal">
 
                         <ImageView
+                            style="@style/ICON"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:src="@drawable/ic_co2"
@@ -305,6 +311,7 @@
                         android:layout_gravity="center_horizontal">
 
                         <ImageView
+                            style="@style/ICON"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:src="@drawable/ic_pm25"
@@ -338,6 +345,7 @@
                         android:layout_gravity="center_horizontal">
 
                         <ImageView
+                            style="@style/ICON"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:src="@drawable/ic_pm10"

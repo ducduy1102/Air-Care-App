@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ViewImage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -19,6 +20,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                style="@style/ICON"
                 android:id="@+id/imgBackProfile"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
@@ -63,6 +65,7 @@
             android:layout_below="@+id/layoutImg">
 
             <TextView
+                style="@style/ViewBackground"
                 android:id="@+id/profileUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,10 +75,10 @@
                 android:text="@string/username"
                 android:maxLength="100"
                 android:textSize="20sp"
-                android:padding="20dp"
-                android:background="@color/light_green_more"/>
+                android:padding="20dp"/>
 
             <EditText
+                style="@style/ViewBackground"
                 android:id="@+id/profileEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,10 +88,10 @@
                 android:drawableStart="@drawable/ic_mail"
                 android:drawablePadding="20dp"
                 android:padding="20dp"
-                android:background="@color/light_green_more"
                 android:layout_below="@+id/profileUserName"/>
 
             <EditText
+                style="@style/ViewBackground"
                 android:id="@+id/profileFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,10 +101,10 @@
                 android:drawableStart="@drawable/ic_name_tag"
                 android:drawablePadding="20dp"
                 android:padding="20dp"
-                android:background="@color/light_green_more"
                 android:layout_below="@+id/profileEmail"/>
 
             <EditText
+                style="@style/ViewBackground"
                 android:id="@+id/profileLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,7 +114,6 @@
                 android:drawableStart="@drawable/ic_name_tag"
                 android:drawablePadding="20dp"
                 android:padding="20dp"
-                android:background="@color/light_green_more"
                 android:layout_below="@+id/profileFirstName"/>
 
             <Button

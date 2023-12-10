@@ -208,6 +208,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    style="@style/ICON"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp"
                                     android:layout_gravity="center"
@@ -242,6 +243,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    style="@style/ICON"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp"
                                     android:layout_gravity="center"
@@ -274,6 +276,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    style="@style/ICON"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp"
                                     android:layout_gravity="center"
@@ -306,6 +309,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    style="@style/ICON"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp"
                                     android:layout_gravity="center"
@@ -338,6 +342,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    style="@style/ICON"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp"
                                     android:layout_gravity="center"
@@ -372,6 +377,7 @@
                                 android:orientation="vertical">
 
                                 <ImageView
+                                    style="@style/ICON"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp"
                                     android:layout_gravity="center"
