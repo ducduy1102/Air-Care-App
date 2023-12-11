@@ -201,11 +201,6 @@ public class ProfileFragment extends Fragment {
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     Log.d("Url1", request.getUrl().toString());
                     if (request.getUrl().toString().contains("manager/#account")) {
-//                        Log.d("Url2", request.getUrl().toString());
-//                            // Thực hiện JavaScript để chuyển hướng đến "/manager#account"
-//                            String redirect = "window.location.href = 'https://uiot.ixxc.dev/manager/#/account';";
-//                            view.evaluateJavascript(redirect, null);
-////                            webView.getSettings().setJavaScriptEnabled(true);
                         return true;
                     }
                     return false;

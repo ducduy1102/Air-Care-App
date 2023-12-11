@@ -14,9 +14,11 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,6 +62,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -70,6 +73,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
+    ImageButton languageButton;
     private static final int REQUEST_CODE_GOOGLE = 100;
     private FirebaseAuth auth;
     private GoogleSignInOptions gso;
@@ -121,6 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         gsc = GoogleSignIn.getClient(this, gso);
 
         initListener();
+        setupLanguageButton(R.id.languageBtn);
 
         // Bắt đầu code get api
         handleSSLHandshake();
@@ -151,11 +156,6 @@ public class LoginActivity extends AppCompatActivity {
                             int tempInt = (int) Math.round(temp);
 
                             String description = jsonWeatherDes.getString("description");
-                            // Viết hoa chữ cái đầu description
-                            String firstLetter = description.substring(0, 1);
-                            String remainingLetters = description.substring(1, description.length());
-                            firstLetter = firstLetter.toUpperCase();
-                            description = firstLetter + remainingLetters;
 
                             NotificationChannel channel = new NotificationChannel("MyAirApp", "MyAirApp", NotificationManager.IMPORTANCE_DEFAULT);
                             NotificationManager manager = (NotificationManager) getSystemService(getApplicationContext().NOTIFICATION_SERVICE);
@@ -163,12 +163,10 @@ public class LoginActivity extends AppCompatActivity {
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(LoginActivity.this, "MyAirApp")
                                     .setSmallIcon(R.drawable.green_bg)
                                     .setContentTitle(tempInt + "°C in UIT")
-                                    .setContentText("Wind " + speed + "m/s • " + description + "\nHumidity " + humidity + "%");
+                                    .setContentText(getResources().getString(R.string.wind) + " " + speed + "m/s • " + descriptionWeather(description) + "\n" + getResources().getString(R.string.humidity) + " " + humidity + "%");
                             manager.notify(1, builder.build());
                             Log.d("notificationDEs", "onResponse: " + description);
 
-//                            notificationManagerCompat = NotificationManagerCompat.from(LoginActivity.this);
-                            // Kết thúc code gửi thông báo
                         } catch (JSONException e) {
                             Log.e("MyError", "" + e);
                         }
@@ -189,6 +187,39 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         mRequestQueue.add(jsonObjectRequest);
+    }
+
+    public String descriptionWeather(String description){
+        switch (description) {
+            case "clear sky":
+                description = getResources().getString(R.string.clearSky);
+                break;
+            case "few clouds":
+                description = getResources().getString(R.string.fewClouds);
+                break;
+            case "scattered clouds":
+                description = getResources().getString(R.string.scatteredClouds);
+                break;
+            case "broken clouds":
+                description = getResources().getString(R.string.brokenClouds);
+                break;
+            case "shower rain":
+                description = getResources().getString(R.string.showerRain);
+                break;
+            case "thunderstorm":
+                description = getResources().getString(R.string.thunderstorm);
+                break;
+            case "snow":
+                description = getResources().getString(R.string.snow);
+                break;
+            case "mist":
+                description = getResources().getString(R.string.mist);
+                break;
+            default:
+                description = getResources().getString(R.string.scriptWeather);
+                break;
+        }
+        return description;
     }
 
     private void initListener() {
@@ -264,7 +295,6 @@ public class LoginActivity extends AppCompatActivity {
                     String accessToken = loginResponse.getAccess_token();
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("token", accessToken);
-//                    editor.commit();
                     editor.apply();
                     Log.d("tokenLogin", accessToken + username);
                     loadingProgressBar.setVisibility(View.GONE);
@@ -352,5 +382,62 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.buttonLogin);
         buttonLoginGoogle = findViewById(R.id.buttonLoginGoogle);
         loadingProgressBar = findViewById(R.id.loadingProgressBar);
+    }
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        SharedPreferences prefs = newBase.getSharedPreferences("Settings", MODE_PRIVATE);
+        String lang = prefs.getString("My_Lang", Locale.getDefault().getLanguage());
+        super.attachBaseContext(updateBaseContextLocale(newBase, lang));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateFlagIcon();
+    }
+
+    private void updateFlagIcon() {
+        if (languageButton != null) {
+            // Update the icon based on the current language
+            int flagIcon = getCurrentLanguage().equals("en") ? R.drawable.ic_usa : R.drawable.ic_vietnam;
+            languageButton.setImageResource(flagIcon);
+        }
+    }
+
+    protected void setupLanguageButton(int buttonId) {
+        languageButton = findViewById(buttonId);
+        languageButton.setOnClickListener(view -> {
+            String currentLang = getCurrentLanguage();
+            String newLang = currentLang.equals("en") ? "vi" : "en";
+            changeLanguage(newLang);
+            // Update icon immediately
+            updateFlagIcon();
+            // Refresh the current activity to apply the new language
+            recreate();
+        });
+    }
+
+    protected void changeLanguage(String lang) {
+        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+        editor.putString("My_Lang", lang);
+        editor.apply();
+    }
+
+    private Context updateBaseContextLocale(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        return updateResourcesLocale(context, locale);
+    }
+
+    private Context updateResourcesLocale(Context context, Locale locale) {
+        Configuration configuration = context.getResources().getConfiguration();
+        configuration.setLocale(locale);
+        return context.createConfigurationContext(configuration);
+    }
+
+    protected String getCurrentLanguage() {
+        return Locale.getDefault().getLanguage();
     }
 }

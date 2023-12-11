@@ -56,7 +56,7 @@ import retrofit2.Callback;
 public class HomeFragment extends Fragment {
 
     private View view;
-    private ImageView imgAvatar;
+    private ImageView imgAvatar, imgCloud;
     private TextView tvWeatherDes, tvHumidity, tvDate, tvWind, tvTemp, tvPressure, tvSunset, tvSunrise, tvPm10, tvPm25, tvCo2, tvUsername;
     private JsonObjectRequest jsonObjectAssetRequest, jsonObjectAsset3Request;
     private JSONArray jsonArrayWeather;
@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment {
 
     private void initUi() {
         imgAvatar = view.findViewById(R.id.imgAvatar);
+        imgCloud = view.findViewById(R.id.imgCloud);
 
         tvWeatherDes = view.findViewById(R.id.tvWeatherDes);
         tvTemp = view.findViewById(R.id.tvTemp);
@@ -113,8 +114,6 @@ public class HomeFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
         Log.d("tokenProfile", token);
-
-
         apiService = APIClient.getClient("https://uiot.ixxc.dev/api/master/user/", token).create(APIService.class);
         // Make the API call
         Call<User> call = apiService.getUser();
@@ -186,7 +185,7 @@ public class HomeFragment extends Fragment {
 
                             tvSunrise.setText(sunrise);
                             tvSunset.setText(sunset);
-                            tvDate.setText(date);
+                            tvDate.setText(getDay(date));
                             Log.d("timestampsun", "onResponse: " + dateformat);
 
                             tvPressure.setText(pressure+"hPa");
@@ -197,14 +196,10 @@ public class HomeFragment extends Fragment {
                             tvWind.setText(strWind + "m/s");
 
                             String description = jsonWeatherDes.getString("description");
-                            // Viết hoa chữ cái đầu description
-                            String firstLetter = description.substring(0, 1);
-                            String remainingLetters = description.substring(1, description.length());
-                            firstLetter = firstLetter.toUpperCase();
-                            description = firstLetter + remainingLetters;
+                            tvWeatherDes.setText(descriptionWeather(description));
 
-                            tvWeatherDes.setText(description);
-
+//                            String icon = jsonWeatherDes.getString("icon");
+//                            Glide.with(getActivity()).load("http://openweathermap.org/img/wn/" + icon + ".png").error(R.drawable.ic_cloud_v2).into(imgCloud);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -271,6 +266,68 @@ public class HomeFragment extends Fragment {
         asset1RequestQueue.add(jsonObjectAssetRequest);
         asset3RequestQueue.add(jsonObjectAsset3Request);
 
+    }
+
+    public String getDay(String day){
+        switch (day) {
+            case "Monday":
+                day = getResources().getString(R.string.monday);
+                break;
+            case "Tuesday":
+                day = getResources().getString(R.string.tuesday);
+                break;
+            case "Wednesday":
+                day = getResources().getString(R.string.wednesday);
+                break;
+            case "Thursday":
+                day = getResources().getString(R.string.thursday);
+                break;
+            case "Friday":
+                day = getResources().getString(R.string.friday);
+                break;
+            case "Saturday":
+                day = getResources().getString(R.string.saturday);
+                break;
+            case "Sunday":
+                day = getResources().getString(R.string.sunday);
+                break;
+            default:
+                day = getResources().getString(R.string.day);
+                break;
+        }
+        return day;
+    }
+    public String descriptionWeather(String description){
+        switch (description) {
+            case "clear sky":
+                description = getResources().getString(R.string.clearSky);
+                break;
+            case "few clouds":
+                description = getResources().getString(R.string.fewClouds);
+                break;
+            case "scattered clouds":
+                description = getResources().getString(R.string.scatteredClouds);
+                break;
+            case "broken clouds":
+                description = getResources().getString(R.string.brokenClouds);
+                break;
+            case "shower rain":
+                description = getResources().getString(R.string.showerRain);
+                break;
+            case "thunderstorm":
+                description = getResources().getString(R.string.thunderstorm);
+                break;
+            case "snow":
+                description = getResources().getString(R.string.snow);
+                break;
+            case "mist":
+                description = getResources().getString(R.string.mist);
+                break;
+            default:
+                description = getResources().getString(R.string.scriptWeather);
+                break;
+        }
+        return description;
     }
 
     private void showUserAvatar() {

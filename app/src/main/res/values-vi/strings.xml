@@ -78,4 +78,24 @@
     <string name="titleSlide1">Chào mừng bạn đến khám phá bí ẩn trong Air Care App</string>
     <string name="titleSlide2">Khám phá chất lượng không khí toàn cầu và khám phá dự báo cho các thành phố trên toàn thế giới</string>
     <string name="titleSlide3">Quản lý sức khỏe của bạn \nvới thông báo chất lượng không khí thời tiết hàng ngày</string>
+    <string name="day">Thứ ba</string>
+    <string name="scriptCloud">Chủ yếu là nắng</string>
+    <string name="monday">Thứ hai</string>
+    <string name="tuesday">Thứ ba</string>
+    <string name="wednesday">Thứ tư</string>
+    <string name="thursday">Thứ năm</string>
+    <string name="friday">Thứ sáu</string>
+    <string name="saturday">Thứ bảy</string>
+    <string name="sunday">Chủ nhật</string>
+    <string name="titleSunrise">Bình minh</string>
+    <string name="titleSunset">Hoàng hôn</string>
+    <string name="clearSky">Quang đãng</string>
+    <string name="fewClouds">Ít mây</string>
+    <string name="scatteredClouds">Mây rải rác</string>
+    <string name="brokenClouds">Mây tan</string>
+    <string name="showerRain">Mưa rào</string>
+    <string name="thunderstorm">Giông</string>
+    <string name="snow">Tuyết</string>
+    <string name="mist">Sương mù</string>
+    <string name="scriptWeather">Nhiều nắng</string>
 </resources>

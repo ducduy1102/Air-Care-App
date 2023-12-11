@@ -27,7 +27,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="40dp"
                 android:text="@string/settings"
                 android:textSize="50sp"
@@ -37,7 +36,9 @@
                 android:id="@+id/layout_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="50dp"
+                android:paddingRight="50dp"
+                android:paddingLeft="50dp"
+                android:paddingBottom="25dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp">
 
@@ -149,10 +150,12 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:paddingTop="0dp"
                 android:id="@+id/layout_common"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="50dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
                 android:layout_below="@+id/layout_account"
                 android:layout_marginBottom="150dp"
                 android:layout_marginLeft="20dp"

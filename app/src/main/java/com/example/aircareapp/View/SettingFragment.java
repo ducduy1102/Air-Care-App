@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingFragment extends Fragment {
 
-    SwitchCompat switchMode;
+    protected SwitchCompat switchMode;
     boolean nightMode;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;

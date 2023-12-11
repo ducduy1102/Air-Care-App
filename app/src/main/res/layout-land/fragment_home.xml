@@ -65,20 +65,20 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
+                            android:background="@drawable/ic_cloud_v2"
                             android:id="@+id/imgCloud"
                             android:layout_width="150dp"
                             android:layout_height="130dp"
                             android:layout_marginStart="230dp"
-                            android:background="@drawable/ic_cloud_v2" />
+                            android:src="@drawable/ic_cloud_v2" />
 
                         <TextView
                             android:id="@+id/tvWeatherDes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:layout_below="@+id/imgCloud"
                             android:layout_marginStart="240dp"
-                            android:text="Mostly sunny"
+                            android:text="@string/scriptWeather"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
@@ -94,7 +94,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="33dp"
                             android:layout_marginStart="135dp"
-                            android:text="Wednesday"
+                            android:text="@string/day"
                             android:textSize="25sp"
                             android:textStyle="bold" />
 
@@ -117,7 +117,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="50dp">
+                    android:paddingHorizontal="10dp">
 
                     <View
                         android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sunrise"
+                        android:text="@string/titleSunrise"
                         style="@style/TEXT"
                         android:textSize="20sp"
                         android:layout_marginStart="213dp"
@@ -156,7 +156,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sunset"
+                        android:text="@string/titleSunset"
                         style="@style/TEXT"
                         android:textSize="20sp"
                         android:layout_marginStart="499dp"

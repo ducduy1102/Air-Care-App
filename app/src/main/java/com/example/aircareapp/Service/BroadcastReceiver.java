@@ -18,11 +18,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.aircareapp.APIService.APIService;
 import com.example.aircareapp.AccessAPI.AccessAPI;
 import com.example.aircareapp.SQLite.AQIAsset;
 import com.example.aircareapp.SQLite.WeatherAsset;
@@ -34,7 +32,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class BroadcastReceiver extends android.content.BroadcastReceiver {
@@ -152,6 +149,15 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
                                     date2 = date;
                                     Log.d("dateInsert", "onResponse: " + date + " " + date2);
 
+//                                    weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('26', '83', '1.66','2023-03-12')");
+//                                    weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('33', '66', '2.22','2023-04-12')");
+//                                    weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('33', '85', '1.82','2023-05-12')");
+//                                    weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('32', '87', '2.5','2023-06-12')");
+//                                    weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('30', '72', '2.22','2023-07-12')");
+//                                    weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('26', '91', '1.38', '2023-08-12')");
+//                                    weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('31', '94', '1.66', '2023-09-12')");
+//                                    weatherAsset.QueryData("INSERT INTO WeatherAsset VALUES('33', '76', '1.94','2023-10-12')");
+
 
                                     if (!isTimeWeatherExist(weatherAsset, "WeatherAsset", "time", date)) {
                                         // Nếu không tồn tại, thêm mới
@@ -209,14 +215,14 @@ public class BroadcastReceiver extends android.content.BroadcastReceiver {
                                         Log.e("DaysAqi", formatDays);
                                         Log.d("kq", "onResponse: " + pm10 + " - " + pm25 + " - " + formatDays + "\n");
 
-//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('17', '17.7','2023-27-11')");
-//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('28', '28.6','2023-28-11')");
-//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('32.4', '37.6','2023-29-11')");
-//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('36.1', '38.2','2023-30-11')");
-//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('30.2', '33', '2023-01-12')");
-//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('19.6', '21.2', '2023-02-12')");
-//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('12', '13.4','2023-03-12')");
-//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('18', '20.5','2023-04-12')");
+//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('17', '17.7','2023-03-12')");
+//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('28', '28.6','2023-04-12')");
+//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('32.4', '37.6','2023-05-12')");
+//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('36.1', '38.2','2023-06-12')");
+//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('30.2', '33', '2023-07-12')");
+//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('19.6', '21.2', '2023-08-12')");
+//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('12', '13.4','2023-09-12')");
+//                                        aqiAsset.QueryData("INSERT INTO AqiAsset VALUES('18', '20.5','2023-10-12')");
                                         if (!isTimeAqiExist(aqiAsset, "AqiAsset", "time", formatDays)) {
                                             // Nếu không tồn tại, thêm mới
                                             aqiAsset.QueryData("INSERT INTO AqiAsset VALUES(" + pm10 + "," + pm25 + ",'" + formatDays + "')");

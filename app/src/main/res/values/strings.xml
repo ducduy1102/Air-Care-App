@@ -5,7 +5,7 @@
     <string name="login">LOGIN</string>
     <string name="register">REGISTER</string>
     <string name="loginGg">Continue with GOOGLE</string>
-    <string name="username">UserName</string>
+    <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="change_password">Change Password</string>
@@ -109,5 +109,28 @@
     <string name="titleSlide1">Welcome to explore the \nmysteries within \nevery breath</string>
     <string name="titleSlide2">Explore global air quality \nand discover forecasts for cities worldwide</string>
     <string name="titleSlide3">Manage your well-being \nwith daily air quality notifications</string>
+
+
+    <string name="titleSunrise">Sunrise</string>
+    <string name="titleSunset">Sunset</string>
+
+    <string name="day">Tuesday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday"> Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+    <string name="clearSky">Clear sky</string>
+    <string name="fewClouds">Few clouds</string>
+    <string name="scatteredClouds">Scattered clouds</string>
+    <string name="brokenClouds">Broken clouds</string>
+    <string name="showerRain">Shower rain</string>
+    <string name="thunderstorm">Thunderstorm</string>
+    <string name="snow">Snow</string>
+    <string name="mist">Mist</string>
+    <string name="scriptWeather">Mostly sunny</string>
 
 </resources>
