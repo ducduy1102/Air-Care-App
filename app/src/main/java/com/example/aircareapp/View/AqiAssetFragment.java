@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class AqiAssetFragment extends Fragment {
 
     ListView listView;
-    static ArrayList<ItemsDetail> arrayList;
+    public static ArrayList<ItemsDetail> arrayList;
     DetailAssetAdapter adapter;
 
     @Override

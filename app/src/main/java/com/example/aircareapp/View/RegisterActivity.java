@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.aircareapp.HomeActivity;
 import com.example.aircareapp.MainActivity;
 import com.example.aircareapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -162,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Log.d("Url1", request.getUrl().toString());
                 if (request.getUrl().toString().contains("manager/#state")) {
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                     startActivity(intent);
                     return true;
                 }

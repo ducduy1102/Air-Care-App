@@ -2,12 +2,14 @@ package com.example.aircareapp.View;
 
 import static com.example.aircareapp.SSLHandle.SSLHandle.handleSSLHandshake;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,33 +51,30 @@ import java.util.Map;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
-    private int humidity, pressure, valueBrightness2, valueColourTemperature2, aqi, aqiPredict;
+    private int humidity, pressure, aqi, aqiPredict;
     private long sunriseTimestamp, sunsetTimestamp;
     private double temp, temp_max, temp_min, feels_like, speed, all;
-    private TextView tvNameAsset, tvID, tvVersion, tvCreatedOn, tvType, tvTitle2, tvTitle3;
-    private JsonObjectRequest jsonObjectRequest, jsonObjectAssetRequest, jsonObjectAsset2Request, jsonObjectAsset3Request;
+    private TextView tvNameAsset, tvID, tvVersion, tvCreatedOn, tvType, tvTitle2, tvTitle3, tvValue1, tvValue2, tvValue3, tvValue4, tvValue5, tvValue6, tvValue7, tvNameDefault,
+            tvNameAsset2, tvID2, tvVersion2, tvType2, tvBrightness, tvCreatedOn2, tvEmail, tvColorTemp;
+    private JsonObjectRequest jsonObjectRequest, jsonObjectAssetRequest, jsonObjectAsset2Request, jsonObjectAsset3Request, jsonObjectAssetDefaultRequest;
     private JSONObject jsonOptions, jsonDefault, jsonObjectWeatherData, jsonObjectValue, jsonObjectMain, jsonObjectWind, jsonObjectSys, jsonObjectCloud,
             jsonObjectAttributes, jsonObjectRequestQueryParameters, jsonObjectAttributes2, jsonObjectLocation2, jsonObjectValue2, jsonObjectBrightness2, jsonObjectColourTemperature2, jsonObjectEmail2,
-            jsonObjectAttributes3, jsonObjectPM25, jsonObjectPM10, jsonObjectCO2, jsonObjectHumidity, jsonObjectAQI, jsonObjectAQIPredict, jsonObjectAssetUser, jsonObjectId;
+            jsonObjectAttributes3, jsonObjectPM25, jsonObjectPM10, jsonObjectCO2, jsonObjectHumidity, jsonObjectAQI, jsonObjectAQIPredict, jsonObjectAssetUser, jsonObjectId, jsonObjectAttributesDefault,
+            jsonObjectHumidityDefault, jsonObjectRainfall, jsonObjectWindSpeed, jsonObjectManufacturer, jsonObjectTemperature, jsonObjectWindDirection, jsonObjectPlace;
     private JSONArray center, bounds, assetBounds1, assetBounds2, jsonObjectCoordinates2;
     private JsonArrayRequest jsonArrayAssetUser;
     private double zoom, maxZoom, minZoom, pm25, pm10, C02;
     private boolean boxZoom;
     private Date sunriseDate, sunsetDate;
     private String geocodeUrl, sunrise, sunset, ID, version, createdOn, formatDays, type, nameMarker1, nameMarker2, ID2, version2, createdOn2, formatDays2, type2,
-            email2, nameMarkerAssetUser, createdOnAssetUser, assetName, parentAssetName, userFullName, idAssetUser;
+            email2, nameMarkerAssetUser, createdOnAssetUser, assetName, parentAssetName, userFullName, idAssetUser, rainfall, manufacturer, windSpeed, windDirection,
+            temperature, humidityDefault, place, nameDefault, valueBrightness2, valueColourTemperature2;
     private String[] users = new String[4];
-    private View viewDialog;
-    private Button btnDetail;
-    private BottomSheetDialog bottomSheetDialog;
-    private RequestQueue mapRequestQueue, asset1RequestQueue, asset2RequestQueue, asset3RequestQueue, assetUserRequestQueue;
+    private View viewDialog, viewDialogWeather;
+    private Button btnDetail, btnView;
+    private BottomSheetDialog bottomSheetDialog, bottomSheetDialogWeather;
+    private RequestQueue mapRequestQueue, asset1RequestQueue, asset2RequestQueue, asset3RequestQueue, assetUserRequestQueue, assetDefaultRequestQueue;
 
-    //    private TokenManager tokenManager;
-//
-//    public MapFragment(RequestQueue requestQueue, TokenManager tokenManager) {
-//        this.requestQueue = requestQueue;
-//        this.tokenManager = tokenManager;
-//    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -108,10 +107,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         tvTitle2 = viewDialog.findViewById(R.id.tvTitle2);
         tvTitle3 = viewDialog.findViewById(R.id.tvTitle3);
         btnDetail = viewDialog.findViewById(R.id.btnDetail);
+
+        viewDialogWeather = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_asset_1, null);
+        tvValue1 = viewDialogWeather.findViewById(R.id.value1);
+        tvValue2 = viewDialogWeather.findViewById(R.id.value2);
+        tvValue3 = viewDialogWeather.findViewById(R.id.value3);
+        tvValue4 = viewDialogWeather.findViewById(R.id.value4);
+        tvValue5 = viewDialogWeather.findViewById(R.id.value5);
+        tvValue6 = viewDialogWeather.findViewById(R.id.value6);
+        tvValue7 = viewDialogWeather.findViewById(R.id.value7);
+        tvNameDefault = viewDialogWeather.findViewById(R.id.tvDefault);
+
+        tvNameAsset2 = viewDialogWeather.findViewById(R.id.tvDefault);
+        tvID2 = viewDialogWeather.findViewById(R.id.title1);
+        tvVersion2 = viewDialogWeather.findViewById(R.id.title2);
+        tvType2 = viewDialogWeather.findViewById(R.id.title3);
+        tvBrightness = viewDialogWeather.findViewById(R.id.title4);
+        tvCreatedOn2 = viewDialogWeather.findViewById(R.id.title5);
+        tvEmail = viewDialogWeather.findViewById(R.id.title6);
+        tvColorTemp = viewDialogWeather.findViewById(R.id.title7);
+
+        btnView = viewDialogWeather.findViewById(R.id.btnView);
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        // Add data on Map
+
         handleSSLHandshake();
 //        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
 //        String token = sharedPreferences.getString("token", "");
@@ -135,6 +157,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             boxZoom = jsonDefault.getBoolean("boxZoom");
                             geocodeUrl = jsonDefault.getString("geocodeUrl");
                             minZoom = jsonDefault.getDouble("minZoom");
+
+                            // add data
+                            try {
+                                LatLng UIT = new LatLng((Double) center.get(1), (Double) center.get(0));
+                                LatLngBounds UITBounds = new LatLngBounds(
+                                        new LatLng((Double) bounds.get(1), (Double) bounds.get(0)),
+                                        new LatLng((Double) bounds.get(3), (Double) bounds.get(2))
+                                );
+                                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                                //add Marker
+                                googleMap.addMarker(new MarkerOptions().position(UIT).title("Weather HTTP"));
+                                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UIT, (float) maxZoom - 2));
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(UIT, (float) maxZoom - 2));
+                                googleMap.setLatLngBoundsForCameraTarget(UITBounds);
+
+                            } catch (JSONException e) {
+                                Log.e("MyErrorLoadMakerMap", "" + e);
+                            }
 
                             // Call API asset 1
                             asset1RequestQueue = Volley.newRequestQueue(getActivity());
@@ -237,8 +277,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                 version2 = response.getString("version");
                                                 type2 = response.getString("type");
                                                 createdOn2 = response.getString("createdOn");
-                                                valueBrightness2 = jsonObjectBrightness2.getInt("value");
-                                                valueColourTemperature2 = jsonObjectColourTemperature2.getInt("value");
+                                                valueBrightness2 = jsonObjectBrightness2.getString("value");
+                                                valueColourTemperature2 = jsonObjectColourTemperature2.getString("value");
                                                 email2 = jsonObjectEmail2.getString("value");
 
                                                 double lat = jsonObjectCoordinates2.getDouble(1);
@@ -247,6 +287,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                                                 nameMarker2 = response.getString("name");
                                                 Log.e("nameMarker", "nameMarker: " + nameMarker2);
+                                                Log.e("valueBrightness2", "nameMarker: " + valueBrightness2);
+
+
 
                                                 if (lat > 0 && lon > 0) {
                                                     LatLng locationsAsset2 = new LatLng(lat, lon);
@@ -317,6 +360,51 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 }
                             };
 
+                            // Call API asset default weather
+                            assetDefaultRequestQueue = Volley.newRequestQueue(getActivity());
+                            jsonObjectAssetDefaultRequest = new JsonObjectRequest(Request.Method.GET, AccessAPI.getUrlAssetDefault(), null,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Log.e("MyResponsejsonDefaultObject", "" + response);
+                                            try {
+                                                nameDefault = response.getString("name");
+                                                jsonObjectAttributesDefault = response.getJSONObject("attributes");
+                                                jsonObjectRainfall = jsonObjectAttributesDefault.getJSONObject("rainfall");
+                                                jsonObjectManufacturer = jsonObjectAttributesDefault.getJSONObject("manufacturer");
+                                                jsonObjectTemperature = jsonObjectAttributesDefault.getJSONObject("temperature");
+                                                jsonObjectHumidityDefault = jsonObjectAttributesDefault.getJSONObject("humidity");
+                                                jsonObjectPlace = jsonObjectAttributesDefault.getJSONObject("place");
+                                                jsonObjectWindDirection = jsonObjectAttributesDefault.getJSONObject("windDirection");
+                                                jsonObjectWindSpeed = jsonObjectAttributesDefault.getJSONObject("windSpeed");
+
+                                                rainfall = jsonObjectRainfall.getString("value");
+                                                manufacturer = jsonObjectManufacturer.getString("value");
+                                                temperature = jsonObjectTemperature.getString("value");
+                                                humidityDefault = jsonObjectHumidityDefault.getString("value");
+                                                place = jsonObjectPlace.getString("value");
+                                                windDirection = jsonObjectWindDirection.getString("value");
+                                                windSpeed = jsonObjectWindSpeed.getString("value");
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.e("MyErrorAsset1", "" + error);
+                                        }
+                                    }) {
+                                @Override
+                                public java.util.Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    params.put("accept", "application/json;");
+                                    params.put("Authorization", "Bearer " + AccessAPI.getToken());
+                                    return params;
+                                }
+                            };
+
                             // Call API asset user
                             assetUserRequestQueue = Volley.newRequestQueue(getActivity());
                             jsonArrayAssetUser = new JsonArrayRequest(Request.Method.GET, AccessAPI.getUrlAssetUser(), null,
@@ -351,19 +439,37 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                     String tempName = marker.getTitle();
                                                     ViewGroup parentViewGroup = (ViewGroup) viewDialog.getParent();
                                                     if (parentViewGroup != null) {
-                                                        // Nếu có parent, loại bỏ nó trước khi thêm vào bottomSheetDialog
                                                         parentViewGroup.removeView(viewDialog);
                                                     }
+
+                                                    ViewGroup parentViewGroup2 = (ViewGroup) viewDialogWeather.getParent();
+                                                    if (parentViewGroup2 != null) {
+                                                        parentViewGroup2.removeView(viewDialogWeather);
+                                                    }
                                                     bottomSheetDialog = new BottomSheetDialog(getActivity());
-                                                    bottomSheetDialog.setContentView(viewDialog);
-                                                    bottomSheetDialog.show();
+
+                                                    FrameLayout container = new FrameLayout(getContext());
+                                                    container.removeAllViews();
                                                     Log.d("tempName", "onMarkerClick: " + tempName);
 
                                                     if (tempName.equals(nameMarker1)) {
-                                                        tvNameAsset.setText(nameMarker1);
-                                                        tvID.setText(ID);
-                                                        tvVersion.setText(version);
-                                                        tvType.setText(type);
+                                                        container.addView(viewDialogWeather);
+                                                        tvNameDefault.setText(nameDefault);
+                                                        tvID2.setText(getResources().getString(R.string.humidity));
+                                                        tvVersion2.setText(getResources().getString(R.string.manufacturer));
+                                                        tvType2.setText(getResources().getString(R.string.place));
+                                                        tvBrightness.setText(getResources().getString(R.string.titleRainfall));
+                                                        tvCreatedOn2.setText(getResources().getString(R.string.temperature));
+                                                        tvEmail.setText(getResources().getString(R.string.windDirection));
+                                                        tvColorTemp.setText(getResources().getString(R.string.titleWindSpeed));
+
+                                                        tvValue1.setText(humidityDefault);
+                                                        tvValue2.setText(manufacturer);
+                                                        tvValue3.setText(place);
+                                                        tvValue4.setText(rainfall);
+                                                        tvValue5.setText(temperature);
+                                                        tvValue6.setText(windDirection);
+                                                        tvValue7.setText(windSpeed);
 
                                                         long l1 = Long.valueOf(createdOn);
                                                         Date date1 = new Date(l1 * 1000L);
@@ -381,17 +487,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                         sunrise = sdf.format(sunriseDate);
                                                         sunset = sdf.format(sunsetDate);
 
-                                                        btnDetail.setOnClickListener(new View.OnClickListener() {
+                                                        btnView.setOnClickListener(new View.OnClickListener() {
                                                             @Override
                                                             public void onClick(View v) {
                                                                 ViewAssetData1();
                                                             }
                                                         });
                                                     } else if (tempName.equals(nameMarker2)) {
-                                                        tvNameAsset.setText(nameMarker2);
-                                                        tvID.setText(ID2);
-                                                        tvVersion.setText(version2);
-                                                        tvType.setText(type2);
+                                                        container.addView(viewDialogWeather);
+                                                        tvNameAsset2.setText(nameMarker2);
+                                                        tvID2.setText(getResources().getString(R.string.id));
+                                                        tvVersion2.setText(getResources().getString(R.string.version));
+                                                        tvType2.setText(getResources().getString(R.string.type));
+                                                        tvBrightness.setText(getResources().getString(R.string.brightness));
+                                                        tvCreatedOn2.setText(getResources().getString(R.string.createdOn));
+                                                        tvEmail.setText(getResources().getString(R.string.email));
+                                                        tvColorTemp.setText(getResources().getString(R.string.colourTemperature));
 
                                                         long l1 = Long.valueOf(createdOn2);
                                                         Date date1 = new Date(l1 * 1000L);
@@ -399,17 +510,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                                                         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM-dd");
                                                         formatDays2 = simpleDateFormat1.format(date1);
-                                                        tvCreatedOn.setText(formatDays2);
 
+                                                        tvValue1.setText(ID2);
+                                                        tvValue2.setText(version2);
+                                                        tvValue3.setText(type2);
+                                                        tvValue4.setText(valueBrightness2);
+                                                        tvValue5.setText(formatDays2);
+                                                        tvValue6.setText(email2);
+                                                        tvValue7.setText(valueColourTemperature2);
                                                         Log.d("dataAsset2", "onMarkerClick: " + email2 + valueBrightness2 + valueColourTemperature2);
 
-                                                        btnDetail.setOnClickListener(new View.OnClickListener() {
+                                                        btnView.setOnClickListener(new View.OnClickListener() {
                                                             @Override
                                                             public void onClick(View v) {
                                                                 ViewAssetData2();
                                                             }
                                                         });
                                                     } else {
+                                                        container.addView(viewDialog);
                                                         for (int i = 0; i < 4; i++) {
                                                             try {
                                                                 jsonObjectAssetUser = response.getJSONObject(i);
@@ -452,6 +570,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                                             }
                                                         }
                                                     }
+                                                    bottomSheetDialog.setContentView(container);
+                                                    if (!bottomSheetDialog.isShowing()) {
+                                                        bottomSheetDialog.show();
+                                                    }
                                                     return false;
                                                 }
                                             });
@@ -472,23 +594,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 }
                             };
 
-                            // Add data on Map
-                            try {
-                                LatLng UIT = new LatLng((Double) center.get(1), (Double) center.get(0));
-                                LatLngBounds UITBounds = new LatLngBounds(
-                                        new LatLng((Double) bounds.get(1), (Double) bounds.get(0)),
-                                        new LatLng((Double) bounds.get(3), (Double) bounds.get(2))
-                                );
-                                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                                //add Marker
-                                googleMap.addMarker(new MarkerOptions().position(UIT).title("Weather HTTP"));
-                                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UIT, (float) maxZoom - 2));
-                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(UIT, (float) maxZoom - 2));
-                                googleMap.setLatLngBoundsForCameraTarget(UITBounds);
-
-                            } catch (JSONException e) {
-                                Log.e("MyErrorLoadMakerMap", "" + e);
-                            }
+                            assetDefaultRequestQueue.add(jsonObjectAssetDefaultRequest);
                             asset1RequestQueue.add(jsonObjectAssetRequest);
                             asset2RequestQueue.add(jsonObjectAsset2Request);
                             asset3RequestQueue.add(jsonObjectAsset3Request);
@@ -509,11 +615,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void ViewAssetDataUser() {
         AqiAssetFragment.arrayList = new ArrayList<>();
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Id Asset User", idAssetUser + "", R.drawable.ic_id));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Full Name", userFullName + "", R.drawable.ic_full_name));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Asset Name", assetName + "", R.drawable.ic_asset_name));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Parent Asset Name", parentAssetName + "", R.drawable.ic_parent_asset_name));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Created On", formatDays2 + "", R.drawable.ic_created_on));
+        AqiAssetFragment.arrayList.add(new ItemsDetail( getResources().getString(R.string.idAssetUser), idAssetUser + "", R.drawable.ic_id));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.fullName), userFullName + "", R.drawable.ic_full_name));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.assetName), assetName + "", R.drawable.ic_asset_name));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.parentAssetName), parentAssetName + "", R.drawable.ic_parent_asset_name));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.createdOn), formatDays2 + "", R.drawable.ic_created_on));
 
         bottomSheetDialog.dismiss();
         AqiAssetFragment weatherAssetFragment = new AqiAssetFragment();
@@ -540,12 +646,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void ViewAssetData2() {
         AqiAssetFragment.arrayList = new ArrayList<>();
-        AqiAssetFragment.arrayList.add(new ItemsDetail("PM10", pm10 + "µg/m³", R.drawable.ic_pm10));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("PM25", pm25 + "µg/m³", R.drawable.ic_pm25));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("C02", C02 + "µg/m³", R.drawable.ic_co));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Humidity", humidity + "%", R.drawable.ic_humidity));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("AQI", aqi + "", R.drawable.ic_account));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("AQI Predict", aqiPredict + "", R.drawable.ic_account));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.pm10), pm10 + "µg/m³", R.drawable.ic_pm10));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.pm25), pm25 + "µg/m³", R.drawable.ic_pm25));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.co2), C02 + "µg/m³", R.drawable.ic_co));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.humidity), humidity + "%", R.drawable.ic_humidity));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.aqi), aqi + "", R.drawable.ic_account));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.aqiPredict), aqiPredict + "", R.drawable.ic_account));
 
         bottomSheetDialog.dismiss();
         AqiAssetFragment weatherAssetFragment = new AqiAssetFragment();
@@ -557,16 +663,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void ViewAssetData1() {
         AqiAssetFragment.arrayList = new ArrayList<>();
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Temperature", temp + "°C", R.drawable.ic_temperature_color));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Humidity", humidity + "%", R.drawable.ic_humidity));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Pressure", pressure + "hPa", R.drawable.ic_pressure));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Sunrise", sunrise, R.drawable.icon_sunrise));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Sunset", sunset, R.drawable.ic_sunset));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Temp max", temp_max + "°C", R.drawable.ic_temperature_high));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Temp min", temp_min + "°C", R.drawable.ic_temperature_low));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Feels like", feels_like + "°C", R.drawable.ic_temperature_color));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Speed", speed + "m/s", R.drawable.ic_wind));
-        AqiAssetFragment.arrayList.add(new ItemsDetail("Clouds", all + "%", R.drawable.ic_cloud));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.temperature), temp + "°C", R.drawable.ic_temperature_color));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.humidity), humidity + "%", R.drawable.ic_humidity));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.pressure), pressure + "hPa", R.drawable.ic_pressure));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.titleSunrise), sunrise, R.drawable.icon_sunrise));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.titleSunset), sunset, R.drawable.ic_sunset));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.tempMax), temp_max + "°C", R.drawable.ic_temperature_high));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.tempMin), temp_min + "°C", R.drawable.ic_temperature_low));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.feelsLike), feels_like + "°C", R.drawable.ic_temperature_color));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.speed), speed + "m/s", R.drawable.ic_wind));
+        AqiAssetFragment.arrayList.add(new ItemsDetail(getResources().getString(R.string.cloud), all + "%", R.drawable.ic_cloud));
 
         bottomSheetDialog.dismiss();
         AqiAssetFragment weatherAssetFragment = new AqiAssetFragment();

@@ -31,8 +31,8 @@ public class SettingFragment extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     private View view;
-    private TextView tvProfile, tvPassword, tvSignout, tvLanguage, tvMode, tvNoti, tvAbout, tvHelp;
-    private ImageView icArrowProfile, icArrowPassword, icArrowSignout, icArrowLanguage, icToggleMode, icArrowNoti, icArrowAbout, icArrowHelp;
+    private TextView tvProfile, tvPassword, tvSignout, tvMode;
+    private ImageView icArrowProfile, icArrowPassword;
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
 
@@ -133,13 +133,11 @@ public class SettingFragment extends Fragment {
 
         icArrowProfile = view.findViewById(R.id.ic_arrow_forward_profile);
         icArrowPassword = view.findViewById(R.id.ic_arrow_forward_password);
-        icArrowLanguage = view.findViewById(R.id.ic_arrow_forward_language);
         switchMode = view.findViewById(R.id.switchMode);
 
         tvProfile = view.findViewById(R.id.tv_profile);
         tvPassword = view.findViewById(R.id.tv_password);
         tvSignout = view.findViewById(R.id.tv_signout);
-        tvLanguage = view.findViewById(R.id.tv_language);
         tvMode = view.findViewById(R.id.tv_mode);
     }
 }

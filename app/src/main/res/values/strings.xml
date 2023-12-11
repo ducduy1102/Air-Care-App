@@ -41,6 +41,7 @@
 
 
     <string name="aqi" translatable="false">AQI</string>
+    <string name="aqiPredict">AQI Predict</string>
     <string name="update">Update</string>
 
     <string name="oldpassword">Old Password</string>
@@ -63,6 +64,11 @@
     <string name="co2" translatable="false">C02</string>
     <string name="sunrise" translatable="false">06:09</string>
     <string name="sunset" translatable="false">17:39</string>
+    <string name="tempMax" >Temp Max</string>
+    <string name="tempMin" >Temp Min</string>
+    <string name="feelsLike" >Feels Like</string>
+    <string name="speed" >Speed</string>
+    <string name="cloud" >Clouds</string>
     <string name="Hello">Hi,</string>
 
     <string name="time">Time (day)</string>
@@ -107,6 +113,7 @@
 
 
     <string name="titleSlide1">Welcome to explore the \nmysteries within \nevery breath</string>
+    <string name="titleSlide1_land">Welcome to explore the mysteries within every breath</string>
     <string name="titleSlide2">Explore global air quality \nand discover forecasts for cities worldwide</string>
     <string name="titleSlide3">Manage your well-being \nwith daily air quality notifications</string>
 
@@ -133,4 +140,24 @@
     <string name="mist">Mist</string>
     <string name="scriptWeather">Mostly sunny</string>
 
+    <string name="manufacturer">Manufacturer</string>
+    <string name="place">Place</string>
+    <string name="titleRainfall">Rainfall (mm)</string>
+    <string name="windDirection">Wind direction</string>
+    <string name="titleWindSpeed">Wind Speed (km/h)</string>
+    <string name="view">VIEW</string>
+
+    <string name="id" translatable="false">ID</string>
+    <string name="version">Version</string>
+    <string name="type">Type</string>
+    <string name="createdOn">Created On</string>
+
+    <string name="idAssetUser">Id Asset User</string>
+    <string name="fullName">Full Name</string>
+    <string name="assetName">Asset Name</string>
+    <string name="parentAssetName">Parent Asset Name</string>
+
+    <string name="brightness" translatable="false">Brightness (%)</string>
+    <string name="colourRGB" translatable="false">Colour RGB</string>
+    <string name="colourTemperature" translatable="false">Colour temperature (K)</string>
 </resources>

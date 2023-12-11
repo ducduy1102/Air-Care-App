@@ -76,10 +76,10 @@
     <string name="pressure">Áp xuất</string>
     <string name="Hello">Xin chào,</string>
     <string name="titleSlide1">Chào mừng bạn đến khám phá bí ẩn trong Air Care App</string>
+    <string name="titleSlide1_land">Chào mừng bạn đến khám phá bí ẩn trong Air Care App</string>
     <string name="titleSlide2">Khám phá chất lượng không khí toàn cầu và khám phá dự báo cho các thành phố trên toàn thế giới</string>
     <string name="titleSlide3">Quản lý sức khỏe của bạn \nvới thông báo chất lượng không khí thời tiết hàng ngày</string>
     <string name="day">Thứ ba</string>
-    <string name="scriptCloud">Chủ yếu là nắng</string>
     <string name="monday">Thứ hai</string>
     <string name="tuesday">Thứ ba</string>
     <string name="wednesday">Thứ tư</string>
@@ -98,4 +98,23 @@
     <string name="snow">Tuyết</string>
     <string name="mist">Sương mù</string>
     <string name="scriptWeather">Nhiều nắng</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="place">Địa điểm</string>
+    <string name="titleRainfall">Lượng mưa (mm)</string>
+    <string name="windDirection">Hướng gió</string>
+    <string name="titleWindSpeed">Tốc độ gió (km/h)</string>
+    <string name="view">XEM</string>
+    <string name="version">Phiên bản</string>
+    <string name="type">Loại</string>
+    <string name="createdOn">Ngày tạo</string>
+    <string name="idAssetUser">Id Asset User</string>
+    <string name="fullName">Full Name</string>
+    <string name="assetName">Asset Name</string>
+    <string name="parentAssetName">Parent Asset Name</string>
+    <string name="aqiPredict">Dự đoán AQI</string>
+    <string name="tempMax">Nhiệt độ cao nhất</string>
+    <string name="tempMin">Nhiệt độ thấp nhất</string>
+    <string name="feelsLike">Feels Like</string>
+    <string name="speed">Tốc độ gió</string>
+    <string name="cloud">Mây</string>
 </resources>

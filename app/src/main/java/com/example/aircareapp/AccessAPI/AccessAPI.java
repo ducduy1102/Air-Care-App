@@ -1,14 +1,16 @@
 package com.example.aircareapp.AccessAPI;
 
 public class AccessAPI {
-    public static String urlMap, urlGoogleWeather, urlAirPollution, urlAsset1, urlAsset2, urlAssetUser;
+    public static String urlMap, urlGoogleWeather, urlAirPollution, urlAsset1, urlAsset2, urlAsset3, urlAssetUser, urlAssetDefault;
     public static String token;
 
-    public AccessAPI(String url, String token, String urlAsset1, String urlAsset2, String urlAssetUser, String urlGoogleWeather, String urlAirPollution) {
+    public AccessAPI(String url, String token, String urlAsset1, String urlAsset2, String urlAsset3, String urlAssetDefault, String urlAssetUser, String urlGoogleWeather, String urlAirPollution) {
         this.urlMap = url;
         this.token = token;
         this.urlAsset1 = urlAsset1;
         this.urlAsset2 = urlAsset2;
+        this.urlAsset3 = urlAsset3;
+        this.urlAssetDefault = urlAssetDefault;
         this.urlAssetUser = urlAssetUser;
         this.urlGoogleWeather = urlGoogleWeather;
         this.urlAirPollution = urlAirPollution;
@@ -42,6 +44,11 @@ public class AccessAPI {
     public static String getUrlAsset3(){
         urlAsset2 = "https://uiot.ixxc.dev/api/master/asset/4lt7fyHy3SZMgUsECxiOgQ";
         return urlAsset2;
+    }
+
+    public static String getUrlAssetDefault(){
+        urlAssetDefault = "https://uiot.ixxc.dev/api/master/asset/5zI6XqkQVSfdgOrZ1MyWEf";
+        return urlAssetDefault;
     }
 
     public static String getUrlAssetUser(){

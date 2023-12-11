@@ -73,9 +73,6 @@
         <!-- Đổi màu của icon -->
     </style>
 
-<!--    <style name="ICON">-->
-<!--&lt;!&ndash;        <item name="android:src">@drawable/ic_account_dark</item>&ndash;&gt;-->
-<!--    </style>-->
 
     <style name="CardBackground" parent="Widget.MaterialComponents.CardView">
         <!-- Đổi màu nền -->
@@ -85,5 +82,10 @@
         <item name="cardElevation">4dp</item>
         <item name="cardCornerRadius">8dp</item>
     </style>
+
+    <style name="RelativeBackground" >
+        <item name="android:background">@color/light_green_more</item>
+    </style>
+
 
 </resources>

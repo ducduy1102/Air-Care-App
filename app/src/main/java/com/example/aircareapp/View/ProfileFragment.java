@@ -209,10 +209,7 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onPageFinished(WebView view, String url) {
 //                    super.onPageFinished(view, "https://uiot.ixxc.dev/auth/realms/master/account/");
-//                    super.onPageFinished(view, "https://uiot.ixxc.dev/manager/#/account");
                     super.onPageFinished(view, url);
-
-
                     if (url.contains("openid-connect/auth")) {
                         String redirect = "document.getElementsByClassName('btn waves-effect waves-light')[1].click();";
                         view.evaluateJavascript(redirect, null);
@@ -256,7 +253,6 @@ public class ProfileFragment extends Fragment {
             });
             webView.setWebChromeClient(new WebChromeClient());
         } else {
-            // Xử lý trường hợp webSettings là null (có thể xảy ra trong một số tình huống)
             Toast.makeText(getActivity(), "Failed to load WebView. Please try again.", Toast.LENGTH_SHORT).show();
         }
 //        webView.stopLoading();

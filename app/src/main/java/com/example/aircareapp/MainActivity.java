@@ -29,23 +29,21 @@ public class MainActivity extends AppCompatActivity {
 
         broadcastReceiver = new BroadcastReceiver();
 
-//        broadcastReceiver = new BroadcastReceiver();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         bottomNav = findViewById(R.id.bottomNavigationView);
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, new MapFragment()).commit();
-        bottomNav.setSelectedItemId(R.id.action_map);
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainActivity, new HomeFragment()).commit();
+        bottomNav.setSelectedItemId(R.id.action_home);
 
-        //set các lựa chọn fragment vô các vị trí
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 Fragment fragment = null;
-                if(id == R.id.action_map){
-                    fragment = new MapFragment();
-                } else if(id == R.id.action_home){
+                if(id == R.id.action_home){
                     fragment = new HomeFragment();
+                } else if(id == R.id.action_map){
+                    fragment = new MapFragment();
                 } else if(id == R.id.action_statistic){
                     fragment = new StatisticFragment();
                 } else if(id == R.id.action_setting){
@@ -62,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(broadcastReceiver, intentFilter);
-//        unregisterReceiver(broadcastReceiver);
     }
 
     @Override

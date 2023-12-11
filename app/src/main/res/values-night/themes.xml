@@ -77,4 +77,8 @@
     <style name="arrowBackground">
         <item name="android:background">@drawable/ic_arrow_forward_white</item>
     </style>
+
+    <style name="RelativeBackground" >
+        <item name="android:background">@color/grey</item>
+    </style>
 </resources>

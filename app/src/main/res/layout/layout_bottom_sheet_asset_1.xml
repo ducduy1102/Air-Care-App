@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomSheetWeather"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/SCREEN"
+    android:orientation="vertical"
+    app:behavior_hideable = "true"
+    app:behavior_peekHeight = "0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/RelativeBackground">
+
+        <ImageView
+            android:layout_toLeftOf="@+id/tvDefault"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="90dp"
+            android:src="@drawable/ic_cloud_v2" />
+
+        <TextView
+            android:id="@+id/tvDefault"
+            style="@style/TEXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Default Weather"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginTop="56dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titleHumidity"
+                    android:textSize="20sp"
+                    style="@style/TEXT" />
+
+                <TextView
+                    android:id="@+id/value1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="62"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/manufacturer"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/value2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="uiot"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="20dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/place"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/value3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bien Hoa"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="20dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/title4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titleRainfall"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/value4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.97"
+                    android:textSize="20sp"
+                    android:layout_alignParentEnd="true"
+                    style="@style/TEXT"
+                    android:layout_marginTop="20dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/title5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titleTemp"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/value5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="29.86"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="20dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/title6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/windDirection"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/value6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="130"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="20dp"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/title7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titleWindSpeed"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/value7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.12"
+                    android:textSize="20sp"
+                    style="@style/TEXT"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="20dp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/view"
+        android:textSize="20sp"
+        style="@style/TEXT"
+        android:backgroundTint="#00000000"
+        android:layout_marginTop="245dp"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

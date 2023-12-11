@@ -45,7 +45,7 @@
                 <View
                     style="@style/ViewBackground"
                     android:layout_width="wrap_content"
-                    android:layout_height="300dp"
+                    android:layout_height="360dp"
                     android:layout_marginTop="30dp" />
 
                 <TextView
@@ -147,75 +147,13 @@
                     android:layout_toRightOf="@id/ic_signout"
                     android:text="@string/sign_out"
                     android:textSize="30sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:paddingTop="0dp"
-                android:id="@+id/layout_common"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="50dp"
-                android:paddingRight="50dp"
-                android:layout_below="@+id/layout_account"
-                android:layout_marginBottom="150dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
-
-                <View
-                    style="@style/ViewBackground"
-                    android:layout_width="wrap_content"
-                    android:layout_height="260dp"/>
-
-                <TextView
-                    android:id="@+id/title_common"
-                    style="@style/TEXT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginTop="45dp"
-                    android:text="@string/common"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    style="@style/ICON"
-                    android:id="@+id/ic_language"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_below="@id/title_common"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginTop="25dp"
-                    android:src="@drawable/ic_language" />
-
-                <TextView
-                    android:id="@+id/tv_language"
-                    style="@style/TEXT"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/title_common"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="22dp"
-                    android:layout_toRightOf="@id/ic_language"
-                    android:text="@string/language"
-                    android:textSize="30sp" />
-
-                <ImageView
-                    android:id="@+id/ic_arrow_forward_language"
-                    style="@style/arrowBackground"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_below="@id/title_common"
-                    android:layout_toRightOf="@+id/tv_language"
-                    android:layout_marginStart="340dp"
-                    android:layout_marginTop="35dp"
-                    android:layout_toEndOf="@id/tv_language" />
 
                 <ImageView
                     style="@style/ICON"
                     android:id="@+id/ic_mode"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_below="@id/ic_language"
+                    android:layout_below="@id/tv_signout"
                     android:layout_marginStart="80dp"
                     android:layout_marginTop="30dp"
                     android:src="@drawable/ic_darkmode" />
@@ -225,7 +163,7 @@
                     style="@style/TEXT"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_language"
+                    android:layout_below="@id/tv_signout"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="30dp"
                     android:layout_toRightOf="@id/ic_mode"
@@ -236,9 +174,10 @@
                     android:id="@+id/switchMode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="175dp"
-                    android:layout_marginStart="640dp"
+                    android:layout_marginTop="320dp"
+                    android:layout_marginStart="130dp"
                     android:thumb="@drawable/thumb"
+                    android:layout_toRightOf="@id/tv_mode"
                     app:track="@drawable/track" />
             </RelativeLayout>
         </LinearLayout>

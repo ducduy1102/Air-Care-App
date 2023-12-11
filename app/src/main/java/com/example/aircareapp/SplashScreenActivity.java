@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.example.aircareapp.View.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -47,7 +46,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             // da login
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
         }
         finish();

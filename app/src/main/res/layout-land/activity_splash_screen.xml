@@ -12,8 +12,9 @@
         android:id="@+id/textSplash"
         android:layout_width="220dp"
         android:layout_height="220dp"
-        android:layout_centerInParent="true"
         android:layout_marginStart="100dp"
+        android:layout_marginTop="220dp"
+        android:layout_centerInParent="true"
         android:src="@drawable/logo_black" />
 
 </RelativeLayout>

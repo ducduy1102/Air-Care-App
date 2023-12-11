@@ -57,7 +57,7 @@
             android:id="@+id/tvTitle2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Version"
+            android:text="@string/version"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="15dp"/>
@@ -82,7 +82,7 @@
             android:id="@+id/tvTitle3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Type"
+            android:text="@string/type"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="15dp"/>
@@ -107,7 +107,7 @@
             android:id="@+id/tvTitle4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Created On"
+            android:text="@string/createdOn"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="15dp"/>
@@ -135,3 +135,5 @@
     </Button>
 
 </LinearLayout>
+
+
