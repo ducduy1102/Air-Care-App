@@ -28,7 +28,7 @@ public class SettingFragment extends Fragment {
 
     protected SwitchCompat switchMode;
     boolean nightMode;
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences, sharedPreferences1;
     SharedPreferences.Editor editor;
     private View view;
     private TextView tvProfile, tvPassword, tvSignout, tvMode;
@@ -79,7 +79,7 @@ public class SettingFragment extends Fragment {
 
         gsc = GoogleSignIn.getClient(getActivity(), gso);
 
-        sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
+        sharedPreferences1 = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
 
         initListener();
 
@@ -117,9 +117,10 @@ public class SettingFragment extends Fragment {
                 // Logout UserAccount
                 FirebaseAuth.getInstance().signOut();
 
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.remove("token");
-//                editor.commit();
+                SharedPreferences.Editor editor1 = sharedPreferences1.edit();
+                editor1.remove("token");
+                editor1.commit();
+
 
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

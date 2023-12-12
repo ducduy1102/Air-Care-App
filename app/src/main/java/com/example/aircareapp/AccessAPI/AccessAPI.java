@@ -1,10 +1,10 @@
 package com.example.aircareapp.AccessAPI;
 
 public class AccessAPI {
-    public static String urlMap, urlGoogleWeather, urlAirPollution, urlAsset1, urlAsset2, urlAsset3, urlAssetUser, urlAssetDefault;
+    public static String urlMap, urlAirPollution, urlAsset1, urlAsset2, urlAsset3, urlAssetUser, urlAssetDefault;
     public static String token;
 
-    public AccessAPI(String url, String token, String urlAsset1, String urlAsset2, String urlAsset3, String urlAssetDefault, String urlAssetUser, String urlGoogleWeather, String urlAirPollution) {
+    public AccessAPI(String url, String token, String urlAsset1, String urlAsset2, String urlAsset3, String urlAssetDefault, String urlAssetUser, String urlAirPollution) {
         this.urlMap = url;
         this.token = token;
         this.urlAsset1 = urlAsset1;
@@ -12,18 +12,12 @@ public class AccessAPI {
         this.urlAsset3 = urlAsset3;
         this.urlAssetDefault = urlAssetDefault;
         this.urlAssetUser = urlAssetUser;
-        this.urlGoogleWeather = urlGoogleWeather;
         this.urlAirPollution = urlAirPollution;
     }
 
     public static String getURLMap() {
         urlMap = "https://uiot.ixxc.dev/api/master/map";
         return urlMap;
-    }
-
-    public static String getUrlGoogleWeather () {
-        urlGoogleWeather = "https://api.openweathermap.org/data/2.5/weather?q=Saigon&units=metric&appid=2cd54a866e6c50acd7951f230be4b369";
-        return urlGoogleWeather;
     }
 
     public static String getUrlAirPollution () {

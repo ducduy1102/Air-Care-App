@@ -124,8 +124,9 @@ public class HomeFragment extends Fragment {
                 public void onResponse(Call<User> call, retrofit2.Response<User> response) {
                     if (response.isSuccessful()) {
                         User data = response.body();
-                        tvUsername.setText(requireContext().getString(R.string.Hello) + " " + data.getUsername());
-
+                        if(username == null) {
+                            tvUsername.setText(requireContext().getString(R.string.Hello) + " " + data.getUsername());
+                        }
                     } else {
                         Toast.makeText(getContext(), "Error" + response.errorBody(), Toast.LENGTH_SHORT).show();
                     }

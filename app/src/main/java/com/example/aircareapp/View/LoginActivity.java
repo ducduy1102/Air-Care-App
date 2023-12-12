@@ -104,12 +104,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initUi();
-//        progressDialog = new ProgressDialog(this);
 
         auth = FirebaseAuth.getInstance();
 
         sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
-        // Lấy giá trị sharedPreferences
         loginUsername.setText(sharedPreferences.getString("prefUsername", ""));
         loginPassword.setText(sharedPreferences.getString("prefPassword", ""));
         cbRemember.setChecked(sharedPreferences.getBoolean("prefChecked", false));
@@ -148,7 +146,6 @@ public class LoginActivity extends AppCompatActivity {
                             all = jsonObjectCloud.getDouble("all");
                             jsonWeatherDes = new JSONObject(String.valueOf(jsonArrayWeather.get(0)));
 
-                            // convert float -> int
                             int tempInt = (int) Math.round(temp);
 
                             String description = jsonWeatherDes.getString("description");

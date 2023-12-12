@@ -39,13 +39,10 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void nextActivity() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        // check user da login chua
         if(user == null) {
-            // chua login
             Intent intent = new Intent(getApplicationContext(), AppIntroActivity.class);
             startActivity(intent);
         } else {
-            // da login
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
         }

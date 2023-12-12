@@ -85,7 +85,6 @@ public class RegisterActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("prefUsername", username);
                     editor.putString("prefPassword", pass);
-
                     editor.apply();
 //                    onClickSignUp();
                     loadWebView(username, email, pass, confirmpass);

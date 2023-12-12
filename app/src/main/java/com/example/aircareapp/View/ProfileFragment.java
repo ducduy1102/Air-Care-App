@@ -77,9 +77,7 @@ public class ProfileFragment extends Fragment {
         if (user == null) {
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
             String token = sharedPreferences.getString("token", "");
-            Log.d("tokenProfile", token);
             profileUserName.setText(sharedPreferences.getString("prefUsername", null));
-            Log.d("tokenProfile", token);
             String username = sharedPreferences.getString("prefUsername", null);
 
             apiService = APIClient.getClient("https://uiot.ixxc.dev/api/master/user/", token).create(APIService.class);
@@ -92,11 +90,13 @@ public class ProfileFragment extends Fragment {
                         User data = response.body();
                         String firstname = data.getFirstName();
                         String lastname = data.getLastName();
+                        String email = data.getEmail();
+
                         if(username == null) {
                             profileUserName.setText(data.getUsername());
                         }
-//                        profileUserName.setText(data.getUsername());
-                        profileEmail.setText(data.getEmail());
+
+                        profileEmail.setText(email);
 
                         if (firstname == null) {
                             profileFirstName.setText("First Name");
