@@ -134,7 +134,6 @@ public class SettingFragment extends Fragment {
         icArrowProfile = view.findViewById(R.id.ic_arrow_forward_profile);
         icArrowPassword = view.findViewById(R.id.ic_arrow_forward_password);
         switchMode = view.findViewById(R.id.switchMode);
-
         tvProfile = view.findViewById(R.id.tv_profile);
         tvPassword = view.findViewById(R.id.tv_password);
         tvSignout = view.findViewById(R.id.tv_signout);

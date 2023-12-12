@@ -3,6 +3,7 @@ package com.example.aircareapp;
 import static com.example.aircareapp.SSLHandle.SSLHandle.handleSSLHandshake;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;

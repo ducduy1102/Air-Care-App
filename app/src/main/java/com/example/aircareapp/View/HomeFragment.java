@@ -113,26 +113,31 @@ public class HomeFragment extends Fragment {
     public void  GetInfoUser(){
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
-        Log.d("tokenProfile", token);
-        apiService = APIClient.getClient("https://uiot.ixxc.dev/api/master/user/", token).create(APIService.class);
-        // Make the API call
-        Call<User> call = apiService.getUser();
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
-                if (response.isSuccessful()) {
-                    User data = response.body();
-                    tvUsername.setText( requireContext().getString(R.string.Hello) + " " + data.getUsername());
-                } else {
-                    Toast.makeText(getContext(), "Error" + response.errorBody(), Toast.LENGTH_SHORT).show();
+        tvUsername.setText(requireContext().getString(R.string.Hello) + " " + sharedPreferences.getString("prefUsername", null));
+        String username = sharedPreferences.getString("prefUsername", null);
+        if(username == null){
+            apiService = APIClient.getClient("https://uiot.ixxc.dev/api/master/user/", token).create(APIService.class);
+            // Make the API call
+            Call<User> call = apiService.getUser();
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+                    if (response.isSuccessful()) {
+                        User data = response.body();
+                        tvUsername.setText(requireContext().getString(R.string.Hello) + " " + data.getUsername());
+
+                    } else {
+                        Toast.makeText(getContext(), "Error" + response.errorBody(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }
+        Log.d("tokenProfile", token);
     }
 
     public void GetCurrentWeatherData () {

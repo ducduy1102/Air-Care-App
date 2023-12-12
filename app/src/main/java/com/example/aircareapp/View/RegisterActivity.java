@@ -2,6 +2,7 @@ package com.example.aircareapp.View;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView imgBackLogin;
     private WebView webView;
     private ProgressBar loadingProgressBar;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
         initListener();
 
     }
@@ -79,6 +82,11 @@ public class RegisterActivity extends AppCompatActivity {
                     String email = registerEmail.getText().toString().trim();
                     String pass = registerPassword.getText().toString().trim();
                     String confirmpass = registerConfirmPassword.getText().toString().trim();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("prefUsername", username);
+                    editor.putString("prefPassword", pass);
+
+                    editor.apply();
 //                    onClickSignUp();
                     loadWebView(username, email, pass, confirmpass);
                 }
