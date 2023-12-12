@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                             NotificationManager manager = (NotificationManager) getSystemService(getApplicationContext().NOTIFICATION_SERVICE);
                             manager.createNotificationChannel(channel);
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(LoginActivity.this, "MyAirApp")
-                                    .setSmallIcon(R.drawable.green_bg)
+                                    .setSmallIcon(R.drawable.logo_white)
                                     .setContentTitle(tempInt + "°C in UIT")
                                     .setContentText(getResources().getString(R.string.wind) + " " + speed + "m/s • " + descriptionWeather(description) + "\n" + getResources().getString(R.string.humidity) + " " + humidity + "%");
                             manager.notify(1, builder.build());
