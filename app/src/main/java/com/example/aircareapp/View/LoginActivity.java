@@ -393,7 +393,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateFlagIcon() {
         if (languageButton != null) {
-            // Update the icon based on the current language
             int flagIcon = getCurrentLanguage().equals("en") ? R.drawable.ic_usa : R.drawable.ic_vietnam;
             languageButton.setImageResource(flagIcon);
         }
@@ -405,7 +404,6 @@ public class LoginActivity extends AppCompatActivity {
             String currentLang = getCurrentLanguage();
             String newLang = currentLang.equals("en") ? "vi" : "en";
             changeLanguage(newLang);
-            // Update icon immediately
             updateFlagIcon();
             // Refresh the current activity to apply the new language
             recreate();
